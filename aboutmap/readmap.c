@@ -6,7 +6,7 @@
 /*   By: tjeong <tjeong@student.42.seoul.kr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:26:12 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/15 23:16:01 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/16 01:15:29 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*read_map(char *path)
 	char	tmp[1];
 	char	*map;
 
-	/* newline 카운트를 하기에는 반환값반환도 못하겠고....변수개수도 부족해요.  */
 	size = 0;
 	fd = open(path, O_RDONLY);
 	while (read(fd, tmp, 1) > 0)
@@ -55,33 +54,78 @@ char	*read_map(char *path)
 	return (map);
 }
 
-/* return info_lines line_count */
-int		infocheck(char *map, char *boxelement)
+char	*extract_element(char *map)
 {
-	int		i;
-	int		fix;
-	char 	*tmp;
+	int i;
+	int fix;
+	char *element;
 
 	i = -1;
 	fix = 0;
-	while (map[++i] != \n)
+	while (map[++i] != '\n')
 		fix++;
 	i = -1;
-	while (++i < (fix - 3))
+	element = (char *)malloc(4 * sizeof(char));
+	while (++i < 3)
+		element[i] = map[++fix - 4];
+	element[i] = 0;
+	return (element);
+}
+
+int		same_element(char *element)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (element[++i] != '\n')
 	{
+		j = i;
+		while (element[++j] != '\n')
+			if (element[i] == element[j])
+				return (-1);
+	}
+	return (1);
+}
+
+int		infocheck(char *map)
+{
+	int		i;
+	int		line_count;
+	int		fix;
+
+	i = -1;
+	fix = 0;
+	while (map[++i] != '\n')
+		fix++;
+	i = -1;
+	line_count = 0;
+	while (++i < (fix - 3))
 		if (map[i] < '0' || map[i] > '9')
 			return (-1);
-
+		else
+			line_count = line_count * 10 + (map[i] - '0');
+	if ((same_element(extract_element(map)) < 0))
+	{
+		printf("duplicated element err\n");
+		return (-1);
 	}
-	while (map[++i] != '\n')
-
-
+	return (line_count);
 }
 
+/*
+int		boxcheck(char *map, int line_count)
+{
+	char *element;
 
+	element = extract_element(map);
 }
+*/
+
+
 int		main(int ac, char **av)
 {
 	printf("%s\n", read_map(av[1]));
-
+	printf("line count : %d\n", infocheck(read_map(av[1])));
+	printf("element : %s\n", extract_element(read_map(av[1])));
 }
