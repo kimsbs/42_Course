@@ -6,7 +6,7 @@
 /*   By: tjeong <tjeong@student.42.seoul.kr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:26:12 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/16 01:15:29 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/16 02:01:43 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,31 @@ int		infocheck(char *map)
 	return (line_count);
 }
 
-/*
+
 int		boxcheck(char *map, int line_count)
 {
-	char *element;
+	int		i;
+	int		fix;
+	int		tmp;
+	char	*element;
 
 	element = extract_element(map);
+	i = 0;
+	while (map[i] != '\n')
+		i++;
+	tmp = 0;
+	while (map[++i])
+		if (map[i] == '\n')
+			tmp++;
+	if (line_count != tmp)
+	{
+		printf("invalid line count\n");
+		return (-1);
+	}
+
+	return (0);
 }
-*/
+
 
 
 int		main(int ac, char **av)
