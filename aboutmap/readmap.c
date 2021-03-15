@@ -6,7 +6,7 @@
 /*   By: tjeong <tjeong@student.42.seoul.kr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:26:12 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/15 21:26:01 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/15 23:16:01 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,58 +17,71 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-
-char	*info_read(char *path, int *size)
+char *ft_strndup(char *str, int size)
 {
+	char	*res;
 	int		i;
+
+	res = (char *)malloc(sizeof(char) * size + 1);
+	i = -1;
+	while (++i < size)
+		res[i] = str[i];
+	res[++i] = 0;
+	return (res);
+}
+
+char	*read_map(char *path)
+{
 	int		fd;
+	int		size;
+	int		i;
 	char	tmp[1];
-	char	*info_line;
+	char	*map;
 
+	/* newline 카운트를 하기에는 반환값반환도 못하겠고....변수개수도 부족해요.  */
+	size = 0;
 	fd = open(path, O_RDONLY);
-	*size = 0;
-	while (read(fd, tmp, 1) > 0 && *tmp != '\n')
-		*size++;
+	while (read(fd, tmp, 1) > 0)
+		size++;
 	close (fd);
-	info_line = (char *)malloc(sizeof(char) * (*size) + 1);
-	fd = open(av[1], O_RDONLY);
-	read(fd, info_line, *size);
-	close(fd);
-	info_line[*size] = 0;
-	return (info_line);
+	map = (char *)malloc(sizeof(char) * size + 1);
+	fd = open(path, O_RDONLY);
+	i = -1;
+	while (read(fd, tmp, 1) > 0)
+		map[++i] = *tmp;
+		i++;
+	close (fd);
+	map[size] = 0;
+	return (map);
 }
 
-int		info_check(char *path, char *boxinfo, char *countinfo)
+/* return info_lines line_count */
+int		infocheck(char *map, char *boxelement)
 {
 	int		i;
-	int		size;
-	char	*info_line;
+	int		fix;
+	char 	*tmp;
 
-	info_line = info_read(path ,&size);
 	i = -1;
-	while (++i < size - 3)
-		if (info_line[i] > '0' || info_line[i] < '9')
+	fix = 0;
+	while (map[++i] != \n)
+		fix++;
+	i = -1;
+	while (++i < (fix - 3))
+	{
+		if (map[i] < '0' || map[i] > '9')
 			return (-1);
-	i = -1;
+
+	}
+	while (map[++i] != '\n')
 
 
-
-
-	return (1);
 }
 
-int		total_check(char *path)
-{
-	int fd;
-	char boxinfo[3];
-	char *countinfo;
 
-	fd = open(av[1], O_RDONLY);
-	if (info_check(path) < 0)
-		return (-1);
 }
-
 int		main(int ac, char **av)
 {
+	printf("%s\n", read_map(av[1]));
 
 }
