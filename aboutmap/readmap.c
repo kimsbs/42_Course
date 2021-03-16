@@ -160,7 +160,7 @@ int		boxcheck(char *map, int line_count)
 	while (map[i] != '\n')
 		i++;
 	/* horizontal count inspect */
-	if ((hor_cnt = horizontal_check((map + i))) < -1)
+	if ((hor_cnt = horizontal_check((map + i + 1))) < -1)
 	{
 		errp("err : diffent horizontal count\n");
 		return (-1);
@@ -192,6 +192,5 @@ int		main(int ac, char **av)
 	printf("===readmap check===\n%s\n", read_map(av[1]));
 	printf("===infocheck check===\nline count : [%d]\n", infocheck(read_map(av[1])));
 	printf("===element extract check===\nelement : [%s]\n", extract_element(read_map(av[1])));
-	printf("===horizontal_check check===\nhor_cnt : [%d]\n", horizontal_check(read_map(av[1] + 5)));
 	printf("===boxcheck check===\nhor_cnt : [%d]\n", boxcheck(read_map(av[1]), infocheck(read_map(av[1]))));
 }
