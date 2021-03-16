@@ -17,6 +17,16 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+void	errp(char *msg)
+{
+	int size;
+
+	size = 0;
+	while (msg[size])
+		size++;
+	write(2, msg, size);
+}
+
 char	*read_map(char *path)
 {
 	int		fd;
@@ -90,14 +100,14 @@ int		infocheck(char *map)
 		if (map[i] < '0' || map[i] > '9')
 		{
 			return (-1);
-			printf("err : line count is not number\n");
+			errp("err : line count is not a valid number\n");
 		}
 		else
 		{line_count = line_count * 10 + (map[i] - '0');}
 
 	if ((same_element(extract_element(map)) < 0))
 	{
-		printf("err : duplicated element err\n");
+		errp("err : duplicated element\n");
 		return (-1);
 	}
 	return (line_count);
@@ -114,38 +124,67 @@ int		in_element(char c, char *element)
 	return (-1);
 }
 
+int		horizontal_check(char *map)
+{
+	int i;
+	int hor_std;
+	int	hor_now;
+
+	i = -1;
+	hor_std = 0;
+	while (map[++i] != '\n' && map[i])
+		hor_std++;
+	while (map[++i])
+	{
+		hor_now = 0;
+		while (map[i] != '\n' && map[i])
+		{
+			hor_now++;
+			i++;
+		}
+		if (hor_std != hor_now)
+			return (-1);
+	}
+	return (hor_std);
+}
+
 int		boxcheck(char *map, int line_count)
 {
 	int		i;
-	int		tmp0;
-	int		tmp1;
+	int		nl_cnt;
 	char	*element;
+	int		hor_cnt;
 
-	/* skip info line (idx = fix)*/
+	/* skip info line */
 	i = 0;
 	while (map[i] != '\n')
 		i++;
-	/* skip done */
-
+	/* horizontal count inspect */
+	if ((hor_cnt = horizontal_check((map + i))) < -1)
+	{
+		errp("err : diffent horizontal count\n");
+		return (-1);
+	}
 	/* counting [\n] And inspect element validation */
 	element = extract_element(map);
-	tmp0 = 0; // actual line count;
+	nl_cnt = 0;
 	while (map[++i])
 	{
 		if (in_element(map[i], element) < 0 && map[i] != '\n')
-			return (-1)
+		{
+			errp("err : not perdefined box component\n");
+			return (-1);
+		}
 		if (map[i] == '\n')
-			tmp0++;
+			nl_cnt++;
 	}
-	/* compare infomation & actual [\n]count */
-	if (line_count != tmp)
+	printf("===in boxcheck===\nactual line cnt = [%d]\n",nl_cnt);
+	if (line_count != nl_cnt)
 	{
-		printf("err : invalid line count\n");
+		errp("err : [info line cnt], [actual line cnt] are not same\n");
 		return (-1);
 	}
-
-
-	return (0);
+	return (hor_cnt);
 }
 
 int		main(int ac, char **av)
@@ -153,4 +192,6 @@ int		main(int ac, char **av)
 	printf("===readmap check===\n%s\n", read_map(av[1]));
 	printf("===infocheck check===\nline count : [%d]\n", infocheck(read_map(av[1])));
 	printf("===element extract check===\nelement : [%s]\n", extract_element(read_map(av[1])));
+	printf("===horizontal_check check===\nhor_cnt : [%d]\n", horizontal_check(read_map(av[1] + 5)));
+	printf("===boxcheck check===\nhor_cnt : [%d]\n", boxcheck(read_map(av[1]), infocheck(read_map(av[1]))));
 }
