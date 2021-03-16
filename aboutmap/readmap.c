@@ -52,9 +52,10 @@ char	*read_map(char *path)
 
 char	*extract_element(char *map)
 {
-	int i;
-	int fix;
-	char *element;
+	int		i;
+	int		fix;
+	char	tmp[1];
+	char	*element;
 
 	i = -1;
 	fix = 0;
@@ -63,7 +64,12 @@ char	*extract_element(char *map)
 	i = -1;
 	element = (char *)malloc(4 * sizeof(char));
 	while (++i < 3)
-		element[i] = map[++fix - 4];
+	{
+		*tmp = map[++fix - 4];
+		if (*tmp < 32 || *tmp >126)
+			return (0);
+		element[i] = *tmp;
+	}
 	element[i] = 0;
 	return (element);
 }
@@ -89,6 +95,7 @@ int		infocheck(char *map)
 	int		i;
 	int		line_count;
 	int		fix;
+	char	*tmp;
 
 	i = -1;
 	fix = 0;
@@ -104,8 +111,12 @@ int		infocheck(char *map)
 		}
 		else
 		{line_count = line_count * 10 + (map[i] - '0');}
-
-	if ((same_element(extract_element(map)) < 0))
+	if((tmp = extract_element(map)) == 0)
+	{
+		errp("err : NonPrintable element\n");
+		return (-1);
+	}
+	if ((same_element(tmp) < 0))
 	{
 		errp("err : duplicated element\n");
 		return (-1);
@@ -152,6 +163,7 @@ int		boxcheck(char *map, int line_count)
 {
 	int		i;
 	int		nl_cnt;
+	int		empty_count;
 	char	*element;
 	int		hor_cnt;
 
@@ -167,6 +179,7 @@ int		boxcheck(char *map, int line_count)
 	}
 	/* counting [\n] And inspect element validation */
 	element = extract_element(map);
+	empty_count = 0;
 	nl_cnt = 0;
 	while (map[++i])
 	{
@@ -177,6 +190,13 @@ int		boxcheck(char *map, int line_count)
 		}
 		if (map[i] == '\n')
 			nl_cnt++;
+		if (map[i] == element[0])
+			empty_count++;
+	}
+	if (empty_count == 0)
+	{
+		errp("err : no empty element\n");
+		return (-1);
 	}
 	printf("===in boxcheck===\nactual line cnt = [%d]\n",nl_cnt);
 	if (line_count != nl_cnt)
