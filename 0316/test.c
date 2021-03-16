@@ -171,19 +171,41 @@ void init_strt(int line, int hor, char *map)
 	}
 }
 
+void free_strt(char *map, int line)
+{
+	int i;
+
+	free(map);
+	i = -1;
+	while(++i < line)
+		free(strt[i]);
+	free(strt);
+	free(g_find);
+}
+
 int main(int argc, char **argv)
 {
-	char *map = read_map(argv[1]);
-	int line_cnt = infocheck(map);
-	int hor_cnt = boxcheck(map, line_cnt);
-	if(argc < 2)
+	int i;
+
+	if (argc < 2)
+	{
 		return (0);
-	if(line_cnt < 0 || hor_cnt < 0)
-		return (0);
-	make_strt(line_cnt, hor_cnt);
-	init_strt(line_cnt, hor_cnt, map);
-	write(1, "\n", 1);
-	print_all(strt, line_cnt);
-	write(1, "\n", 1);
-	moving(line_cnt, hor_cnt);
+	}
+	i = 0;
+	while (++i < argc)
+	{
+		char *map = read_map(argv[i]);
+		int line_cnt = infocheck(map);
+		int hor_cnt = boxcheck(map, line_cnt);
+		if(line_cnt < 0 || hor_cnt < 0)
+			continue ;
+		make_strt(line_cnt, hor_cnt);
+		init_strt(line_cnt, hor_cnt, map);
+		g_x = 0;
+		g_y = 0;
+		g_MAX = 0;
+		moving(line_cnt, hor_cnt);
+		write(1, "\n", 1);
+		free_strt(map, line_cnt);
+	}
 }

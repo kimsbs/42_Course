@@ -199,7 +199,6 @@ int		boxcheck(char *map, int line_count)
 		errp("err : no empty element\n");
 		return (-1);
 	}
-	printf("===in boxcheck===\nactual line cnt = [%d]\n",nl_cnt);
 	if (line_count != nl_cnt)
 	{
 		errp("err : [info line cnt], [actual line cnt] are not same\n");
