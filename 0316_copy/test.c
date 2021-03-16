@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 13:49:20 by seungyki          #+#    #+#             */
-/*   Updated: 2021/03/16 23:37:53 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/03/16 23:51:21 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,14 @@ void last(int x, int y, int i)
 {
 	i = -1;
 	while(++i < y)
-		if(g_matrix[0].data[i] == g_find[0])
+		if(g_matrix[x].data[i] == g_find[0])
 		{
-			g_matrix[0].data[i] = g_find[2];
-			return ;
-		}
-	i = -1;
-	while(++i < x)
-		if(g_matrix[i].data[0] == g_find[0])
-		{
-			g_matrix[i].data[0] = g_find[2];
-			return ;
+			if(g_MAX < g_matrix[x].depth[i])
+			{
+				g_MAX = g_matrix[x].depth[i];
+				g_x = x;
+				g_y = i;
+			}
 		}
 }
 
@@ -111,8 +108,10 @@ void solve(int x, int y, int i, int j)
 		g_matrix[0].data[0] = g_find[2];
 	else
 	{
+		last(i, y, 0);
 		while (++i < x)
 		{
+			last(i, y, 0);
 			j = 0;
 			while (++j < y)
 			{
@@ -122,10 +121,7 @@ void solve(int x, int y, int i, int j)
 				}
 			}
 		}
-		if(g_MAX != 0)
-			fill();
-		else
-			last(x, y, 0);
+		fill();
 	}
 	print_all(x);
 }
