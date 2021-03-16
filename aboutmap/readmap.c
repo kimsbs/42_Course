@@ -17,19 +17,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-char *ft_strndup(char *str, int size)
-{
-	char	*res;
-	int		i;
-
-	res = (char *)malloc(sizeof(char) * size + 1);
-	i = -1;
-	while (++i < size)
-		res[i] = str[i];
-	res[++i] = 0;
-	return (res);
-}
-
 char	*read_map(char *path)
 {
 	int		fd;
@@ -48,7 +35,6 @@ char	*read_map(char *path)
 	i = -1;
 	while (read(fd, tmp, 1) > 0)
 		map[++i] = *tmp;
-		i++;
 	close (fd);
 	map[size] = 0;
 	return (map);
@@ -78,10 +64,10 @@ int		same_element(char *element)
 	int j;
 
 	i = -1;
-	while (element[++i] != '\n')
+	while (element[++i])
 	{
 		j = i;
-		while (element[++j] != '\n')
+		while (element[++j])
 			if (element[i] == element[j])
 				return (-1);
 	}
@@ -102,17 +88,20 @@ int		infocheck(char *map)
 	line_count = 0;
 	while (++i < (fix - 3))
 		if (map[i] < '0' || map[i] > '9')
+		{
 			return (-1);
+			printf("err : line count is not number\n");
+		}
 		else
-			line_count = line_count * 10 + (map[i] - '0');
+		{line_count = line_count * 10 + (map[i] - '0');}
+
 	if ((same_element(extract_element(map)) < 0))
 	{
-		printf("duplicated element err\n");
+		printf("err : duplicated element err\n");
 		return (-1);
 	}
 	return (line_count);
 }
-
 
 int		boxcheck(char *map, int line_count)
 {
@@ -131,18 +120,16 @@ int		boxcheck(char *map, int line_count)
 			tmp++;
 	if (line_count != tmp)
 	{
-		printf("invalid line count\n");
+		printf("err : invalid line count\n");
 		return (-1);
 	}
 
 	return (0);
 }
 
-
-
 int		main(int ac, char **av)
 {
-	printf("%s\n", read_map(av[1]));
-	printf("line count : %d\n", infocheck(read_map(av[1])));
-	printf("element : %s\n", extract_element(read_map(av[1])));
+	printf("===readmap check===\n%s\n", read_map(av[1]));
+	printf("===infocheck check===\nline count : [%d]\n", infocheck(read_map(av[1])));
+	printf("===element extract check===\nelement : [%s]\n", extract_element(read_map(av[1])));
 }
