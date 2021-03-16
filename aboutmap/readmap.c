@@ -103,26 +103,47 @@ int		infocheck(char *map)
 	return (line_count);
 }
 
+int		in_element(char c, char *element)
+{
+	int i;
+
+	i = -1;
+	while (element[++i])
+		if (c == element[i])
+			return (1);
+	return (-1);
+}
+
 int		boxcheck(char *map, int line_count)
 {
 	int		i;
-	int		fix;
-	int		tmp;
+	int		tmp0;
+	int		tmp1;
 	char	*element;
 
-	element = extract_element(map);
+	/* skip info line (idx = fix)*/
 	i = 0;
 	while (map[i] != '\n')
 		i++;
-	tmp = 0;
+	/* skip done */
+
+	/* counting [\n] And inspect element validation */
+	element = extract_element(map);
+	tmp0 = 0; // actual line count;
 	while (map[++i])
+	{
+		if (in_element(map[i], element) < 0 && map[i] != '\n')
+			return (-1)
 		if (map[i] == '\n')
-			tmp++;
+			tmp0++;
+	}
+	/* compare infomation & actual [\n]count */
 	if (line_count != tmp)
 	{
 		printf("err : invalid line count\n");
 		return (-1);
 	}
+
 
 	return (0);
 }
