@@ -10,17 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include "map.h"
-
-int g_x = 0;
-int g_y = 0;
-int g_MAX = -1;
-#define Big(x, y) ((x>y) ? (x) : (y))
-#define Small(x, y) ((x>y) ? (y) : (x))
-
-char **strt;
 
 void print_str(char *str)
 {
@@ -44,7 +34,7 @@ void print_all(char **str, int size)
 	}
 }
 
-void fill()
+void fill(void)
 {
 	int tmp;
 	int tmp2;
@@ -161,7 +151,7 @@ void init_strt(int line, int hor, char *map)
 	while(++i < line)
 	{
 		j = 0;
-		while(*map != '\n' && *map)
+		while(j < hor)
 		{
 			strt[i][j++] = *map;
 			map++;	
@@ -189,6 +179,7 @@ int main(int argc, char **argv)
 
 	if (argc < 2)
 	{
+		stdinput();
 		return (0);
 	}
 	i = 0;
