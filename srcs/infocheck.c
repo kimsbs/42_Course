@@ -6,7 +6,7 @@
 /*   By: tjeong <tjeong@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 15:53:12 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/17 17:20:46 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 22:10:23 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*extract_element(char *map)
 
 	i = -1;
 	fix = 0;
-	while (map[++i] != '\n')
+	while (map[++i] != '\n' && map[i])
 		fix++;
 	i = -1;
 	element = (char *)malloc(4 * sizeof(char));
@@ -57,13 +57,12 @@ int		infocheck(char *map)
 	int		i;
 	int		line_count;
 	int		fix;
-	char	*tmp;
 
 	if (map == 0)
 		return (-1);
 	i = -1;
 	fix = 0;
-	while (map[++i] != '\n')
+	while (map[++i] != '\n' && map[i])
 		fix++;
 	i = -1;
 	line_count = 0;
@@ -72,11 +71,9 @@ int		infocheck(char *map)
 			return (-1);
 		else
 			line_count = line_count * 10 + (map[i] - '0');
-	if ((tmp = extract_element(map)) == 0 || same_element(tmp) < 0)
-	{
-		free(tmp);
+	if (line_count <= 0)
 		return (-1);
-	}
-	free(tmp);
+	if (same_element(g_find) < 0)
+		return (-1);
 	return (line_count);
 }

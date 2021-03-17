@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 14:26:38 by seungyki          #+#    #+#             */
-/*   Updated: 2021/03/17 17:13:20 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 22:08:03 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		main(int argc, char **argv)
 	{
 		if (i != 1)
 			write(1, "\n", 1);
-		doing(argv[i]);
+		doing(argv[i], 0, 0);
 	}
 	system("Leaks BSQ");
 }

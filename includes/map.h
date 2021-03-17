@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 14:28:44 by seungyki          #+#    #+#             */
-/*   Updated: 2021/03/17 17:40:44 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 22:07:08 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int				in_element(char c, char *str);
 int				horizontal_check(char *map);
 int				boxcheck(char *map, int line_count, int i);
 
+void			whole_matrix(int line_cnt, int hor_cnt, char *map);
 void			stdinput(void);
-void			doing(char *title);
+void			doing(char *title, int line_cnt, int hor_cnt);
 
 #endif

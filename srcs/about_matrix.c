@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 14:24:44 by seungyki          #+#    #+#             */
-/*   Updated: 2021/03/17 14:36:14 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/03/17 21:40:44 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	init_matrix(int line, int hor, char *map)
 	int i;
 	int j;
 
-	while (*map != '\n')
+	while (*map != '\n' && *map)
 		map++;
 	map++;
 	i = -1;
