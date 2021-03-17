@@ -6,7 +6,7 @@
 /*   By: tjeong <tjeong@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:44:19 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/17 13:55:30 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 15:38:53 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	errp(char *msg)
 	size = 0;
 	while (msg[size])
 		size++;
-	write(2, msg, siez);
+	write(2, msg, size);
 }
 
 char	*read_map(char *path)
@@ -71,8 +71,8 @@ char	*extract_element(char *map)
 
 int		same_element(char *element)
 {
-	int		i;
-	int		j;
+	int i;
+	int j;
 
 	i = -1;
 	while (element[++i])
@@ -88,7 +88,7 @@ int		same_element(char *element)
 int		infocheck(char *map)
 {
 	int		i;
-	int		line_cnt;
+	int		line_count;
 	int		fix;
 	char	*tmp;
 
@@ -97,28 +97,28 @@ int		infocheck(char *map)
 	while (map[++i] != '\n')
 		fix++;
 	i = -1;
-	line_cnt = 0;
+	line_count = 0;
 	while (++i < (fix - 3))
 		if (map[i] < '0' || map[i] > '9')
 			return (-1);
 		else
-			line_cnt = line_cnt * 10 + (map[i] - '0');
+			line_count = line_count * 10 + (map[i] - '0');
 	if ((tmp = extract_element(map)) == 0)
 		return (-1);
 	if ((same_element(tmp) < 0))
 		return (-1);
-	return (line_cnt);
+	return (line_count);
 }
 
 int		in_element(char c, char *element)
 {
-	int		i;
+	int i;
 
 	i = 0;
 	while (i < 2)
 	{
 		if (c == element[i])
-			return (-1);
+			return (1);
 		i++;
 	}
 	return (-1);
@@ -126,9 +126,9 @@ int		in_element(char c, char *element)
 
 int		horizontal_check(char *map)
 {
-	int		i;
-	int		hor_std;
-	int		hor_now;
+	int i;
+	int hor_std;
+	int	hor_now;
 
 	i = -1;
 	hor_std = 0;
@@ -171,7 +171,7 @@ int		boxcheck(char *map, int line_count, int i)
 		if (map[i] == element[0])
 			empty_count++;
 	}
-	if (empty_count == 0 || line_cnt != nl_cnt)
+	if (empty_count == 0 || line_count != nl_cnt)
 		return (-1);
 	g_find = element;
 	return (hor_cnt);

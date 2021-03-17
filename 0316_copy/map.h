@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 14:28:44 by seungyki          #+#    #+#             */
-/*   Updated: 2021/03/17 14:33:57 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:49:07 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ void	last(int x, int y, int i);
 int		adder(int x, int y);
 int		min_num(int a, int b, int c);
 
+void	errp(char *msg);
 char	*read_map(char *path);
 char	*extract_element(char *map);
 int		same_element(char *element);
 int		infocheck(char *map);
 int		in_element(char c, char *str);
 int		horizontal_check(char *map);
-int		boxcheck(char *map, int line_count);
+int		boxcheck(char *map, int line_count, int i);
 
 void	stdinput(void);
 void	doing(char *title);
