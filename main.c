@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 14:26:38 by seungyki          #+#    #+#             */
-/*   Updated: 2021/03/17 14:27:35 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:56:05 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		main(int argc, char **argv)
 
 	if (argc < 2)
 	{
+		stdinput();
 		return (0);
 	}
 	i = 0;

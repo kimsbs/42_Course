@@ -1,114 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readmap_copy.c                                     :+:      :+:    :+:   */
+/*   readmap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjeong <tjeong@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:44:19 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/17 15:38:53 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 15:55:06 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
-
-void	errp(char *msg)
-{
-	int size;
-
-	size = 0;
-	while (msg[size])
-		size++;
-	write(2, msg, size);
-}
-
-char	*read_map(char *path)
-{
-	int		fd;
-	int		size;
-	int		i;
-	char	tmp[1];
-	char	*map;
-
-	size = 0;
-	fd = open(path, O_RDONLY);
-	while (read(fd, tmp, 1) > 0)
-		size++;
-	close(fd);
-	map = (char *)malloc(sizeof(char) * size + 1);
-	fd = open(path, O_RDONLY);
-	i = -1;
-	while (read(fd, tmp, 1) > 0)
-		map[++i] = *tmp;
-	close(fd);
-	map[size] = 0;
-	return (map);
-}
-
-char	*extract_element(char *map)
-{
-	int		i;
-	int		fix;
-	char	tmp[1];
-	char	*element;
-
-	i = -1;
-	fix = 0;
-	while (map[++i] != '\n')
-		fix++;
-	i = -1;
-	element = (char *)malloc(4 * sizeof(char));
-	while (++i < 3)
-	{
-		*tmp = map[++fix - 4];
-		if (*tmp < 32 || *tmp > 126)
-			return (0);
-		element[i] = *tmp;
-	}
-	element[i] = 0;
-	return (element);
-}
-
-int		same_element(char *element)
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (element[++i])
-	{
-		j = i;
-		while (element[++j])
-			if (element[i] == element[j])
-				return (-1);
-	}
-	return (1);
-}
-
-int		infocheck(char *map)
-{
-	int		i;
-	int		line_count;
-	int		fix;
-	char	*tmp;
-
-	i = -1;
-	fix = 0;
-	while (map[++i] != '\n')
-		fix++;
-	i = -1;
-	line_count = 0;
-	while (++i < (fix - 3))
-		if (map[i] < '0' || map[i] > '9')
-			return (-1);
-		else
-			line_count = line_count * 10 + (map[i] - '0');
-	if ((tmp = extract_element(map)) == 0)
-		return (-1);
-	if ((same_element(tmp) < 0))
-		return (-1);
-	return (line_count);
-}
 
 int		in_element(char c, char *element)
 {
