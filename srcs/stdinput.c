@@ -6,12 +6,11 @@
 /*   By: tjeong <tjeong@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 15:28:08 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/17 15:45:53 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 17:37:35 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
-#include <stdio.h>
 
 void	stdinput(void)
 {
@@ -33,12 +32,17 @@ void	doing(char *title)
 	int		line_cnt;
 	int		hor_cnt;
 
-	map = read_map(title);
+	if (!(map = read_map(title)))
+	{
+		write(2, ERR_MSG, ERR_SIZE);
+		return ;
+	}
 	line_cnt = infocheck(map);
 	hor_cnt = boxcheck(map, line_cnt, 0);
 	if (line_cnt < 0 || hor_cnt < 0)
 	{
-		errp("map error\n");
+		free(map);
+		write(2, ERR_MSG, ERR_SIZE);
 		return ;
 	}
 	make_matrix(line_cnt, hor_cnt);

@@ -6,21 +6,11 @@
 /*   By: tjeong <tjeong@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 15:51:01 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/17 15:53:52 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 17:37:00 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
-
-void	errp(char *msg)
-{
-	int size;
-
-	size = 0;
-	while (msg[size])
-		size++;
-	write(2, msg, size);
-}
 
 char	*read_map(char *path)
 {
@@ -31,12 +21,16 @@ char	*read_map(char *path)
 	char	*map;
 
 	size = 0;
-	fd = open(path, O_RDONLY);
+	if ((fd = open(path, O_RDONLY)) < 0)
+		return (0);
 	while (read(fd, tmp, 1) > 0)
 		size++;
 	close(fd);
+	if (size < 4)
+		return (0);
 	map = (char *)malloc(sizeof(char) * size + 1);
-	fd = open(path, O_RDONLY);
+	if ((fd = open(path, O_RDONLY)) < 0)
+		return (0);
 	i = -1;
 	while (read(fd, tmp, 1) > 0)
 		map[++i] = *tmp;

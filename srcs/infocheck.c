@@ -6,7 +6,7 @@
 /*   By: tjeong <tjeong@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 15:53:12 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/17 15:54:21 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 17:20:46 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int		infocheck(char *map)
 	int		fix;
 	char	*tmp;
 
+	if (map == 0)
+		return (-1);
 	i = -1;
 	fix = 0;
 	while (map[++i] != '\n')
@@ -70,9 +72,11 @@ int		infocheck(char *map)
 			return (-1);
 		else
 			line_count = line_count * 10 + (map[i] - '0');
-	if ((tmp = extract_element(map)) == 0)
+	if ((tmp = extract_element(map)) == 0 || same_element(tmp) < 0)
+	{
+		free(tmp);
 		return (-1);
-	if ((same_element(tmp) < 0))
-		return (-1);
+	}
+	free(tmp);
 	return (line_count);
 }

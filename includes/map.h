@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 14:28:44 by seungyki          #+#    #+#             */
-/*   Updated: 2021/03/17 15:49:07 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 17:40:44 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,41 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 
-int		g_x;
-int		g_y;
-int		g_max;
-char	*g_find;
+# define ERR_MSG "map error\n"
+# define ERR_SIZE 10
+
+int				g_x;
+int				g_y;
+int				g_max;
+char			*g_find;
+
 typedef struct	s_matrix
 {
-				int		*depth;
-				char	*data;
+	int			*depth;
+	char		*data;
 }				t_matrix;
 t_matrix		*g_matrix;
 
-void	print_str(char *str);
-void	print_all(int size);
-void	fill(void);
-void	make_matrix(int line, int hor);
-void	init_matrix(int line, int hor, char *map);
-void	free_matrix(char *map, int line);
-void	solve(int x, int y, int i, int j);
-void	last(int x, int y, int i);
-int		adder(int x, int y);
-int		min_num(int a, int b, int c);
+void			print_str(char *str);
+void			print_all(int size);
+void			fill(void);
+void			make_matrix(int line, int hor);
+void			init_matrix(int line, int hor, char *map);
+void			free_matrix(char *map, int line);
+void			solve(int x, int y, int i, int j);
+void			last(int x, int y, int i);
+int				adder(int x, int y);
+int				min_num(int a, int b, int c);
 
-void	errp(char *msg);
-char	*read_map(char *path);
-char	*extract_element(char *map);
-int		same_element(char *element);
-int		infocheck(char *map);
-int		in_element(char c, char *str);
-int		horizontal_check(char *map);
-int		boxcheck(char *map, int line_count, int i);
+char			*read_map(char *path);
+char			*extract_element(char *map);
+int				same_element(char *element);
+int				infocheck(char *map);
+int				in_element(char c, char *str);
+int				horizontal_check(char *map);
+int				boxcheck(char *map, int line_count, int i);
 
-void	stdinput(void);
-void	doing(char *title);
+void			stdinput(void);
+void			doing(char *title);
 
 #endif

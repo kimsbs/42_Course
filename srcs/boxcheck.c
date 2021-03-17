@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readmap.c                                          :+:      :+:    :+:   */
+/*   boxcheck.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjeong <tjeong@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:44:19 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/17 15:55:06 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 18:15:11 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ int		horizontal_check(char *map)
 	return (hor_std);
 }
 
+int		box_nlcheck(char *map)
+{
+	int		i;
+	int		nl_cnt;
+
+	i = -1;
+	nl_cnt = 0;
+	while (map[++i])
+		if (mpa[i] == '\n')
+			nl_cnt++;
+	return (nl_cnt);
+}
+
 int		boxcheck(char *map, int line_count, int i)
 {
 	int		nl_cnt;
@@ -61,20 +74,24 @@ int		boxcheck(char *map, int line_count, int i)
 		i++;
 	if ((hor_cnt = horizontal_check((map + i + 1))) < -1)
 		return (-1);
+	nl_cnt = box_nlcheck((map + i));
 	element = extract_element(map);
 	empty_count = 0;
-	nl_cnt = 0;
 	while (map[++i])
 	{
 		if (in_element(map[i], element) < 0 && map[i] != '\n')
+		{
+			free(element);
 			return (-1);
-		if (map[i] == '\n')
-			nl_cnt++;
+		}
 		if (map[i] == element[0])
 			empty_count++;
 	}
 	if (empty_count == 0 || line_count != nl_cnt)
+	{
+		free(element);
 		return (-1);
+	}
 	g_find = element;
 	return (hor_cnt);
 }
