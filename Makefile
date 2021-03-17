@@ -3,7 +3,7 @@ SRCS = srcs/about_matrix.c srcs/infocheck.c srcs/print_matrix.c\
 	   srcs/stdinput.c srcs/boxcheck.c srcs/readmap_util.c\
 	   srcs/main.c
 INCLUDES = includes
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 OBJS = $(SRCS:.c=.o)
 %.o: %.c
 	gcc $(CFLAGS) -c $< -o $@ -I $(INCLUDES)
