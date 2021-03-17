@@ -6,7 +6,7 @@
 /*   By: tjeong <tjeong@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 12:44:19 by tjeong            #+#    #+#             */
-/*   Updated: 2021/03/17 18:15:11 by tjeong           ###   ########.fr       */
+/*   Updated: 2021/03/17 19:25:17 by tjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,19 @@ int		box_nlcheck(char *map)
 	return (nl_cnt);
 }
 
+int		box_element_check(char *map, char *element)
+{
+	int		i;
+
+	i = 0;
+	while (map[i])
+	{
+		if (in_element(map[i], element) < 0 && map[i] != '\n')
+			return (-1);
+	}
+	return (0);
+}
+
 int		boxcheck(char *map, int line_count, int i)
 {
 	int		nl_cnt;
@@ -76,17 +89,12 @@ int		boxcheck(char *map, int line_count, int i)
 		return (-1);
 	nl_cnt = box_nlcheck((map + i));
 	element = extract_element(map);
+	if ((box_element_check((map + i), element)) < 0)
+		return (-1);
 	empty_count = 0;
 	while (map[++i])
-	{
-		if (in_element(map[i], element) < 0 && map[i] != '\n')
-		{
-			free(element);
-			return (-1);
-		}
 		if (map[i] == element[0])
 			empty_count++;
-	}
 	if (empty_count == 0 || line_count != nl_cnt)
 	{
 		free(element);
