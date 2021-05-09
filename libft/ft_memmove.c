@@ -12,33 +12,23 @@
 
 #include "libft.h"
 
-void	stringcpy(unsigned char *src, unsigned char *tmp, size_t len)
-{
-	size_t move;
-
-	move = 0;
-	while (move < len)
-	{
-		tmp[move] = src[move];
-		move++;
-	}
-}
-
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	size_t			move;
 	unsigned char	*dest;
 	unsigned char	*source;
-	unsigned char	*tmp;
 
-	tmp = (unsigned char *)malloc(sizeof(unsigned char) * len);
+  if(dst == src || len == 0)
+    return (dst);
 	dest = (unsigned char *)dst;
 	source = (unsigned char *)src;
-	stringcpy(source, tmp, len);
-	move = 0;
+  move = 0;
 	while (move < len)
 	{
-		dest[move] = tmp[move];
+    if(dst < src)
+		  dest[move] = source[move];
+    else
+      dest[len - move - 1] = source[len - move - 1];
 		move++;
 	}
 	return (dst);

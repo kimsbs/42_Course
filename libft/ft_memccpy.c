@@ -23,15 +23,15 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 	dest = (unsigned char *)dst;
 	source = (unsigned char *)src;
 	tmp = (unsigned char)c;
-	if (*dest && *source)
+	if (!dest && !source)
+    return (0);
+
+	while (move < n)
 	{
-		while (move < n)
-		{
-			dest[move] = source[move];
-			if (source[move] == tmp)
-				return (&dest[move + 1]);
-			move++;
-		}
+		dest[move] = source[move];
+		if (source[move] == tmp)
+			return (&dest[move + 1]);
+		move++;
 	}
 	return (0);
 }

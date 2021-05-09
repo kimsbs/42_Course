@@ -21,7 +21,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	src = (unsigned char *)s;
 	tmp = (unsigned char)c;
 	move = 0;
-	while (src[move] && move < n)
+	while (move < n)
 	{
 		if (src[move] == tmp)
 			return (&src[move]);

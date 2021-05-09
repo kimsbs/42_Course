@@ -19,9 +19,6 @@ void	ft_bzero(void *s, size_t n)
 
 	src = (unsigned char *)s;
 	move = 0;
-	if (n)
-	{
-		while (move < n && src[move])
-			src[move++] = 0;
-	}
+	while (move < n)
+		src[move++] = 0;
 }
