@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 19:49:37 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/06 20:06:15 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/10 09:27:06 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n)
 
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
-  move = 0;
+	move = 0;
 	while (n--)
 	{
 		if (str1[move] != str2[move])

@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 18:15:53 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/06 19:42:28 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/10 09:26:06 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	unsigned char	*dest;
 	unsigned char	*source;
 
-  if(dst == src || len == 0)
-    return (dst);
+	if (dst == src || len == 0)
+		return (dst);
 	dest = (unsigned char *)dst;
 	source = (unsigned char *)src;
-  move = 0;
+	move = 0;
 	while (move < len)
 	{
-    if(dst < src)
-		  dest[move] = source[move];
-    else
-      dest[len - move - 1] = source[len - move - 1];
+		if (dst < src)
+			dest[move] = source[move];
+		else
+			dest[len - move - 1] = source[len - move - 1];
 		move++;
 	}
 	return (dst);

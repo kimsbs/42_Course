@@ -6,13 +6,13 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 20:28:37 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/06 21:03:53 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/10 16:53:36 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		is_space(const char c)
+static int		is_space(const char c)
 {
 	if (c == '\t' || c == ' ' || c == '\n'
 			|| c == '\v' || c == '\f' || c == '\r')
@@ -21,25 +21,27 @@ int		is_space(const char c)
 		return (0);
 }
 
-int		ft_atoi(const char *str)
+int				ft_atoi(const char *str)
 {
 	int		sol;
 	int		min;
+	char	*tmp;
 
+	tmp = (char *)str;
 	sol = 0;
 	min = 1;
-	while (is_space(*str))
-		str++;
-	if (*str == '+' || *str == '-')
+	while (is_space(*tmp))
+		tmp++;
+	if (*tmp == '+' || *tmp == '-')
 	{
-		if (*str == '-')
+		if (*tmp == '-')
 			min = -1;
-		str++;
+		tmp++;
 	}
-	while (*str >= '0' && *str <= '9')
+	while (*tmp >= '0' && *tmp <= '9')
 	{
-		sol = (sol * 10) + (min * (*str - '0'));
-		str++;
+		sol = (sol * 10) + (min * (*tmp - '0'));
+		tmp++;
 	}
 	return (sol);
 }

@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 09:28:40 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/10 09:29:28 by seungyki         ###   ########.fr       */
+/*   Created: 2021/05/10 15:12:46 by seungyki          #+#    #+#             */
+/*   Updated: 2021/05/10 15:46:49 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	size_t	dst_len;
-	size_t	src_len;
-	size_t	j;
+	t_list *move;
 
-	dst_len = ft_strlen(dst);
-	src_len = ft_strlen(src);
-	if (dstsize == 0)
-		return (src_len);
-	else if (dst_len >= dstsize)
-		return (src_len + dstsize);
-	j = 0;
-	while (j + 1 + dst_len < dstsize && src[j])
+	if (!*lst || !del)
+		return ;
+	while (*lst)
 	{
-		dst[dst_len + j] = src[j];
-		j++;
+		move = (*lst)->next;
+		ft_lstdelone(*lst, (*del));
+		*lst = move;
 	}
-	dst[dst_len + j] = '\0';
-	return (dst_len + src_len);
 }

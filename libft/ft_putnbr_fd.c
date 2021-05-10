@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 09:28:40 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/10 09:29:28 by seungyki         ###   ########.fr       */
+/*   Created: 2021/05/10 13:47:25 by seungyki          #+#    #+#             */
+/*   Updated: 2021/05/10 17:54:56 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+static	void	ft_putnbr_recursive(int n, int fd)
 {
-	size_t	dst_len;
-	size_t	src_len;
-	size_t	j;
+	int		tmp;
+	char	c;
 
-	dst_len = ft_strlen(dst);
-	src_len = ft_strlen(src);
-	if (dstsize == 0)
-		return (src_len);
-	else if (dst_len >= dstsize)
-		return (src_len + dstsize);
-	j = 0;
-	while (j + 1 + dst_len < dstsize && src[j])
+	if (n >= 10 || n <= -10)
+		ft_putnbr_recursive(n / 10, fd);
+	tmp = n % 10;
+	if (tmp < 0)
+		tmp *= -1;
+	c = tmp + '0';
+	write(fd, &c, sizeof(c));
+}
+
+void			ft_putnbr_fd(int n, int fd)
+{
+	if (n == 0)
+		write(fd, "0", sizeof(char));
+	else if (n < 0)
 	{
-		dst[dst_len + j] = src[j];
-		j++;
+		write(fd, "-", sizeof(char));
+		ft_putnbr_recursive(n, fd);
 	}
-	dst[dst_len + j] = '\0';
-	return (dst_len + src_len);
+	else
+		ft_putnbr_recursive(n, fd);
 }

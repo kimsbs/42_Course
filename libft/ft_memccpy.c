@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 17:47:50 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/06 18:12:45 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/10 09:25:11 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 	source = (unsigned char *)src;
 	tmp = (unsigned char)c;
 	if (!dest && !source)
-    return (0);
-
+		return (0);
 	while (move < n)
 	{
 		dest[move] = source[move];

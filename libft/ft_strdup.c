@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 20:11:14 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/06 20:25:03 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/10 09:27:44 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	*ft_strdup(const char *s1)
 
 	len = ft_strlen(s1);
 	dup = (char *)malloc(sizeof(char) * (len + 1));
-  if(!dup)
-    return (0);
+	if (!dup)
+		return (0);
 	move = 0;
 	while (s1[move])
 	{
