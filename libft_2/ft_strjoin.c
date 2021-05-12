@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 20:11:14 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/12 10:05:13 by seungyki         ###   ########.fr       */
+/*   Created: 2021/05/10 10:35:49 by seungyki          #+#    #+#             */
+/*   Updated: 2021/05/10 17:04:09 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len;
-	int		move;
-	char	*dup;
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	move;
+	char	*join;
 
-	len = ft_strlen(s1);
-	dup = (char *)malloc(sizeof(char) * (len + 1));
-	if (!dup)
+	if (!s1 || !s2)
+		return (0);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	if (!(join = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1))))
 		return (0);
 	move = 0;
-	while (s1[move])
+	while (move < s1_len)
 	{
-		dup[move] = s1[move];
+		join[move] = s1[move];
 		move++;
 	}
-	dup[move] = '\0';
-	return (dup);
+	while (move - s1_len < s2_len)
+	{
+		join[move] = s2[move - s1_len];
+		move++;
+	}
+	join[move] = '\0';
+	return (join);
 }

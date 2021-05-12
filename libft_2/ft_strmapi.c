@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 17:40:06 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/12 10:10:23 by seungyki         ###   ########.fr       */
+/*   Created: 2021/05/10 13:23:28 by seungyki          #+#    #+#             */
+/*   Updated: 2021/05/10 13:31:50 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t			move;
-	unsigned char	*src;
+	unsigned int		len;
+	unsigned int		i;
+	char				*tmp;
 
-	src = (unsigned char *)s;
-	move = 0;
-	while (move < n)
-		src[move++] = 0;
+	if (!s || !f)
+		return (0);
+	len = ft_strlen(s);
+	if (!(tmp = (char *)malloc(sizeof(char) * (len + 1))))
+		return (0);
+	tmp[len] = '\0';
+	i = 0;
+	while (i < len)
+	{
+		tmp[i] = (*f)(i, s[i]);
+		i++;
+	}
+	return (tmp);
 }

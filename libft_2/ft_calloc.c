@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 17:40:06 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/12 10:10:23 by seungyki         ###   ########.fr       */
+/*   Created: 2021/05/10 09:23:37 by seungyki          #+#    #+#             */
+/*   Updated: 2021/05/10 09:23:52 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	*ft_calloc(size_t count, size_t size)
 {
-	size_t			move;
-	unsigned char	*src;
+	void	*tmp;
 
-	src = (unsigned char *)s;
-	move = 0;
-	while (move < n)
-		src[move++] = 0;
+	tmp = (void *)malloc(size * count);
+	if (!tmp)
+		return (NULL);
+	ft_bzero(tmp, size * count);
+	return (tmp);
 }

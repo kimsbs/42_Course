@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 17:40:06 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/12 10:10:23 by seungyki         ###   ########.fr       */
+/*   Created: 2021/05/10 14:53:48 by seungyki          #+#    #+#             */
+/*   Updated: 2021/05/10 15:47:50 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t			move;
-	unsigned char	*src;
-
-	src = (unsigned char *)s;
-	move = 0;
-	while (move < n)
-		src[move++] = 0;
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

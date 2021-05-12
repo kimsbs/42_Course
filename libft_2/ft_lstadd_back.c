@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 17:40:06 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/12 10:10:23 by seungyki         ###   ########.fr       */
+/*   Created: 2021/05/10 14:58:02 by seungyki          #+#    #+#             */
+/*   Updated: 2021/05/10 16:32:44 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	size_t			move;
-	unsigned char	*src;
+	t_list *last;
 
-	src = (unsigned char *)s;
-	move = 0;
-	while (move < n)
-		src[move++] = 0;
+	last = ft_lstlast(*lst);
+	if (last)
+		last->next = new;
+	else
+		*lst = new;
 }

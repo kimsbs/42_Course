@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 17:40:06 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/12 10:10:23 by seungyki         ###   ########.fr       */
+/*   Created: 2021/05/10 15:48:40 by seungyki          #+#    #+#             */
+/*   Updated: 2021/05/10 16:50:28 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	size_t			move;
-	unsigned char	*src;
+	t_list	*new_list;
+	t_list	*header;
 
-	src = (unsigned char *)s;
-	move = 0;
-	while (move < n)
-		src[move++] = 0;
+	if (!lst || !f)
+		return (0);
+	header = NULL;
+	while (lst)
+	{
+		if (!(new_list = ft_lstnew((*f)(lst->content))))
+		{
+			ft_lstclear(&header, (*del));
+			return (0);
+		}
+		ft_lstadd_back(&header, new_list);
+		lst = lst->next;
+	}
+	return (header);
 }
