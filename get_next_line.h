@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:51:58 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/13 19:46:30 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/11 16:50:56 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 
-# define OPEN_MAX 256
+typedef	struct		s_list
+{
+	char			*content;
+	struct s_list	*next;
+}					t_list;
 
-int		get_next_line(int fd, char **line);
-
-char	*ft_strjoin(char const *s1, char const *s2);
-
-size_t	ft_strlen(const char *s);
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-
-char	*ft_strdup(const char *s1);
-
+void				ft_lstadd_back(t_list **lst, char *content, int size);
+t_list				*ft_lstnew(char *content);
+int         get_next_line(int fd, char **tmp);
 #endif

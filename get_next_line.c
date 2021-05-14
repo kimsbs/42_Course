@@ -5,89 +5,114 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 09:48:11 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/13 19:50:15 by seungyki         ###   ########.fr       */
+/*   Created: 2021/05/11 14:51:46 by seungyki          #+#    #+#             */
+/*   Updated: 2021/05/11 17:39:12 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-int		is_next_line(char *s)
+int		is_nextline(t_list *header)
 {
-	int		move;
-
-	if (!s)
-		return (-1);
-	move = 0;
-	while (s[move])
-	{
-		if (s[move] == '\n')
-			return (move);
-		move++;
-	}
+	int move;
+  int sol;
+  if(!header)
+    return (0);
+	sol = 0;
+  while(header)
+  {
+    move = 0;
+	  while (header->content[move])
+	  {
+		  if (header->content[move] == '\n')
+      {
+		  	return (sol);
+     }
+	  	move++;
+      sol++;
+  	}
+    header = header->next;
+  }
 	return (-1);
 }
 
-int		split_and_done(char **sol, char **line, int next_line_whenence)
+void free_list(t_list *header)
 {
+  if(!header)
+    return ;
+  free(header->content);
+  free(header);
+}
+
+t_list	*save_buffer(t_list *header, size_t dummy, char **line)
+{
+	char	*tmp;
 	int		move;
-	int		sol_len;
-	char	*output;
+	int		tmp_move;
+  t_list  *dump;
 
-	output = (char *)malloc(sizeof(char) * (next_line_whenence + 1));
-	sol_len = ft_strlen(*sol);
-	move = -1;
-	while (++move < next_line_whenence)
-		output[move] = (*sol)[move];
-	output[move++] = '\0';
-	*line = output;
-	if(move < sol_len)
-		*sol = &(*sol)[move];
-	else
-		*sol = NULL;
-	return (1);
-}
-
-int		free_sol(char *sol, char **line, int return_data)
-{
-	if (sol != NULL)
+	tmp = (char *)malloc(sizeof(char) * (dummy + 1));
+	tmp_move = 0;
+	while (header)
 	{
-		*line = ft_strdup(sol);
-		free(sol);
-		return (0);
+		move = -1;
+		while (header->content[++move])
+		{
+      if(header->content[move] == '\n')
+      {
+        tmp[tmp_move] = '\0';
+        *line = tmp;
+        header->content = &(header->content[++move]);
+        return (header);
+      }
+			tmp[tmp_move] = header->content[move];
+			tmp_move++;
+		}
+    dump = header;
+		header = header->next;
+   // free_list(dump);
 	}
-	return (return_data);
+  return (header);
 }
 
-int		get_next_line(int fd, char **line)
+void      print_list(t_list *list)
 {
-	char			*buf;
-	static	char	*sol[OPEN_MAX];
-	int				rd_len;
-	int				next_line_whenece;
+  char *srr;
+  while(list)
+  {
+    srr = list->content;
+    printf("%s", srr);
+    list = list->next;
+  }
+}
 
-	if (fd <= 0 || !line || BUFFER_SIZE <= 0)
-		return (-1);
-	if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-		return (-1);
+int				get_next_line(int fd, char **line)
+{
+	int		rd_len;
+	int		tmp;
+	char	*buf;
+	static  t_list	*header;
+
+  buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while ((rd_len = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[rd_len] = '\0';
-		sol[fd] = ft_strjoin(sol[fd], buf);
-		printf("%s\n", sol[fd]);
-		if ((next_line_whenece = is_next_line(sol[fd])) >= 0)
+		ft_lstadd_back(&header, buf, rd_len);
+		if ((tmp = is_nextline(header)) >= 0)
 		{
-			free(buf);
-			return (split_and_done(&sol[fd], line, next_line_whenece));
+			header = save_buffer(header, tmp, line);
+			return (1);
 		}
 	}
-	free(buf);
 	if (rd_len == 0)
-		if ((next_line_whenece = is_next_line(sol[fd])) >= 0)
-			return (split_and_done(&sol[fd], line, next_line_whenece));
-		else
-			return (free_sol(sol[fd], line, 0));
+  {
+      if ((tmp = is_nextline(header)) >= 0)
+		  {
+			  header = save_buffer(header, tmp, line);
+			  return (1);
+		  }
+		return (0);
+  }
 	else
-		return (free_sol(sol[fd], line, -1));
+		return (-1);
 }
