@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:48:11 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/14 15:37:37 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/14 15:37:28 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int		is_next_line(char *s)
 {
@@ -55,20 +55,18 @@ int		while_is_over(char **sol, char **line, int rd_len)
 {
 	int		next_line_whenece;
 
-	if (rd_len == 0)
+	if (rd_len < 0)
+		return (-1);
+	if (*sol && (next_line_whenece = is_next_line(*sol)) >= 0)
+		return (split_and_done(sol, line, next_line_whenece, 0));
+	else if (*sol)
 	{
-		if (*sol && (next_line_whenece = is_next_line(*sol)) >= 0)
-			return (split_and_done(sol, line, next_line_whenece, 0));
-		else if (*sol)
-		{
-			*line = *sol;
-			*sol = NULL;
-			return (0);
-		}
-		*line = ft_strdup("");
+		*line = *sol;
+		*sol = NULL;
 		return (0);
 	}
-	return (-1);
+	*line = ft_strdup("");
+	return (0);
 }
 
 int		get_next_line(int fd, char **line)
