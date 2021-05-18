@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:39:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/18 15:26:05 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/18 16:35:56 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ int		write_something(char c, va_list op, int flag, t_list *sub)
 	}
 	else if(c == 's')
 	{
-		print = ft_strdup(va_arg(op, char *));
+		print = va_arg(op, char *);
+		if(!print)
+			print = ft_strdup("(null)");
+		else
+			print = ft_strdup(print);
 		len = print_function(print, flag, sub);
 	}	
 	else if(c == 'c')
