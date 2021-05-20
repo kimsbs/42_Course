@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:39:09 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/18 14:50:54 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/20 11:47:16 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,6 @@ size_t	ft_strlen(const char *s)
 	while (s[move])
 		move++;
 	return (move);
-}
-
-static	void	ft_putnbr_recursive(int n)
-{
-	int		tmp;
-	char	c;
-
-	if (n >= 10 || n <= -10)
-		ft_putnbr_recursive(n / 10);
-	tmp = n % 10;
-	if (tmp < 0)
-		tmp *= -1;
-	c = tmp + '0';
-	write(1, &c, sizeof(c));
-}
-
-void			ft_putnbr(int n)
-{
-	if (n == 0)
-		write(1, "0", sizeof(char));
-	else if (n < 0)
-	{
-		write(1, "-", sizeof(char));
-		ft_putnbr_recursive(n);
-	}
-	else
-		ft_putnbr_recursive(n);
 }
 
 void		ft_putstr(char *s)
@@ -137,7 +110,7 @@ static	int		find_size(int n)
 	return (size);
 }
 
-static	void	input_data(int n, char *sol, int size, int start)
+static	void	input_data(long n, char *sol, int size, int start)
 {
 	int		tmp;
 
@@ -183,4 +156,130 @@ char *make_str(char c)
 	tmp[0] = c;
 	tmp[1] = '\0';
 	return (tmp);
+}
+
+int		is_in(char *s, char c)
+{
+	int move;
+
+	move = 0;
+	while (s[move])
+	{
+		if (c == s[move])
+			return (move);
+		move++;
+	}
+	return (-1);
+}
+
+void	upper_string(char *s)
+{
+	while (*s)
+	{
+		if (*s >= 'a' && *s <= 'z')
+			*s += 'A' - 'a';
+		s++;
+	}
+}
+
+char	*go_to_hex(long dummy, int cnt, long tmp, int up)
+{
+	char	*str;
+	int		move;
+	char	*hex = "0123456789abcdef";
+
+	cnt = 0;
+	tmp = dummy;
+	while (tmp)
+	{
+		tmp/=16;
+		cnt++;
+	}
+	move = cnt;
+	if (!(str = (char *)malloc(sizeof(char) * (cnt + 1))))
+		return (0);
+	str[cnt] = '\0';
+	while (--move >= 0)
+	{
+		str[move] = hex[dummy % 16];
+		dummy/= 16;
+	}
+	if (up)
+		upper_string(str);
+	return (str);
+}
+
+char		*ft_strjoin(char *s1, char *s2)
+{
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*join;
+
+	if (!s1 && !s2)
+		return (0);
+	else if (!s1)
+		return (ft_strdup(s2));
+	else if (!s2)
+		return (ft_strdup(s1));
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	if (!(join = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1))))
+		return (0);
+	ft_strlcpy(join, s1, s1_len + 1);
+	ft_strlcpy(&join[s1_len], s2, s2_len + 1);
+	free(s2);
+	return (join);
+}
+
+size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	src_len;
+	size_t	i;
+
+	if (!dst || !src)
+		return (0);
+	src_len = ft_strlen(src);
+	if (dstsize > 0)
+	{
+		i = 0;
+		while (src[i] && i + 1 < dstsize)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (src_len);
+}
+
+static	int		find_usize(long n)
+{
+	int		size;
+
+	size = 0;
+	if (n == 0)
+		return (1);
+	while (n)
+	{
+		n /= 10;
+		size++;
+	}
+	return (size);
+}
+
+char			*ft_uitoa(long n)
+{
+	char	*sol;
+	int		size;
+	int		start;
+
+	if (n < 0)
+		n = 4284967296;
+	size = find_usize(n);
+	if (!(sol = (char *)malloc(sizeof(char) * (size + 1))))
+		return (0);
+	start = 0;
+	input_data(n, sol, size - 1, start);
+	sol[size] = '\0';
+	return (sol);
 }
