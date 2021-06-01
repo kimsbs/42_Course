@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:39:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/20 11:44:38 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/20 18:05:03 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	print_print(char *print, t_list *sub, int print_width)
 		set = '0';
 	if (sub->minus)
 	{
+		set = ' ';
 		while ((sub->precision)-- > 0)
 			write(1, "0", 1);
 		ft_putstr(print);
@@ -108,6 +109,8 @@ int		write_something(char c, va_list op, int flag, t_list *sub)
 	{
 		print = make_str(va_arg(op, int));
 		len = print_function(print, flag, sub);
+		if(*print == '\0')
+			len = 1;
 	}
 	else
 		len = write_something2(c, op, flag, sub);
@@ -122,21 +125,13 @@ int		is_flag(va_list op, char *string, int last, int flag)
 
 	sub = (t_list *)malloc(sizeof(t_list));
 	ft_memset(sub, 0, sizeof(t_list));
-	move = 1;
-	if (string[move] == '-')
+	move = -1;
+	while (++move < last)
 	{
-		sub->minus = 1;
-		move++;
-	}
-	while (move < last)
-	{
-		while (string[move] == '0')
-		{
+		if (string[move] == '0')
 			sub->zero = 1;
-			move++;
-		}
-		if (string[move] == '-')
-			return (0);
+		else if (string[move] == '-')
+			sub->minus = 1;
 		else if (string[move] == '.')
 		{
 			cnt = 0;
@@ -165,14 +160,13 @@ int		is_flag(va_list op, char *string, int last, int flag)
 			{
 				cnt = 0;
 				sub->width = ft_atoi(&string[move], &cnt);
-				move += cnt;
+				move += cnt - 1;
 				if (sub->width < 0)
 					return (0);
 			}
 			else
 				return (0);
 		}
-		move++;
 	}
 	return (write_something(string[last], op, flag, sub));
 }
@@ -198,7 +192,7 @@ int		available(va_list op, char *string, char *set, int flag, int string_length)
 			tmp = 1;
 			while (move + tmp < string_length && (is_in(set, string[move + tmp]) == -1))
 				tmp++;
-			if ((dummy = is_flag(op, &string[move], tmp, flag)))
+			if ((dummy = is_flag(op, &string[move], tmp, flag)) > 0)
 				return_value += dummy;
 			else
 				return (0);

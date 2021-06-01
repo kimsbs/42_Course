@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:39:09 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/20 11:47:16 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/05/20 17:55:29 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,23 +182,11 @@ void	upper_string(char *s)
 	}
 }
 
-char	*go_to_hex(long dummy, int cnt, long tmp, int up)
+char	*hexhex(long dummy, int move, int up, char *str)
 {
-	char	*str;
-	int		move;
-	char	*hex = "0123456789abcdef";
+	char	*hex;
 
-	cnt = 0;
-	tmp = dummy;
-	while (tmp)
-	{
-		tmp/=16;
-		cnt++;
-	}
-	move = cnt;
-	if (!(str = (char *)malloc(sizeof(char) * (cnt + 1))))
-		return (0);
-	str[cnt] = '\0';
+	hex = "0123456789abcdef";
 	while (--move >= 0)
 	{
 		str[move] = hex[dummy % 16];
@@ -207,6 +195,25 @@ char	*go_to_hex(long dummy, int cnt, long tmp, int up)
 	if (up)
 		upper_string(str);
 	return (str);
+}
+
+char	*go_to_hex(long dummy, int cnt, long tmp, int up)
+{
+	char	*str;
+
+	cnt = 0;
+	tmp = dummy;
+	while (tmp)
+	{
+		tmp/=16;
+		cnt++;
+	}
+	if(dummy == 0)
+		cnt++;
+	if (!(str = (char *)malloc(sizeof(char) * (cnt + 1))))
+		return (0);
+	str[cnt] = '\0';
+	return (hexhex(dummy, cnt, up, str));
 }
 
 char		*ft_strjoin(char *s1, char *s2)
