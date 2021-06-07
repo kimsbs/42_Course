@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:30:28 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/07 13:16:17 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/07 17:51:56 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ int		write_something2(char c, va_list op, int flag, t_list *sub)
 	len = 0;
 	if (c == 'x' || c == 'X' || c == 'p')
 	{
-		if (c == 'X')
+		if (c == 'p')
+		{
+			print = go_to_hex(va_arg(op, long), 0, 0, 0);
+			return (print_function_ppp(print, flag, sub));
+		}
+		else if (c == 'X')
 			print = go_to_hex(va_arg(op, unsigned int), 0, 0, 1);
-		else if(c == 'x')
-			print = go_to_hex(va_arg(op, unsigned int), 0, 0, 0);
 		else
-			print = ft_strjoin("0x", go_to_hex(va_arg(op, long), 0, 0, 0));
+			print = go_to_hex(va_arg(op, unsigned int), 0, 0, 0);
 		return (print_function_integer(print, flag, sub));
 	}
 	else if (c == '%')
-	{
-		print = make_str('%');
-		len = print_function_integer(print, flag, sub);
-	}
+		len = print_function_per('%', flag, sub);
 	else if (c == 'u')
 	{
 		print = ft_uitoa(va_arg(op, unsigned int));
@@ -47,9 +47,9 @@ int		write_something1(va_list op, int flag, t_list *sub)
 
 	print = va_arg(op, char *);
 	if (!print)
-		print = ft_strdup("(null)");
+		print = ft_strdup1("(null)");
 	else
-		print = ft_strdup(print);
+		print = ft_strdup1(print);
 	return (print_function_string(print, flag, sub));
 }
 

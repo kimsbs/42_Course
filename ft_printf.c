@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:39:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/07 12:50:19 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/07 17:51:15 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		ft_printf(const char *string, ...)
 	int		return_value;
 	char	*set;
 
-	set = ft_strdup("cspdiuxX%");
+	set = ft_strdup1("cspdiuxX%");
 	va_start(op, string);
 	return_value = available(op, (char *)string, set, 0);
 	va_end(op);

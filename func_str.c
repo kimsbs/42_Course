@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:18:18 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/04 17:36:26 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/07 15:31:13 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_string(char *print, t_list *sub, int print_width)
 
 	tmp = sub->precision - ft_strlen(print);
 	set = ' ';
-	if (sub->zero)
+	if (sub->zero == 1)
 		set = '0';
 	if (sub->minus)
 	{

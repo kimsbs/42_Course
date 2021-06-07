@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 16:55:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/07 12:51:53 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/07 16:16:42 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	case_dot(char *string, int *move, t_list *sub)
 	if ((sub->precision = ft_atoi(&string[tmp + 1], &cnt)) >= 0)
 	{
 		sub->dot = 1;
-		sub->zero = 0;
+		sub->zero -= 2;
 		*move += cnt;
 	}
 }
@@ -37,7 +37,7 @@ void	case_star(char *string, int *move, va_list op, t_list *sub)
 		if ((sub->precision = va_arg(op, int)) >= 0)
 		{
 			sub->dot = 1;
-			sub->zero = 0;
+			sub->zero -= 2;
 		}
 		else
 			sub->dot = 0;
