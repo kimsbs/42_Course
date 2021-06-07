@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:41:54 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/04 17:47:11 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/07 12:53:23 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static	int		find_size(int n)
 	return (size);
 }
 
-void	input_data(long n, char *sol, int size, int start)
+void			input_data(long n, char *sol, int size, int start)
 {
 	int		tmp;
 

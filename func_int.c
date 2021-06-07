@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:15:53 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/04 17:35:58 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/07 13:13:42 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	print_integer(char *print, t_list *sub, int print_width)
 	set = ' ';
 	if (sub->zero)
 		set = '0';
-	if (print[0] == '0' && sub->dot && sub->precision <= 0)
+	if (!ft_strcmp(print, "0") && sub->dot && sub->precision < 0)
 	{
 		print_width++;
 		print[0] = '\0';
@@ -60,9 +60,7 @@ int		print_function_integer(char *print, int flag, t_list *sub)
 	len = ft_strlen(print);
 	print_width = sub->width - is_max(sub->precision, len);
 	sub->precision -= len;
-	if (print_width > 0)
-		len += print_width;
-	if (sub->precision > 0)
+	if (sub->precision >= 0)
 	{
 		if (print[0] == '-' && sub->dot)
 		{
@@ -71,6 +69,10 @@ int		print_function_integer(char *print, int flag, t_list *sub)
 		}
 		len += sub->precision;
 	}
+	if (print_width > 0)
+		len += print_width;
+	if (print[0] == '0' && sub->dot && sub->precision < 0 && sub->width == 0)
+		len--;
 	if (flag)
 		print_integer(print, sub, print_width);
 	free(print);

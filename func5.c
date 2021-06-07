@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:42:25 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/04 17:42:48 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/07 12:51:45 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int				ft_atoi(const char *str, int *cnt)
 
 	tmp = (char *)str;
 	sol = 0;
-	if (*tmp == '-')
+	if (*tmp == '-' || *tmp == '*')
 	{
 		(*cnt)++;
 		return (-1);
