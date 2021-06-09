@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:39:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/07 17:51:15 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:04:22 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int		is_flag(va_list op, char *string, int last, int flag)
 	t_list	*sub;
 
 	sub = (t_list *)malloc(sizeof(t_list));
+	if (!sub)
+		return (-1);
 	ft_memset(sub, 0, sizeof(t_list));
 	move = -1;
 	while (++move < last)
@@ -79,6 +81,8 @@ int		ft_printf(const char *string, ...)
 	char	*set;
 
 	set = ft_strdup1("cspdiuxX%");
+	if (!set)
+		return (-1);
 	va_start(op, string);
 	return_value = available(op, (char *)string, set, 0);
 	va_end(op);

@@ -6,11 +6,32 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:30:28 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/09 12:14:06 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:12:48 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int		write_something3(char c, va_list op, int flag, t_list *sub)
+{
+	char *print;
+
+	if (c == 'p')
+	{
+		if ((print = go_to_hex(va_arg(op, unsigned long long), 0, 0)))
+			return (print_function_ppp(print, flag, sub));
+		else
+			return (-1);
+	}
+	else if (c == 'X')
+		print = go_to_hex(va_arg(op, unsigned int), 0, 1);
+	else
+		print = go_to_hex(va_arg(op, unsigned int), 0, 0);
+	if (print)
+		return (print_function_integer(print, flag, sub));
+	else
+		return (-1);
+}
 
 int		write_something2(char c, va_list op, int flag, t_list *sub)
 {
@@ -19,24 +40,15 @@ int		write_something2(char c, va_list op, int flag, t_list *sub)
 
 	len = 0;
 	if (c == 'x' || c == 'X' || c == 'p')
-	{
-		if (c == 'p')
-		{
-			print = go_to_hex(va_arg(op, unsigned long long), 0, 0);
-			return (print_function_ppp(print, flag, sub));
-		}
-		else if (c == 'X')
-			print = go_to_hex(va_arg(op, unsigned int), 0, 1);
-		else
-			print = go_to_hex(va_arg(op, unsigned int), 0, 0);
-		return (print_function_integer(print, flag, sub));
-	}
+		return (write_something3(c, op, flag, sub));
 	else if (c == '%')
 		len = print_function_per('%', flag, sub);
 	else if (c == 'u')
 	{
-		print = ft_uitoa(va_arg(op, unsigned int));
-		len = print_function_integer(print, flag, sub);
+		if ((print = ft_uitoa(va_arg(op, unsigned int))))
+			len = print_function_integer(print, flag, sub);
+		else
+			return (-1);
 	}
 	return (len);
 }
@@ -50,7 +62,10 @@ int		write_something1(va_list op, int flag, t_list *sub)
 		print = ft_strdup1("(null)");
 	else
 		print = ft_strdup1(print);
-	return (print_function_string(print, flag, sub));
+	if (print)
+		return (print_function_string(print, flag, sub));
+	else
+		return (-1);
 }
 
 int		write_something(char c, va_list op, int flag, t_list *sub)
@@ -61,8 +76,9 @@ int		write_something(char c, va_list op, int flag, t_list *sub)
 
 	if (c == 'd' || c == 'i')
 	{
-		print = ft_itoa(va_arg(op, int));
-		return (print_function_integer(print, flag, sub));
+		if ((print = ft_itoa(va_arg(op, int))))
+			return (print_function_integer(print, flag, sub));
+		return (-1);
 	}
 	else if (c == 's')
 		return (write_something1(op, flag, sub));

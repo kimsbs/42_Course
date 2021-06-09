@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:37:20 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/09 12:14:27 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:05:10 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void				case_star(char *string, int *move, va_list op, t_list *sub);
 void				case_dot(char *string, int *move, t_list *sub);
 void				upper_string(char *s);
 char				*ft_strdup1(char *s1);
-char				*ft_strjoin1(char *s1, char *s2);
 char				*ft_itoa(int n);
 char				*ft_uitoa(long n);
 char				*make_str(unsigned int c);

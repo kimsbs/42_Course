@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:41:18 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/09 12:17:50 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/09 15:06:21 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,4 @@ char			*go_to_hex(unsigned long long dummy, int cnt, int up)
 		return (0);
 	str[cnt] = '\0';
 	return (hexhex(dummy, cnt, up, str));
-}
-
-char			*ft_strjoin1(char *s1, char *s2)
-{
-	size_t	s1_len;
-	size_t	s2_len;
-	char	*join;
-
-	if (!s1 && !s2)
-		return (0);
-	else if (!s1)
-		return (ft_strdup1(s2));
-	else if (!s2)
-		return (ft_strdup1(s1));
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	if (!(join = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1))))
-		return (0);
-	ft_strlcpy(join, s1, s1_len + 1);
-	ft_strlcpy(&join[s1_len], s2, s2_len + 1);
-	free(s2);
-	return (join);
 }
