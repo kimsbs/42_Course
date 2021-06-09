@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:37:20 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/07 17:56:05 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/09 12:14:27 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char				*ft_strjoin1(char *s1, char *s2);
 char				*ft_itoa(int n);
 char				*ft_uitoa(long n);
 char				*make_str(unsigned int c);
-char				*go_to_hex(long dummy, int cnt, long tmp, int up);
+char				*go_to_hex(unsigned long long dummy, int cnt, int up);
 int					ft_atoi(const char *str, int *cnt);
 int					is_max(int a, int b);
 int					is_min(int a, int b);

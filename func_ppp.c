@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:15:53 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/07 19:31:22 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/09 11:47:21 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_ppp(char *print, t_list *sub, int print_width)
 	set = ' ';
 	if (sub->zero == 1)
 		set = '0';
-	if (!ft_strcmp(print, "0") && sub->dot && sub->precision < 0)
+	if (!ft_strcmp(print, "0") && sub->dot && sub->precision < 2)
 	{
 		print_width++;
 		print[0] = '\0';
@@ -50,26 +50,17 @@ void	print_ppp(char *print, t_list *sub, int print_width)
 	print_ppp2(print, sub, print_width, set);
 }
 
-void	i_hate_norm(int *len, int *tmp, int *print_width)
-{
-	*len += 2;
-	*tmp = 1;
-	*print_width -= 2;
-}
-
 int		print_function_ppp(char *print, int flag, t_list *sub)
 {
 	int len;
 	int	print_width;
 	int tmp;
 
-	tmp = 0;
 	len = ft_strlen(print);
-	print_width = sub->width - is_max(sub->precision, len);
-	if (print_width > 0)
-		i_hate_norm(&len, &tmp, &print_width);
+	tmp = len + 2;
+	print_width = sub->width - is_max(sub->precision, tmp);
 	sub->precision -= len;
-	if (sub->precision >= 0)
+	if (sub->precision > 2)
 		len += sub->precision;
 	if (print_width > 0)
 		len += print_width;
@@ -79,7 +70,5 @@ int		print_function_ppp(char *print, int flag, t_list *sub)
 	if (flag)
 		print_ppp(print, sub, print_width);
 	free(sub);
-	if(tmp == 0)
-		len += 2;
-	return (len);
+	return (len + 2);
 }

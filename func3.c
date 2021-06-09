@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:41:18 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/07 18:12:27 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/09 12:17:50 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			upper_string(char *s)
 	}
 }
 
-char			*hexhex(long dummy, int move, int up, char *str)
+char			*hexhex(unsigned long long dummy, int move, int up, char *str)
 {
 	char	*hex;
 
@@ -53,11 +53,11 @@ char			*hexhex(long dummy, int move, int up, char *str)
 	return (str);
 }
 
-char			*go_to_hex(long dummy, int cnt, long tmp, int up)
+char			*go_to_hex(unsigned long long dummy, int cnt, int up)
 {
-	char	*str;
+	char				*str;
+	unsigned long long	tmp;
 
-	cnt = 0;
 	tmp = dummy;
 	while (tmp)
 	{

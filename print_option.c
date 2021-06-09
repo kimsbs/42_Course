@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:30:28 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/07 17:51:56 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/09 12:14:06 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int		write_something2(char c, va_list op, int flag, t_list *sub)
 	{
 		if (c == 'p')
 		{
-			print = go_to_hex(va_arg(op, long), 0, 0, 0);
+			print = go_to_hex(va_arg(op, unsigned long long), 0, 0);
 			return (print_function_ppp(print, flag, sub));
 		}
 		else if (c == 'X')
-			print = go_to_hex(va_arg(op, unsigned int), 0, 0, 1);
+			print = go_to_hex(va_arg(op, unsigned int), 0, 1);
 		else
-			print = go_to_hex(va_arg(op, unsigned int), 0, 0, 0);
+			print = go_to_hex(va_arg(op, unsigned int), 0, 0);
 		return (print_function_integer(print, flag, sub));
 	}
 	else if (c == '%')
