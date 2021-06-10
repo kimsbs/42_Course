@@ -6,23 +6,17 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:41:18 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/09 15:06:21 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:41:14 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int				is_in(char *s, char c, int flag)
+int				is_in(char c, int flag)
 {
-	int move;
-
-	move = 0;
-	while (s[move])
-	{
-		if (c == s[move])
-			return (move);
-		move++;
-	}
+	if (c == 'c' || c == 'p' || c == 's' || c == 'd'
+			|| c == 'i' || c == 'u' || c == 'x' || c == 'X' || c == '%')
+		return (1);
 	if (c == ' ' && flag)
 		write(1, &c, 1);
 	return (-1);

@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 15:15:53 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/09 11:47:21 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:53:34 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int		print_function_ppp(char *print, int flag, t_list *sub)
 	if (flag)
 		print_ppp(print, sub, print_width);
 	free(sub);
+	free(print);
 	return (len + 2);
 }

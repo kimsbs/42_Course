@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:37:20 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/09 15:05:10 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:34:17 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char				*go_to_hex(unsigned long long dummy, int cnt, int up);
 int					ft_atoi(const char *str, int *cnt);
 int					is_max(int a, int b);
 int					is_min(int a, int b);
-int					is_in(char *s, char c, int flag);
+int					is_in(char c, int flag);
 int					ft_printf(const char *string, ...);
 int					ft_strcmp(char *s1, char *s2);
 int					print_function_integer(char *print, int flag, t_list *sub);

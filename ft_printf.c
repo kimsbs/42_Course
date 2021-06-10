@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 13:39:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/09 15:04:22 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:36:58 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	normmm(char c, int flag, int *return_value)
 	(*return_value)++;
 }
 
-int		available(va_list op, char *string, char *set, int flag)
+int		available(va_list op, char *string, int flag)
 {
 	int		move;
 	int		dummy;
@@ -63,7 +63,7 @@ int		available(va_list op, char *string, char *set, int flag)
 		{
 			tmp = 1;
 			while (move + tmp < string_length &&
-					(is_in(set, string[move + tmp], flag) == -1))
+					(is_in(string[move + tmp], flag) == -1))
 				tmp++;
 			if ((dummy = is_flag(op, &string[move], tmp, flag)) >= 0)
 				return_value += dummy;
@@ -78,18 +78,9 @@ int		ft_printf(const char *string, ...)
 {
 	va_list	op;
 	int		return_value;
-	char	*set;
 
-	set = ft_strdup1("cspdiuxX%");
-	if (!set)
-		return (-1);
 	va_start(op, string);
-	return_value = available(op, (char *)string, set, 0);
+	return_value = available(op, (char *)string, 1);
 	va_end(op);
-	va_start(op, string);
-	if (return_value != -1)
-		available(op, (char *)string, set, 1);
-	va_end(op);
-	free(set);
 	return (return_value);
 }

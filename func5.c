@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:42:25 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/09 15:04:56 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/10 16:37:13 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,10 @@ int				ft_atoi(const char *str, int *cnt)
 {
 	long	sol;
 	char	*tmp;
-	char	*set;
 
-	if (!(set = ft_strdup1("cspdiuxX")))
-		return (-1);
 	tmp = (char *)str;
 	sol = 0;
-	if ((*tmp < '0' || *tmp > '9') && is_in(set, *tmp, 0) == -1)
+	if ((*tmp < '0' || *tmp > '9') && is_in(*tmp, 0) == -1)
 	{
 		(*cnt)++;
 		return (-1);
