@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 17:23:07 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/10 21:20:03 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/06/15 16:45:08 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ typedef struct		s_list
 
 t_list	*make_node(int data);
 t_list	*find_last(t_list *header);
-void	print_list(t_list *header);
+void	print_list(t_list *a, t_list *b);
+void	print_list_solo(t_list *list);
 void	add_front(t_list **header, int data);
+void	add_back(t_list **header, int data);
 void	rm_front(t_list **header);
 void	swap_element(t_list **header);
 void	rotate(t_list **header);
@@ -42,5 +44,5 @@ void	swap_b(t_list **b);
 void	swap_s(t_list **a, t_list **b);
 void	push_a(t_list **a, t_list **b);
 void	push_b(t_list **a, t_list **b);
-
+int		ft_atoi(const char *str);
 #endif
