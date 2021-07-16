@@ -11,7 +11,7 @@ void	a_to_b_mini(t_list **a, t_list **b, int *cnt, int *arr)
 	{
 		push_b(a, b, cnt);
 		arr[2]++;
-		if ((*b)->index > arr[3])
+		if ((*b)->index >= arr[3])
 		{	
 			rotate_b(b, cnt);
 			arr[1]++;
@@ -32,7 +32,7 @@ void	a_to_b(t_list **a, t_list **b, int *cnt, int r)
 			short_swap(a, b, cnt, 1);
 		return ;
 	}
-	arr_init(a, arr);
+	arr_init(a, arr, r);
 	while (--r >= 0)
 		a_to_b_mini(a, b, cnt, arr);
 	reving(a, b, arr, cnt);

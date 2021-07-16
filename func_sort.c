@@ -30,7 +30,14 @@ int	is_sorted(t_list **header)
 	return (1);
 }
 
-void	arr_init(t_list **a, int *arr)
+int		list_data(t_list *a, int r)
+{
+	while(--r)
+		a = a->next;
+	return (a->index);
+}
+
+void	arr_init(t_list **a, int *arr, int r)
 {
 	int tmp;
 	int move;
@@ -38,8 +45,8 @@ void	arr_init(t_list **a, int *arr)
 	move = -1;
 	while (++move < 3)
 		arr[move] = 0;
-	arr[3] = (*a)->index;
-	arr[4] = (*a)->prev->index;
+	arr[3] = (*a)->next->index;
+	arr[4] = list_data((*a)->prev, r);
 	if (arr[3] > arr[4])
 	{
 		tmp = arr[3];

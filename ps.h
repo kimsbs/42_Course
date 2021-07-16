@@ -48,7 +48,7 @@ void	push_b(t_list **a, t_list **b, int *cnt);
 void	free_list(t_list **a, t_list **b);
 void	a_to_b(t_list **a, t_list **b, int *cnt, int r);
 void	b_to_a(t_list **a, t_list **b, int *cnt, int r);
-void	arr_init(t_list **a, int *arr);
+void	arr_init(t_list **a, int *arr, int r);
 void	reving(t_list **a, t_list **b, int *arr, int *cnt);
 int		divide_case(int *arr);
 void	short_swap_a(t_list **a, int *cnt, int cases);

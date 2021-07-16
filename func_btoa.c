@@ -2,7 +2,7 @@
 
 void	b_to_a_mini(t_list **a, t_list **b, int *cnt, int *arr)
 {
-	if ((*b)->index <= arr[3])
+	if ((*b)->index < arr[3])
 	{
 		rotate_b(b, cnt);
 		arr[1]++;
@@ -11,7 +11,7 @@ void	b_to_a_mini(t_list **a, t_list **b, int *cnt, int *arr)
 	{
 		push_a(a, b, cnt);
 		arr[2]++;
-		if (*b && (*b)->index <= arr[4])
+		if ((*a)->index < arr[4])
 		{
 			rotate_a(a, cnt);
 			arr[0]++;
@@ -33,7 +33,7 @@ void	b_to_a(t_list **a, t_list **b, int *cnt, int r)
 			push_a(a, b, cnt);
 		return ;
 	}
-	arr_init(b, arr);
+	arr_init(b, arr, r);
 	while (--r >= 0)
 		b_to_a_mini(a, b, cnt, arr);
 	a_to_b(a, b, cnt, arr[2]-arr[0]);
