@@ -48,6 +48,13 @@ void	push_b(t_list **a, t_list **b, int *cnt);
 void	free_list(t_list **a, t_list **b);
 void	a_to_b(t_list **a, t_list **b, int *cnt, int r);
 void	b_to_a(t_list **a, t_list **b, int *cnt, int r);
-int		ft_atoi(const char *str);
+void	arr_init(t_list **a, int *arr);
+void	reving(t_list **a, t_list **b, int *arr, int *cnt);
+int		divide_case(int *arr);
+void	short_swap_a(t_list **a, int *cnt, int cases);
+void	short_swap_b(t_list **b, int *cnt, int cases);
+void	short_swap(t_list **a, t_list **b, int *cnt, int flag);
+void	r_is_small(t_list **list, int *cnt, int flag);
+long	ft_atoi(const char *str);
 int		is_sorted(t_list **header);
 #endif

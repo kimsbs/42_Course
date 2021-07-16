@@ -12,13 +12,13 @@
 
 #include "ps.h"
 
-void	sorting(t_list **a, t_list **b)
+void	sorting(t_list **a, t_list **b, int argc)
 {
 	int cnt;
 
 	cnt = 0;
 	if(!is_sorted(a))
-		a_to_b(a, b, &cnt, 3);
+		a_to_b(a, b, &cnt, argc);
 	print_list(*a, *b);
 	free_list(a, b);
 	printf("%d\n", cnt);
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	t_list	*a;
 	t_list	*b;
 	int		move;
-	int		data;
+	long	data;
 
 	if (argc <= 1)
 		return (0);
@@ -39,7 +39,12 @@ int	main(int argc, char **argv)
 	while (++move < argc)
 	{
 		data = ft_atoi(argv[move]);
+		if (data > 2147483647 || data < -2147483648)
+		{
+			write(1, "Error\n", 7);
+			exit(-1);
+		}
 		add_back(&a, data);
 	}
-	sorting(&a, &b);
+	sorting(&a, &b, argc - 1);
 }

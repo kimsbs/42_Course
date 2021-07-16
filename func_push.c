@@ -39,16 +39,7 @@ void	push_b(t_list **a, t_list **b, int *cnt)
 	add_front(b, tmp);
 }
 
-static int	is_space(const char c)
-{
-	if (c == '\t' || c == ' ' || c == '\n'
-		|| c == '\v' || c == '\f' || c == '\r')
-		return (1);
-	else
-		return (0);
-}
-
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	long	sol;
 	int		min;
@@ -57,22 +48,18 @@ int	ft_atoi(const char *str)
 	tmp = (char *)str;
 	sol = 0;
 	min = 1;
-	while (is_space(*tmp))
-		tmp++;
 	if (*tmp == '+' || *tmp == '-')
 	{
 		if (*tmp == '-')
 			min = -1;
 		tmp++;
 	}
+	if (*tmp < '0' || *tmp > '9')
+		return (2147483648);
 	while (*tmp >= '0' && *tmp <= '9')
 	{
 		sol = (sol * 10) + (min * (*tmp - '0'));
 		tmp++;
-		if (sol > 2147483647)
-			return (-1);
-		if (sol < -2147483648)
-			return (0);
 	}
-	return ((int)sol);
+	return (sol);
 }
