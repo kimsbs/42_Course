@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 21:03:42 by seungyki          #+#    #+#             */
-/*   Updated: 2021/06/15 16:28:15 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/07/06 14:24:32 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	swap_element(t_list **header)
 {
 	int		tmp;
 
-	if(*header && (*header)->next != *header)
+	if (*header && (*header)->next != *header)
 	{
 		tmp = (*header)->index;
 		(*header)->index = (*header)->next->index;
@@ -24,21 +24,24 @@ void	swap_element(t_list **header)
 	}
 }
 
-void	swap_a(t_list **a)
+void	swap_a(t_list **a, int *cnt)
 {
 	swap_element(a);
+	*cnt += 1;
 	write(1, "sa\n", 3);
 }
 
-void	swap_b(t_list **b)
+void	swap_b(t_list **b, int *cnt)
 {
 	swap_element(b);
+	*cnt += 1;
 	write(1, "sb\n", 3);
 }
 
-void	swap_s(t_list **a, t_list **b)
+void	swap_s(t_list **a, t_list **b, int *cnt)
 {
 	swap_element(a);
 	swap_element(b);
+	*cnt += 1;
 	write(1, "ss\n", 3);
 }
