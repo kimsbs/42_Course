@@ -1,43 +1,60 @@
 #include "ps.h"
 
-void	b_to_a_mini(t_list **a, t_list **b, int *cnt, int *arr)
+void	b_to_a_mini2(t_list **a, t_list **b, int *arr, int r)
 {
-	if ((*b)->index < arr[3])
+	if(arr[5])
 	{
-		rotate_b(b, cnt);
-		arr[1]++;
+		rotate_a(a);
+		arr[0]++;
+		arr[5] = 0;
 	}
-	else
+	push_a(a, b);
+	arr[2]++;
+	if ((*a)->index <= arr[4])
 	{
-		push_a(a, b, cnt);
-		arr[2]++;
-		if ((*a)->index < arr[4])
+		arr[5] = 1;
+		if(r == 0)
 		{
-			rotate_a(a, cnt);
+			rotate_a(a);
 			arr[0]++;
 		}
 	}
 }
 
-void	b_to_a(t_list **a, t_list **b, int *cnt, int r)
+void	b_to_a_mini(t_list **a, t_list **b, int *arr, int r)
 {
-	int		arr[5];
+	if ((*b)->index <= arr[3])
+	{
+		if (arr[5])
+		{
+			rotate_rr(a, b);
+			arr[0]++;
+			arr[5] = 0;
+		}
+		else
+			rotate_b(b);
+		arr[1]++;
+	}
+	else
+		b_to_a_mini2(a, b, arr, r);
+}
+
+void	b_to_a(t_list **a, t_list **b, int r)
+{
+	int		arr[6];
 
 	if (r <= 3)
 	{
-		if (r == 2)
-			r_is_small(b, cnt, 0);
-		else if (r == 3)
-			short_swap(a, b, cnt, 0);
+		r_is_small(a, b, 0, r);
 		while (--r >= 0)
-			push_a(a, b, cnt);
+	  		push_a(a, b);
 		return ;
 	}
 	arr_init(b, arr, r);
 	while (--r >= 0)
-		b_to_a_mini(a, b, cnt, arr);
-	a_to_b(a, b, cnt, arr[2]-arr[0]);
-	reving(a, b, arr, cnt);
-	a_to_b(a, b, cnt, arr[0]);
-	b_to_a(a, b, cnt, arr[1]);
+		b_to_a_mini(a, b, arr, r);
+	a_to_b(a, b, arr[2]-arr[0]);
+	reving(a, b, arr);
+	a_to_b(a, b, arr[0]);
+	b_to_a(a, b, arr[1]);
 }

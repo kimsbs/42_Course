@@ -30,14 +30,16 @@ int	is_sorted(t_list **header)
 	return (1);
 }
 
-int		list_data(t_list *a, int r)
+void	pivot_alloc(t_list *list, int *arr, int r)
 {
+	arr[3] = list->next->index;
+	//list = list->prev;
 	while(--r)
-		a = a->next;
-	return (a->index);
+		list = list->next;
+	arr[4] = list->index;
 }
 
-void	arr_init(t_list **a, int *arr, int r)
+void	arr_init(t_list **list, int *arr, int r)
 {
 	int tmp;
 	int move;
@@ -45,8 +47,8 @@ void	arr_init(t_list **a, int *arr, int r)
 	move = -1;
 	while (++move < 3)
 		arr[move] = 0;
-	arr[3] = (*a)->next->index;
-	arr[4] = list_data((*a)->prev, r);
+	arr[5] = 0;
+	pivot_alloc((*list)->prev, arr, r);
 	if (arr[3] > arr[4])
 	{
 		tmp = arr[3];
@@ -55,21 +57,20 @@ void	arr_init(t_list **a, int *arr, int r)
 	}
 }
 
-void	reving(t_list **a, t_list **b, int *arr, int *cnt)
+void	reving(t_list **a, t_list **b, int *arr)
 {
-	int tmp;
-	int tmp2;
+	int i;
 
-	tmp = arr[0];
-	tmp2 = arr[1];
-	while (tmp > 0 && tmp2 > 0)
+	i = 0;
+	while (arr[0] > i && arr[1] > i)
 	{
-		reverse_rr(a, b, cnt);
-		tmp--;
-		tmp2--;
+		reverse_rr(a, b);
+		i++;
 	}
-	while (--tmp >= 0)
-		reverse_a(a, cnt);
-	while (--tmp2 >= 0)
-		reverse_b(b, cnt);
+	if(i == arr[1] && i < arr[0])
+		while (arr[0] >= ++i)
+			reverse_a(a);
+	if(i == arr[0] && i < arr[1])
+		while (arr[1] >= ++i)
+			reverse_b(b);
 }

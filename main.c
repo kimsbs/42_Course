@@ -14,14 +14,10 @@
 
 void	sorting(t_list **a, t_list **b, int argc)
 {
-	int cnt;
-
-	cnt = 0;
 	if(!is_sorted(a))
-		a_to_b(a, b, &cnt, argc);
-	print_list(*a, *b);
+		a_to_b(a, b, argc);
+	//print_list(*a, *b);
 	free_list(a, b);
-	printf("%d\n", cnt);
 }
 
 int	main(int argc, char **argv)

@@ -24,47 +24,47 @@ int		divide_case(int *arr)
 	return (cases);
 }
 
-void	short_swap_a(t_list **a, int *cnt, int cases)
+void	short_swap_a(t_list **a, int cases)
 {
 	if (cases == 1)
 	{
-		swap_a(a, cnt);
-		reverse_a(a, cnt);
+		swap_a(a);
+		reverse_a(a);
 	}	
 	else if (cases == 2)
-		rotate_a(a, cnt);
+		rotate_a(a);
 	else if (cases == 3)
-		swap_a(a, cnt);
+		swap_a(a);
 	else if (cases == 4)
-		reverse_a(a, cnt);
+		reverse_a(a);
 	else if (cases == 5)
 	{
-		reverse_a(a, cnt);
-		swap_a(a, cnt);
+		reverse_a(a);
+		swap_a(a);
 	}
 }
 
-void	short_swap_b(t_list **b, int *cnt, int cases)
+void	short_swap_b(t_list **b, int cases)
 {
 	if (cases == 2)
 	{
-		reverse_b(b, cnt);
-		swap_b(b, cnt);
+		reverse_b(b);
+		swap_b(b);
 	}
 	else if(cases == 3)
-		reverse_b(b, cnt);
+		reverse_b(b);
 	else if(cases == 4)
-		swap_b(b, cnt);
+		swap_b(b);
 	else if(cases == 5)
-		rotate_b(b, cnt);
+		rotate_b(b);
 	else if(cases == 6)
 	{
-		swap_b(b, cnt);
-		reverse_b(b, cnt);
+		swap_b(b);
+		reverse_b(b);
 	}
 }
 
-void	short_swap(t_list **a, t_list **b, int *cnt, int flag)
+void	short_swap(t_list **a, t_list **b, int flag)
 {
 	int		arr[3];
 	int		cases;
@@ -79,15 +79,20 @@ void	short_swap(t_list **a, t_list **b, int *cnt, int flag)
 	arr[2] = now->next->next->index;
 	cases = divide_case(arr);
 	if(flag)
-		short_swap_a(a, cnt, cases);
+		short_swap_a(a, cases);
 	else
-		short_swap_b(b, cnt, cases);
+		short_swap_b(b, cases);
 }
 
-void	r_is_small(t_list **list, int *cnt, int flag)
+void	r_is_small(t_list **a, t_list **b, int flag, int r)
 {
-	if(flag && (*list)->index > (*list)->next->index)
-		swap_a(list, cnt);
-	else if(!flag && (*list)->index < (*list)->next->index)
-		swap_b(list, cnt);
+	if(r == 2)
+	{
+		if(flag && (*a)->index > (*a)->next->index)
+			swap_a(a);
+		else if(!flag && (*b)->index < (*b)->next->index)
+			swap_b(b);
+	}
+	else if(r == 3)
+		short_swap(a, b, flag);
 }

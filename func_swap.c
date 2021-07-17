@@ -24,24 +24,21 @@ void	swap_element(t_list **header)
 	}
 }
 
-void	swap_a(t_list **a, int *cnt)
+void	swap_a(t_list **a)
 {
 	swap_element(a);
-	*cnt += 1;
 	write(1, "sa\n", 3);
 }
 
-void	swap_b(t_list **b, int *cnt)
+void	swap_b(t_list **b)
 {
 	swap_element(b);
-	*cnt += 1;
 	write(1, "sb\n", 3);
 }
 
-void	swap_s(t_list **a, t_list **b, int *cnt)
+void	swap_s(t_list **a, t_list **b)
 {
 	swap_element(a);
 	swap_element(b);
-	*cnt += 1;
 	write(1, "ss\n", 3);
 }

@@ -18,24 +18,21 @@ void	rotate(t_list **header)
 		*header = (*header)->next;
 }
 
-void	rotate_a(t_list **a, int *cnt)
+void	rotate_a(t_list **a)
 {
 	rotate(a);
-	*cnt += 1;
 	write(1, "ra\n", 3);
 }
 
-void	rotate_b(t_list **b, int *cnt)
+void	rotate_b(t_list **b)
 {
 	rotate(b);
-	*cnt += 1;
 	write(1, "rb\n", 3);
 }
 
-void	rotate_rr(t_list **a, t_list **b, int *cnt)
+void	rotate_rr(t_list **a, t_list **b)
 {
 	rotate(a);
 	rotate(b);
-	*cnt += 1;
 	write(1, "rr\n", 3);
 }

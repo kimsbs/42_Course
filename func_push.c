@@ -12,7 +12,7 @@
 
 #include "ps.h"
 
-void	push_a(t_list **a, t_list **b, int *cnt)
+void	push_a(t_list **a, t_list **b)
 {
 	int		tmp;
 
@@ -20,20 +20,18 @@ void	push_a(t_list **a, t_list **b, int *cnt)
 		return ;
 
 	write(1, "pa\n", 3);
-	*cnt += 1;
 	tmp = (*b)->index;
 	rm_front(b);
 	add_front(a, tmp);
 }
 
-void	push_b(t_list **a, t_list **b, int *cnt)
+void	push_b(t_list **a, t_list **b)
 {
 	int		tmp;
 
 	if (!*a)
 		return ;
 	write(1, "pb\n", 3);
-	*cnt += 1;
 	tmp = (*a)->index;
 	rm_front(a);
 	add_front(b, tmp);
