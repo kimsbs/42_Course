@@ -14,8 +14,15 @@
 
 void	sorting(t_list **a, t_list **b, int argc)
 {
-	if(!is_sorted(a))
-		a_to_b(a, b, argc);
+	if (!is_sorted(a))
+	{
+		if (argc == 3)
+			only_three(a);
+		else if(argc == 5)
+			sort_five(a, b);
+		else
+			a_to_b(a, b, argc);
+	}
 	//print_list(*a, *b);
 	free_list(a, b);
 }

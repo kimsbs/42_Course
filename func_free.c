@@ -14,8 +14,8 @@
 
 void free_list(t_list **a, t_list **b)
 {
-	while(*a)
+	while (*a)
 		rm_front(a);
-	while(*b)
+	while (*b)
 		rm_front(b);
 }

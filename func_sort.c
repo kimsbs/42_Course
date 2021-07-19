@@ -32,9 +32,15 @@ int	is_sorted(t_list **header)
 
 void	pivot_alloc(t_list *list, int *arr, int r)
 {
-	arr[3] = list->next->index;
-	//list = list->prev;
-	while(--r)
+	int a;
+	int b;
+
+	a = r / 4;
+	b = r / 2;
+	while (--a)
+		list = list->next;
+	arr[3] = list->index;
+	while (--b)
 		list = list->next;
 	arr[4] = list->index;
 }
@@ -45,10 +51,9 @@ void	arr_init(t_list **list, int *arr, int r)
 	int move;
 
 	move = -1;
-	while (++move < 3)
+	while (++move < 6)
 		arr[move] = 0;
-	arr[5] = 0;
-	pivot_alloc((*list)->prev, arr, r);
+	pivot_alloc(*list, arr, r);
 	if (arr[3] > arr[4])
 	{
 		tmp = arr[3];
@@ -67,10 +72,10 @@ void	reving(t_list **a, t_list **b, int *arr)
 		reverse_rr(a, b);
 		i++;
 	}
-	if(i == arr[1] && i < arr[0])
-		while (arr[0] >= ++i)
+	if (i == arr[1] && i < arr[0])
+		while (arr[0] > i++)
 			reverse_a(a);
-	if(i == arr[0] && i < arr[1])
-		while (arr[1] >= ++i)
+	if (i == arr[0] && i < arr[1])
+		while (arr[1] > i++)
 			reverse_b(b);
 }

@@ -18,7 +18,6 @@ void	push_a(t_list **a, t_list **b)
 
 	if (!*b)
 		return ;
-
 	write(1, "pa\n", 3);
 	tmp = (*b)->index;
 	rm_front(b);
@@ -46,10 +45,9 @@ long	ft_atoi(const char *str)
 	tmp = (char *)str;
 	sol = 0;
 	min = 1;
-	if (*tmp == '+' || *tmp == '-')
+	if (*tmp == '-')
 	{
-		if (*tmp == '-')
-			min = -1;
+		min = -1;
 		tmp++;
 	}
 	if (*tmp < '0' || *tmp > '9')

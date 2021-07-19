@@ -50,11 +50,11 @@ void	a_to_b(t_list **a, t_list **b, int r);
 void	b_to_a(t_list **a, t_list **b, int r);
 void	arr_init(t_list **list, int *arr, int r);
 void	reving(t_list **a, t_list **b, int *arr);
-int		divide_case(int *arr);
-void	short_swap_a(t_list **a, int cases);
-void	short_swap_b(t_list **b, int cases);
+void    sort_five(t_list **a, t_list**b);
 void	short_swap(t_list **a, t_list **b, int flag);
 void	r_is_small(t_list **a, t_list **b, int flag, int r);
+void	only_three(t_list **a);
 long	ft_atoi(const char *str);
 int		is_sorted(t_list **header);
+int		divide_case(int *arr);
 #endif
