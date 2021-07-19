@@ -1,16 +1,16 @@
 #include "ps.h"
 
-void    bubble(int *arr)
+void    bubble(int *arr, int r)
 {
     int i;
     int j;
     int tmp;
 
     i = -1;
-    while (++i < 5)
+    while (++i < r)
     {
         j = i;
-        while (++j < 5)
+        while (++j < r)
         {
             if(arr[i] < arr[j])
             {
@@ -76,6 +76,6 @@ void    sort_five(t_list **a, t_list**b)
         arr[move] = list->index;
         list = list->next;
     }
-    bubble(arr);
+    bubble(arr, 5);
     sorting(a, b, arr[0], arr[1]);
 }

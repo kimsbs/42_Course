@@ -40,7 +40,7 @@ void	a_to_b_mini(t_list **a, t_list **b, int *arr, int r)
 		a_to_b_mini2(a, b, arr, r);
 }
 
-void	a_to_b(t_list **a, t_list **b, int r)
+void	a_to_b(t_list **a, t_list **b, int r, int *flag)
 {
 	int		arr[6];
 
@@ -52,8 +52,8 @@ void	a_to_b(t_list **a, t_list **b, int r)
 	arr_init(a, arr, r);
 	while (r--)
 		a_to_b_mini(a, b, arr, r);
-	reving(a, b, arr);
-	a_to_b(a, b, arr[0]);
-	b_to_a(a, b, arr[1]);
-	b_to_a(a, b, arr[2] - arr[1]);
+	reving(a, b, arr, flag);
+	a_to_b(a, b, arr[0], flag);
+	b_to_a(a, b, arr[1], flag);
+	b_to_a(a, b, arr[2] - arr[1], flag);
 }

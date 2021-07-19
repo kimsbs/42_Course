@@ -12,18 +12,50 @@
 
 #include "ps.h"
 
+int is_dup(t_list **a, int argc)
+{
+    int     data;
+    t_list  *pre;
+    t_list  *now;
+
+    if(argc == 1)
+        return (1);
+    pre = *a;
+    while (pre->next != *a)
+    {
+        data = pre->index;
+        now = pre->next;
+        while (now->next != *a)
+        {
+            if (now->index == data)
+                return (0);
+            now = now->next;
+        }
+        if (now->index == data)
+            return (0);
+        pre = pre->next;
+    }
+    if (pre->index == (*a)->index)
+        return (0);
+    return (1);
+}
+
 void	sorting(t_list **a, t_list **b, int argc)
 {
-	if (!is_sorted(a))
+	int tmp;
+
+	tmp = 0;
+	if(!is_dup(a, argc))
+		write(1, "Error\n", 6);
+	else if (!is_sorted(a))
 	{
 		if (argc == 3)
 			only_three(a);
 		else if(argc == 5)
 			sort_five(a, b);
 		else
-			a_to_b(a, b, argc);
+			a_to_b(a, b, argc, &tmp);
 	}
-	//print_list(*a, *b);
 	free_list(a, b);
 }
 

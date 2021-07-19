@@ -40,10 +40,11 @@ void	b_to_a_mini(t_list **a, t_list **b, int *arr, int r)
 		b_to_a_mini2(a, b, arr, r);
 }
 
-void	b_to_a(t_list **a, t_list **b, int r)
+void	b_to_a(t_list **a, t_list **b, int r, int *flag)
 {
 	int		arr[6];
 
+	*flag = 1;
 	if (r <= 3)
 	{
 		r_is_small(a, b, 0, r);
@@ -52,8 +53,8 @@ void	b_to_a(t_list **a, t_list **b, int r)
 	arr_init(b, arr, r);
 	while (r--)
 		b_to_a_mini(a, b, arr, r);
-	a_to_b(a, b, arr[2]-arr[0]);
-	reving(a, b, arr);
-	a_to_b(a, b, arr[0]);
-	b_to_a(a, b, arr[1]);
+	a_to_b(a, b, arr[2]-arr[0], flag);
+	reving(a, b, arr, flag);
+	a_to_b(a, b, arr[0], flag);
+	b_to_a(a, b, arr[1], flag);
 }
