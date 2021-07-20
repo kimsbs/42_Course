@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   func_atob.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 18:38:10 by seungyki          #+#    #+#             */
+/*   Updated: 2021/07/20 18:39:59 by seungyki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ps.h"
 
 void	a_to_b_mini2(t_list **a, t_list **b, int *arr, int r)
@@ -24,7 +36,8 @@ void	a_to_b_mini2(t_list **a, t_list **b, int *arr, int r)
 void	a_to_b_mini(t_list **a, t_list **b, int *arr, int r)
 {
 	if ((*a)->index >= arr[4])
-		if(arr[5])
+	{
+		if (arr[5])
 		{
 			rotate_rr(a, b);
 			arr[1]++;
@@ -36,6 +49,7 @@ void	a_to_b_mini(t_list **a, t_list **b, int *arr, int r)
 			rotate_a(a);
 			arr[0]++;
 		}
+	}
 	else
 		a_to_b_mini2(a, b, arr, r);
 }

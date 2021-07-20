@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 17:23:07 by seungyki          #+#    #+#             */
-/*   Updated: 2021/07/07 16:50:11 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/07/20 19:17:34 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	a_to_b(t_list **a, t_list **b, int r, int *flag);
 void	b_to_a(t_list **a, t_list **b, int r, int *flag);
 void	arr_init(t_list **list, int *arr, int r);
 void	reving(t_list **a, t_list **b, int *arr, int *flag);
-void    sort_five(t_list **a, t_list**b);
+void	sort_five(t_list **a, t_list**b);
 void	short_swap(t_list **a, t_list **b, int flag);
 void	r_is_small(t_list **a, t_list **b, int flag, int r);
 void	only_three(t_list **a);
-void    bubble(int *arr, int r);
+void	bubble(int *arr, int r);
 long	ft_atoi(const char *str);
 int		is_sorted(t_list **header);
 int		divide_case(int *arr);

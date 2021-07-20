@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/15 16:59:15 by seungyki          #+#    #+#             */
-/*   Updated: 2021/07/07 18:55:30 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/07/20 19:11:23 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	is_sorted(t_list **header)
 
 void	pivot_alloc(t_list *list, int *arr, int r)
 {
-	int *tmp;
-	int move;
+	int	*tmp;
+	int	move;
 
 	tmp = (int *)malloc(sizeof(int) * r);
 	move = 0;
-	while(move < r)
+	while (move < r)
 	{
 		tmp[move++] = list->index;
 		list = list->next;
@@ -50,8 +50,8 @@ void	pivot_alloc(t_list *list, int *arr, int r)
 
 void	arr_init(t_list **list, int *arr, int r)
 {
-	int tmp;
-	int move;
+	int	tmp;
+	int	move;
 
 	move = -1;
 	while (++move < 6)
@@ -67,13 +67,13 @@ void	arr_init(t_list **list, int *arr, int r)
 
 void	reving(t_list **a, t_list **b, int *arr, int *flag)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	*flag = 1;
-	if(*flag)
+	if (*flag)
 	{
 		while (arr[0] > i && arr[1] > j)
 		{

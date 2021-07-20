@@ -6,13 +6,13 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 14:32:57 by seungyki          #+#    #+#             */
-/*   Updated: 2021/07/07 15:09:10 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/07/20 18:57:46 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-void free_list(t_list **a, t_list **b)
+void	free_list(t_list **a, t_list **b)
 {
 	while (*a)
 		rm_front(a);

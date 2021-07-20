@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   func_btoa.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 18:40:47 by seungyki          #+#    #+#             */
+/*   Updated: 2021/07/20 18:43:46 by seungyki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ps.h"
 
 void	b_to_a_mini2(t_list **a, t_list **b, int *arr, int r)
@@ -24,6 +36,7 @@ void	b_to_a_mini2(t_list **a, t_list **b, int *arr, int r)
 void	b_to_a_mini(t_list **a, t_list **b, int *arr, int r)
 {
 	if ((*b)->index <= arr[3])
+	{
 		if (arr[5])
 		{
 			rotate_rr(a, b);
@@ -36,6 +49,7 @@ void	b_to_a_mini(t_list **a, t_list **b, int *arr, int r)
 			rotate_b(b);
 			arr[1]++;
 		}
+	}
 	else
 		b_to_a_mini2(a, b, arr, r);
 }
@@ -48,12 +62,12 @@ void	b_to_a(t_list **a, t_list **b, int r, int *flag)
 	if (r <= 3)
 	{
 		r_is_small(a, b, 0, r);
-		return ;	
+		return ;
 	}
 	arr_init(b, arr, r);
 	while (r--)
 		b_to_a_mini(a, b, arr, r);
-	a_to_b(a, b, arr[2]-arr[0], flag);
+	a_to_b(a, b, arr[2] - arr[0], flag);
 	reving(a, b, arr, flag);
 	a_to_b(a, b, arr[0], flag);
 	b_to_a(a, b, arr[1], flag);

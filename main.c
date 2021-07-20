@@ -6,52 +6,52 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 17:24:50 by seungyki          #+#    #+#             */
-/*   Updated: 2021/07/07 19:00:11 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/07/20 19:16:47 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ps.h"
 
-int is_dup(t_list **a, int argc)
+int	is_dup(t_list **a, int argc)
 {
-    int     data;
-    t_list  *pre;
-    t_list  *now;
+	int		data;
+	t_list	*pre;
+	t_list	*now;
 
-    if(argc == 1)
-        return (1);
-    pre = *a;
-    while (pre->next != *a)
-    {
-        data = pre->index;
-        now = pre->next;
-        while (now->next != *a)
-        {
-            if (now->index == data)
-                return (0);
-            now = now->next;
-        }
-        if (now->index == data)
-            return (0);
-        pre = pre->next;
-    }
-    if (pre->index == (*a)->index)
-        return (0);
-    return (1);
+	if (argc == 1)
+		return (1);
+	pre = *a;
+	while (pre->next != *a)
+	{
+		data = pre->index;
+		now = pre->next;
+		while (now->next != *a)
+		{
+			if (now->index == data)
+				return (0);
+			now = now->next;
+		}
+		if (now->index == data)
+			return (0);
+		pre = pre->next;
+	}
+	if (pre->index == (*a)->index)
+		return (0);
+	return (1);
 }
 
 void	sorting(t_list **a, t_list **b, int argc)
 {
-	int tmp;
+	int	tmp;
 
 	tmp = 0;
-	if(!is_dup(a, argc))
+	if (!is_dup(a, argc))
 		write(1, "Error\n", 6);
 	else if (!is_sorted(a))
 	{
 		if (argc == 3)
 			only_three(a);
-		else if(argc == 5)
+		else if (argc == 5)
 			sort_five(a, b);
 		else
 			a_to_b(a, b, argc, &tmp);

@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   func_short_swap2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/20 19:06:38 by seungyki          #+#    #+#             */
+/*   Updated: 2021/07/20 19:09:27 by seungyki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ps.h"
 
-static void	short_swap_a2(t_list **a, int cases)
+static	void	short_swap_a2(t_list **a, int cases)
 {
-    if (cases == 4)
+	if (cases == 4)
 	{
 		rotate_a(a);
 		swap_a(a);
@@ -17,7 +28,8 @@ static void	short_swap_a2(t_list **a, int cases)
 		reverse_a(a);
 	}
 }
-static void	short_swap_a(t_list **a, int cases)
+
+static	void	short_swap_a(t_list **a, int cases)
 {
 	if (cases == 1)
 	{
@@ -36,11 +48,11 @@ static void	short_swap_a(t_list **a, int cases)
 	}
 	else if (cases == 3)
 		swap_a(a);
-    else
-        short_swap_a2(a, cases);
+	else
+		short_swap_a2(a, cases);
 }
 
-static void	short_swap_b2(t_list **a, t_list **b, int cases)
+static	void	short_swap_b2(t_list **a, t_list **b, int cases)
 {
 	if (cases == 5)
 	{
@@ -67,7 +79,7 @@ static void	short_swap_b2(t_list **a, t_list **b, int cases)
 	}
 }
 
-static void	short_swap_b(t_list **a, t_list **b, int cases)
+static	void	short_swap_b(t_list **a, t_list **b, int cases)
 {
 	if (cases == 2)
 	{
@@ -91,8 +103,8 @@ static void	short_swap_b(t_list **a, t_list **b, int cases)
 		push_a(a, b);
 		push_a(a, b);
 	}
-    else
-        short_swap_b2(a, b, cases);
+	else
+		short_swap_b2(a, b, cases);
 }
 
 void	short_swap(t_list **a, t_list **b, int flag)
