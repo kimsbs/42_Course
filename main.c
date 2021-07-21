@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 17:24:50 by seungyki          #+#    #+#             */
-/*   Updated: 2021/07/20 19:16:47 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/07/21 14:44:41 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ int	insert_to_list(char **argv, t_list **a)
 
 void	free_split(char **tmp)
 {
-	int move;
+	int	move;
 
 	move = -1;
-	while(tmp[++move])
+	while (tmp[++move])
 		free(tmp[move]);
 	free(tmp);
 }
@@ -103,12 +103,14 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		tmp = ft_split(argv[1], ' ');
+		if (!tmp)
+			exit(-1);
 		argc = insert_to_list(tmp, &a);
 		flag = 1;
 	}
 	else
 		argc = insert_to_list(&argv[1], &a);
 	sorting(&a, &b, argc);
-	if(flag)
+	if (flag)
 		free_split(tmp);
 }

@@ -6,13 +6,13 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 11:18:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/12 10:04:14 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/07/21 14:43:06 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-static	int		size_x(char const *s, char c)
+static	int	size_x(char const *s, char c)
 {
 	int		len;
 	int		x_cnt;
@@ -77,7 +77,7 @@ static	void	make_split(char **sol, char *s, char c, int x)
 	}
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		x;
 	char	**sol;
@@ -87,7 +87,8 @@ char			**ft_split(char const *s, char c)
 		return (0);
 	tmp = (char *)s;
 	x = size_x(s, c);
-	if (!(sol = (char **)malloc(sizeof(char *) * (x + 1))))
+	sol = (char **)malloc(sizeof(char *) * (x + 1));
+	if (!sol)
 		return (0);
 	make_split(sol, tmp, c, 0);
 	sol[x] = NULL;
