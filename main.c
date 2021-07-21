@@ -59,19 +59,13 @@ void	sorting(t_list **a, t_list **b, int argc)
 	free_list(a, b);
 }
 
-int	main(int argc, char **argv)
-{
-	t_list	*a;
-	t_list	*b;
+int	insert_to_list(char **argv, t_list **a)
+{	
 	int		move;
 	long	data;
 
-	if (argc <= 1)
-		return (0);
-	a = NULL;
-	b = NULL;
-	move = 0;
-	while (++move < argc)
+	move = -1;
+	while (argv[++move])
 	{
 		data = ft_atoi(argv[move]);
 		if (data > 2147483647 || data < -2147483648)
@@ -79,7 +73,42 @@ int	main(int argc, char **argv)
 			write(1, "Error\n", 7);
 			exit(-1);
 		}
-		add_back(&a, data);
+		add_back(a, data);
 	}
-	sorting(&a, &b, argc - 1);
+	return (move);
+}
+
+void	free_split(char **tmp)
+{
+	int move;
+
+	move = -1;
+	while(tmp[++move])
+		free(tmp[move]);
+	free(tmp);
+}
+
+int	main(int argc, char **argv)
+{
+	t_list	*a;
+	t_list	*b;
+	char	**tmp;
+	int		flag;
+
+	flag = 0;
+	if (argc <= 1)
+		return (0);
+	a = NULL;
+	b = NULL;
+	if (argc == 2)
+	{
+		tmp = ft_split(argv[1], ' ');
+		argc = insert_to_list(tmp, &a);
+		flag = 1;
+	}
+	else
+		argc = insert_to_list(&argv[1], &a);
+	sorting(&a, &b, argc);
+	if(flag)
+		free_split(tmp);
 }

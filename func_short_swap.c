@@ -47,7 +47,7 @@ int	divide_case(int *arr)
 			cases = 3;
 	}
 	else
-		caese = divide_case2(arr);
+		cases = divide_case2(arr);
 	return (cases);
 }
 

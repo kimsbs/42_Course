@@ -56,6 +56,7 @@ void	r_is_small(t_list **a, t_list **b, int flag, int r);
 void	only_three(t_list **a);
 void	bubble(int *arr, int r);
 long	ft_atoi(const char *str);
+char	**ft_split(char const *s, char c);
 int		is_sorted(t_list **header);
 int		divide_case(int *arr);
 #endif
