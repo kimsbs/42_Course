@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 11:18:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/07/21 14:43:06 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/07/27 19:56:25 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ static	void	do_copy(char **s1, char *s2, int len, int x)
 	s1[x][i] = '\0';
 }
 
+static	char	*normm(int len)
+{
+	char	*sol;
+
+	sol = (char *)malloc(sizeof(char) * (len + 1));
+	if (!sol)
+		exit(-1);
+	return (sol);
+}
+
 static	void	make_split(char **sol, char *s, char c, int x)
 {
 	int		len;
@@ -60,7 +70,7 @@ static	void	make_split(char **sol, char *s, char c, int x)
 	{
 		if (s[i] == c && len > 0)
 		{
-			sol[x] = (char *)malloc(sizeof(char) * (len + 1));
+			sol[x] = normm(len);
 			do_copy(sol, &s[i - len], len, x);
 			len = 0;
 			y = 0;
@@ -72,7 +82,7 @@ static	void	make_split(char **sol, char *s, char c, int x)
 	}
 	if (len > 0)
 	{
-		sol[x] = (char *)malloc(sizeof(char) * (len + 1));
+		sol[x] = normm(len);
 		do_copy(sol, &s[i - len], len, x);
 	}
 }
@@ -89,7 +99,7 @@ char	**ft_split(char const *s, char c)
 	x = size_x(s, c);
 	sol = (char **)malloc(sizeof(char *) * (x + 1));
 	if (!sol)
-		return (0);
+		exit (-1);
 	make_split(sol, tmp, c, 0);
 	sol[x] = NULL;
 	return (sol);
