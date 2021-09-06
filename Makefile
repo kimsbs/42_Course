@@ -1,24 +1,22 @@
 SERVER   = server
 CLIENT   = client
-CC	     = gcc
-FLAGS    = -Wall -Werror -Wextra -c
+CC	     = gcc -Wall -Werror -Wextra
 NAME     = minitalk
 SERVER_OBJ = server.o
 CLIENT_OBJ = client.o
 
+%.o: %.c
+	$(CC) -c $< -o $@
 
 all : $(NAME)
 
 $(NAME)	: $(SERVER) $(CLIENT)
 
 $(SERVER) : $(SERVER_OBJ) 
-	$(CC) $< $(LIB) -o $@
+	$(CC) -o $@ $<
 	
 $(CLIENT) : $(CLIENT_OBJ)
-	$(CC) $< $(LIB) -o $@
-	
-%.o : %.c
-	$(CC) $(FLAGS) $< -o $@ 
+	$(CC) -o $@ $<
 
 clean :
 	rm -f $(SERVER_OBJ)
