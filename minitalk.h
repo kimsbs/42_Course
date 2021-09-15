@@ -5,6 +5,6 @@
 # include <signal.h>
 # include <stdlib.h>
 
-int     g_flag;
+int	g_flag;
 
 #endif
