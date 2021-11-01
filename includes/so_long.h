@@ -19,6 +19,8 @@ typedef struct s_game{
 }t_game;
 
 void    exit_handler(char *s1);
+void	ft_putchar(char c);
+void	ft_putstr(char *s);
 int	    ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
 int 	ft_strlcpy(char *dst, const char *src, int dstsize);
