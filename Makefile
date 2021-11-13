@@ -1,6 +1,6 @@
 NAME = so_long
 SRCS = srcs/ft_split.c srcs/ft_strjoin.c srcs/func_error.c\
-	   srcs/func_map.c srcs/main.c
+	   srcs/func_map.c srcs/main.c srcs/func_mlx.c
 MLX = mlx
 MLX_lib = -Lmlx -lmlx -framework OpenGL -framework AppKit
 INCLUDES = -I includes -I $(MLX)
