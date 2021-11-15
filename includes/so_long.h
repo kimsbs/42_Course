@@ -24,29 +24,26 @@ typedef struct s_links
   t_img tile;
   t_img coin;
   t_img exit;
-  t_img pu0;
-  t_img pu1;
-  t_img pu2;
-  t_img pd0;
-  t_img pd1;
-  t_img pd2;
-  t_img pl0;
-  t_img pl1;
-  t_img pr0;
-  t_img pr1;
+  t_img pu[3];
+  t_img pd[3];
+  t_img pl[2];
+  t_img pr[2];
 } t_links;
 
 typedef struct s_game
 {
-    void   *mlx;
+    void    *mlx;
     void    *win;
-    int     p[2];
+    int     player_x;
+    int     player_y;
     char    **map;
     int     player_cnt;
     int     coin_cnt;
     int     exit_cnt;
     int     height;
     int     width;
+    int     move;
+    t_img   player;
     t_img   dummy;
     t_links link;
 }t_game;
@@ -61,14 +58,19 @@ typedef struct s_data
 } t_data;
 
 void    exit_handler(char *s1);
-void	ft_putchar(char c);
-void	ft_putstr(char *s);
+void	  ft_putchar(char c);
+void	  ft_putstr(char *s);
 int	    ft_strlen(const char *s);
-char	*ft_strdup(const char *s1);
-int 	ft_strlcpy(char *dst, const char *src, int dstsize);
+char	  *ft_strdup(const char *s1);
+int 	  ft_strlcpy(char *dst, const char *src, int dstsize);
 char   	*ft_strjoin(char const *s1, char const *s2);
 char    **ft_split(char const *s, char c);
 void    read_map(int fd, t_game *game);
 void    using_mlx(t_game *map);
-
+void    print_map(t_game *game, int flag);
+void    move_to_west(t_game *game);
+void    move_to_east(t_game *game);
+void    move_to_south(t_game *game);
+void    move_to_north(t_game *game);
+void    img_init(t_game *game);
 #endif

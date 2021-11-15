@@ -22,8 +22,8 @@ static void cheking_entity(t_game *game, int x, int y)
         exit_handler("Map is not Blocked");
     else if (game->map[y][x] == 'p')
     {
-        game->p[0] = x;
-        game->p[1] = y;
+        game->player_x = x;
+        game->player_y = y;
         game->player_cnt++;
     }
     else if (game->map[y][x] == 'c')
@@ -36,9 +36,9 @@ static void cheking_entity(t_game *game, int x, int y)
 
 static int checking_val(t_game *game)
 {
-    if (game->p[0] <= 0 || game->p[0] >= game->width)
+    if (game->player_x <= 0 || game->player_x >= game->width)
         return (0);
-    else if (game->p[1] <= 0 || game->p[1] >= game->height)
+    else if (game->player_y <= 0 || game->player_y >= game->height)
         return (0);
     else if (game->player_cnt != 1)
         return (0);
