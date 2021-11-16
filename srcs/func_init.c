@@ -28,5 +28,11 @@ void	img_init(t_game *game)
 	game->link.pr[0].ptr = get_xpm_ptr(game, "./img/pr0.xpm");
 	game->link.pr[1].ptr = get_xpm_ptr(game, "./img/pr1.xpm");
 	game->player = game->link.pd[1];
-	game->move = 0;
+	game->animation = 0;
+	game->move_cnt = 0;
+}
+
+void	resource_init(t_game *game)
+{
+	img_init(game);
 }

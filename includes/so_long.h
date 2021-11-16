@@ -42,20 +42,18 @@ typedef struct s_game
 	int		exit_cnt;
 	int		height;
 	int		width;
-	int		move;
+	int		animation;
+	int		move_cnt;
 	t_img	player;
 	t_img	dummy;
 	t_links	link;
 }	t_game;
 
+int		ft_strlen(const char *s);
+int		ft_strlcpy(char *dst, const char *src, int dstsize);
 void	exit_handler(char *s1);
 void	ft_putchar(char c);
 void	ft_putstr(char *s);
-int		ft_strlen(const char *s);
-char	*ft_strdup(const char *s1);
-int		ft_strlcpy(char *dst, const char *src, int dstsize);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	**ft_split(char const *s, char c);
 void	read_map(int fd, t_game *game);
 void	using_mlx(t_game *map);
 void	print_map(t_game *game, int flag);
@@ -63,6 +61,11 @@ void	move_to_west(t_game *game);
 void	move_to_east(t_game *game);
 void	move_to_south(t_game *game);
 void	move_to_north(t_game *game);
-void	img_init(t_game *game);
+void	resource_init(t_game *game);
+void	exit_game(t_game *game);
+char	*ft_strdup(const char *s1);
+char	*ft_itoa(int num);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	**ft_split(char const *s, char c);
 
 #endif

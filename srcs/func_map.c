@@ -20,15 +20,15 @@ static void	cheking_entity(t_game *game, int x, int y)
 		exit_handler("Map is not Blocked");
 	else if ((x == 0 || x == game->width - 1) && game->map[y][x] != '1')
 		exit_handler("Map is not Blocked");
-	else if (game->map[y][x] == 'p')
+	else if (game->map[y][x] == 'P')
 	{
 		game->player_x = x;
 		game->player_y = y;
 		game->player_cnt++;
 	}
-	else if (game->map[y][x] == 'c')
+	else if (game->map[y][x] == 'C')
 		game->coin_cnt++;
-	else if (game->map[y][x] == 'e')
+	else if (game->map[y][x] == 'E')
 		game->exit_cnt++;
 	else if (game->map[y][x] != '1' && game->map[y][x] != '0')
 		exit_handler("Map have more than 5 characters\n");
@@ -42,7 +42,7 @@ static int	checking_val(t_game *game)
 		return (0);
 	else if (game->player_cnt != 1)
 		return (0);
-	else if (game->coin_cnt < 0)
+	else if (game->coin_cnt <= 0)
 		return (0);
 	else if (game->exit_cnt != 1)
 		return (0);
