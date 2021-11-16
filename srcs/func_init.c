@@ -32,7 +32,17 @@ void	img_init(t_game *game)
 	game->move_cnt = 0;
 }
 
+void	enemy_init(t_game *game)
+{
+	game->link.enemy[0].ptr = get_xpm_ptr(game, "./img/e_d.xpm");
+	game->link.enemy[1].ptr = get_xpm_ptr(game, "./img/e_l.xpm");
+	game->link.enemy[2].ptr = get_xpm_ptr(game, "./img/e_u.xpm");
+	game->link.enemy[3].ptr = get_xpm_ptr(game, "./img/e_r.xpm");
+	game->enemy.ptr = game->link.enemy[0].ptr;
+}
+
 void	resource_init(t_game *game)
 {
 	img_init(game);
+	enemy_init(game);
 }

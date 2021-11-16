@@ -3,6 +3,8 @@
 static void	get_size(t_game *game)
 {
 	game->player_cnt = 0;
+	game->enemy_cnt = 0;
+	game->enemy_movement = 0;
 	game->coin_cnt = 0;
 	game->exit_cnt = 0;
 	game->height = -1;
@@ -30,6 +32,12 @@ static void	cheking_entity(t_game *game, int x, int y)
 		game->coin_cnt++;
 	else if (game->map[y][x] == 'E')
 		game->exit_cnt++;
+	else if (game->map[y][x] == 'e')
+	{
+		game->enemy_x = x;
+		game->enemy_y = y;
+		game->enemy_cnt++;
+	}
 	else if (game->map[y][x] != '1' && game->map[y][x] != '0')
 		exit_handler("Map have more than 5 characters\n");
 }

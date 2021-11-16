@@ -1,22 +1,26 @@
 #include "../includes/so_long.h"
 
-void	exit_game(t_game *game)
+int	exit_game(t_game *game)
 {
-	int move;
+	int	move;
 
 	move = -1;
-	while(++move < game->height)
+	while (++move < game->height)
 		free(game->map[move]);
 	free(game->map);
 	mlx_destroy_window(game->mlx, game->win);
 	exit(0);
+	return (0);
 }
 
 static int	drawing(t_game *game)
 {
-	char *tmp;
+	char	*tmp;
 
 	print_map(game, 1);
+	if (++game->enemy_movement == 400)
+		game->enemy_movement = 0;
+	game->enemy.ptr = game->link.enemy[game->enemy_movement / 100].ptr;
 	print_map(game, 0);
 	tmp = ft_itoa(game->move_cnt);
 	mlx_string_put(game->mlx, game->win, 20, 30, 0x00FFFFFF, tmp);
@@ -37,15 +41,11 @@ int	deal_key(int key, t_game *game)
 		move_to_south(game);
 	else if (key == 2 || key == 124)
 		move_to_east(game);
-	drawing(game);
 	if (game->exit_cnt == 0)
 		exit_game(game);
-	return (0);
-}
-
-int	exit_with_mouse(t_game *game)
-{
-	exit_game(game);
+	if (game->enemy_cnt && (game->player_x == game->enemy_x
+			&& game->player_y == game->enemy_y))
+		exit_game(game);
 	return (0);
 }
 
@@ -59,8 +59,8 @@ void	using_mlx(t_game *game)
 	if (!game->win)
 		exit_handler("mlx_new_window fialed\n");
 	resource_init(game);
-	drawing(game);
 	mlx_key_hook(game->win, deal_key, game);
-	mlx_hook(game->win, 17, 0, exit_with_mouse, game);
+	mlx_hook(game->win, 17, 0, exit_game, game);
+	mlx_loop_hook(game->mlx, &drawing, game);
 	mlx_loop(game->mlx);
 }

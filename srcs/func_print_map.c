@@ -45,7 +45,12 @@ void	print_map(t_game *game, int flag)
 				put_entity2(game, x, y);
 		}
 	}
-	if(!flag)
+	if (!flag)
+	{
 		mlx_put_image_to_window(game->mlx, game->win, game->player.ptr,
-		game->player_x * TILE_SIZE, game->player_y * TILE_SIZE);
+			game->player_x * TILE_SIZE, game->player_y * TILE_SIZE);
+		if (game->enemy_cnt)
+			mlx_put_image_to_window(game->mlx, game->win, game->enemy.ptr,
+				game->enemy_x * TILE_SIZE, game->enemy_y * TILE_SIZE);
+	}
 }
