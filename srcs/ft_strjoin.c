@@ -1,8 +1,8 @@
 #include "../includes/so_long.h"
 
-int		ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	int move;
+	int	move;
 
 	move = 0;
 	while (s[move])
@@ -10,7 +10,7 @@ int		ft_strlen(const char *s)
 	return (move);
 }
 
-char		*ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1)
 {
 	int		len;
 	int		move;
@@ -30,7 +30,7 @@ char		*ft_strdup(const char *s1)
 	return (dup);
 }
 
-int		ft_strlcpy(char *dst, const char *src, int dstsize)
+int	ft_strlcpy(char *dst, const char *src, int dstsize)
 {
 	int	src_len;
 	int	i;
@@ -51,25 +51,25 @@ int		ft_strlcpy(char *dst, const char *src, int dstsize)
 	return (src_len);
 }
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		s1_len;
 	int		s2_len;
 	char	*join;
 
 	if (!s1 && !s2)
-        return (0);
+		return (0);
 	else if (!s1)
 		return (ft_strdup(s2));
 	else if (!s2)
 		return (ft_strdup(s1));
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-    join = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
+	join = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!join)
-        exit_handler("Malloc error\n");
+		exit_handler("Malloc error\n");
 	ft_strlcpy(join, s1, s1_len + 1);
-    ft_strlcpy(&join[s1_len], s2, s2_len + 1);
+	ft_strlcpy(&join[s1_len], s2, s2_len + 1);
 	free((char *)s1);
 	s1 = NULL;
 	return (join);

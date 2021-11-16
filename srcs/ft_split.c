@@ -6,16 +6,16 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 11:18:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/05/12 10:04:14 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/11/16 10:08:48 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static int size_x(char const *s, char c)
+static int	size_x(char const *s, char c)
 {
-	int len;
-	int x_cnt;
+	int	len;
+	int	x_cnt;
 
 	x_cnt = 0;
 	len = 0;
@@ -35,9 +35,9 @@ static int size_x(char const *s, char c)
 	return (x_cnt);
 }
 
-static void do_copy(char **s1, char *s2, int len, int x)
+static void	do_copy(char **s1, char *s2, int len, int x)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < len && s2[i])
@@ -48,11 +48,19 @@ static void do_copy(char **s1, char *s2, int len, int x)
 	s1[x][i] = '\0';
 }
 
-static void make_split(char **sol, char *s, char c, int x)
+static void	make_split2(char **sol, char *s, int len, int x)
 {
-	int len;
-	int i;
-	int y;
+	sol[x] = (char *)malloc(sizeof(char) * (len + 1));
+	if (!sol[x])
+		exit_handler("Malloc error\n");
+	do_copy(sol, s, len, x);
+}
+
+static void	make_split(char **sol, char *s, char c, int x)
+{
+	int	len;
+	int	i;
+	int	y;
 
 	i = 0;
 	len = 0;
@@ -73,19 +81,14 @@ static void make_split(char **sol, char *s, char c, int x)
 		i++;
 	}
 	if (len > 0)
-	{
-		sol[x] = (char *)malloc(sizeof(char) * (len + 1));
-		if (!sol[x])
-			exit_handler("Malloc error\n");
-		do_copy(sol, &s[i - len], len, x);
-	}
+		make_split2(sol, &s[i - len], len, x);
 }
 
-char **ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	int x;
-	char **sol;
-	char *tmp;
+	int		x;
+	char	**sol;
+	char	*tmp;
 
 	if (!s)
 		return (0);
