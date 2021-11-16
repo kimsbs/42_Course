@@ -6,11 +6,11 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 11:18:43 by seungyki          #+#    #+#             */
-/*   Updated: 2021/11/16 17:50:35 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:55:11 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 static int	size_x(char const *s, char c)
 {

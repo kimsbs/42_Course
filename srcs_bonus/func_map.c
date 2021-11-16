@@ -6,11 +6,11 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:51:02 by seungyki          #+#    #+#             */
-/*   Updated: 2021/11/16 17:51:07 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:55:47 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 static void	get_size(t_game *game)
 {

@@ -6,11 +6,11 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:51:42 by seungyki          #+#    #+#             */
-/*   Updated: 2021/11/16 17:51:43 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:56:10 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 static void	put_entity(t_game *game, int x, int y)
 {

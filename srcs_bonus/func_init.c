@@ -6,11 +6,11 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:50:55 by seungyki          #+#    #+#             */
-/*   Updated: 2021/11/16 17:50:57 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:55:40 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void	*get_xpm_ptr(t_game *game, char *str)
 {

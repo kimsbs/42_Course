@@ -6,11 +6,11 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:50:21 by seungyki          #+#    #+#             */
-/*   Updated: 2021/11/16 17:50:25 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:54:43 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 static void	put_num(char *s, int num, int len)
 {

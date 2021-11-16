@@ -6,11 +6,11 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:51:48 by seungyki          #+#    #+#             */
-/*   Updated: 2021/11/16 17:51:50 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/11/16 17:56:17 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
 void	map_init(char *map_name, t_game *game)
 {

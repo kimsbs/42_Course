@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   func_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 17:51:48 by seungyki          #+#    #+#             */
-/*   Updated: 2021/11/16 17:51:50 by seungyki         ###   ########.fr       */
+/*   Created: 2021/11/16 17:50:49 by seungyki          #+#    #+#             */
+/*   Updated: 2021/11/16 17:55:31 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
 
-void	map_init(char *map_name, t_game *game)
+void	exit_handler(char *s1)
 {
-	int	fd;
-
-	fd = open(map_name, O_RDONLY, 0600);
-	if (fd <= 0)
-		exit_handler("File open fail\n");
-	read_map(fd, game);
+	ft_putstr(s1);
+	exit(-1);
 }
 
-int	main(int argc, char **argv)
+void	ft_putchar(char c)
 {
-	t_game	game;
+	write(1, &c, 1);
+}
 
-	if (argc != 2)
-		exit_handler("Usage: ./so_long [MAP_FILE.ber]\n");
-	map_init(argv[1], &game);
-	using_mlx(&game);
-	return (0);
+void	ft_putstr(char *s)
+{
+	int	len;
+	int	move;
+
+	move = -1;
+	len = ft_strlen(s);
+	while (++move < len)
+	{
+		ft_putchar(s[move]);
+	}
 }
