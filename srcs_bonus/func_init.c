@@ -12,44 +12,40 @@
 
 #include "../includes/so_long_bonus.h"
 
-void	*get_xpm_ptr(t_game *game, char *str)
+void	get_xpm_ptr(t_game *game, t_img *img, char *str)
 {
-	void	*img;
-
-	img = mlx_xpm_file_to_image(game->mlx, str,
-			&(game->dummy.w), &(game->dummy.h));
-	if (!img)
+	img->ptr = NULL;
+	img->ptr = mlx_xpm_file_to_image(game->mlx, str,
+			&(img->w), &(img->h));
+	if (!img->ptr)
 		exit_handler("xpm error\n");
-	return (img);
 }
 
 void	img_init(t_game *game)
 {
-	game->link.coin.ptr = get_xpm_ptr(game, "./img/coin.xpm");
-	game->link.exit.ptr = get_xpm_ptr(game, "./img/exit.xpm");
-	game->link.tile.ptr = get_xpm_ptr(game, "./img/tile.xpm");
-	game->link.tree.ptr = get_xpm_ptr(game, "./img/tree.xpm");
-	game->link.pd[0].ptr = get_xpm_ptr(game, "./img/pd0.xpm");
-	game->link.pd[1].ptr = get_xpm_ptr(game, "./img/pd1.xpm");
-	game->link.pd[2].ptr = get_xpm_ptr(game, "./img/pd2.xpm");
-	game->link.pu[0].ptr = get_xpm_ptr(game, "./img/pu0.xpm");
-	game->link.pu[1].ptr = get_xpm_ptr(game, "./img/pu1.xpm");
-	game->link.pu[2].ptr = get_xpm_ptr(game, "./img/pu2.xpm");
-	game->link.pl[0].ptr = get_xpm_ptr(game, "./img/pl0.xpm");
-	game->link.pl[1].ptr = get_xpm_ptr(game, "./img/pl1.xpm");
-	game->link.pr[0].ptr = get_xpm_ptr(game, "./img/pr0.xpm");
-	game->link.pr[1].ptr = get_xpm_ptr(game, "./img/pr1.xpm");
+	get_xpm_ptr(game, &(game->link.coin), "./img/coin.xpm");
+	get_xpm_ptr(game, &(game->link.exit), "./img/exit.xpm");
+	get_xpm_ptr(game, &(game->link.tile), "./img/tile.xpm");
+	get_xpm_ptr(game, &(game->link.tree), "./img/tree.xpm");
+	get_xpm_ptr(game, &(game->link.pd[0]), "./img/pd0.xpm");
+	get_xpm_ptr(game, &(game->link.pd[1]), "./img/pd1.xpm");
+	get_xpm_ptr(game, &(game->link.pd[2]), "./img/pd2.xpm");
+	get_xpm_ptr(game, &(game->link.pu[0]), "./img/pu0.xpm");
+	get_xpm_ptr(game, &(game->link.pu[1]), "./img/pu1.xpm");
+	get_xpm_ptr(game, &(game->link.pu[2]), "./img/pu2.xpm");
+	get_xpm_ptr(game, &(game->link.pl[0]), "./img/pl0.xpm");
+	get_xpm_ptr(game, &(game->link.pl[1]), "./img/pl1.xpm");
+	get_xpm_ptr(game, &(game->link.pr[0]), "./img/pr0.xpm");
+	get_xpm_ptr(game, &(game->link.pr[1]), "./img/pr1.xpm");
 	game->player = game->link.pd[1];
-	game->animation = 0;
-	game->move_cnt = 0;
 }
 
 void	enemy_init(t_game *game)
 {
-	game->link.enemy[0].ptr = get_xpm_ptr(game, "./img/e_d.xpm");
-	game->link.enemy[1].ptr = get_xpm_ptr(game, "./img/e_l.xpm");
-	game->link.enemy[2].ptr = get_xpm_ptr(game, "./img/e_u.xpm");
-	game->link.enemy[3].ptr = get_xpm_ptr(game, "./img/e_r.xpm");
+	get_xpm_ptr(game, &(game->link.enemy[0]), "./img/e_d.xpm");
+	get_xpm_ptr(game, &(game->link.enemy[1]), "./img/e_l.xpm");
+	get_xpm_ptr(game, &(game->link.enemy[2]), "./img/e_u.xpm");
+	get_xpm_ptr(game, &(game->link.enemy[3]), "./img/e_r.xpm");
 	game->enemy.ptr = game->link.enemy[0].ptr;
 }
 

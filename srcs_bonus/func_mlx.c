@@ -29,11 +29,10 @@ static int	drawing(t_game *game)
 {
 	char	*tmp;
 
-	print_map(game, 1);
 	if (++game->enemy_movement == 400)
 		game->enemy_movement = 0;
 	game->enemy.ptr = game->link.enemy[game->enemy_movement / 100].ptr;
-	print_map(game, 0);
+	print_map(game);
 	tmp = ft_itoa(game->move_cnt);
 	mlx_string_put(game->mlx, game->win, 20, 30, 0x00FFFFFF, tmp);
 	free(tmp);
@@ -69,7 +68,7 @@ void	using_mlx(t_game *game)
 	game->win = mlx_new_window(game->mlx, game->width * TILE_SIZE,
 			game->height * TILE_SIZE, "So_long");
 	if (!game->win)
-		exit_handler("mlx_new_window fialed\n");
+		exit_handler("mlx_new_window failed\n");
 	resource_init(game);
 	mlx_key_hook(game->win, deal_key, game);
 	mlx_hook(game->win, 17, 0, exit_game, game);

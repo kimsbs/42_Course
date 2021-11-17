@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:51:42 by seungyki          #+#    #+#             */
-/*   Updated: 2021/11/16 17:56:10 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/11/17 10:36:47 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	put_entity2(t_game *game, int x, int y)
 	}
 }
 
-void	print_map(t_game *game, int flag)
+void	print_map(t_game *game)
 {
 	int	x;
 	int	y;
@@ -51,18 +51,13 @@ void	print_map(t_game *game, int flag)
 		x = -1;
 		while (++x < game->width)
 		{
-			if (flag)
-				put_entity(game, x, y);
-			else
-				put_entity2(game, x, y);
+			put_entity(game, x, y);
+			put_entity2(game, x, y);
 		}
 	}
-	if (!flag)
-	{
-		mlx_put_image_to_window(game->mlx, game->win, game->player.ptr,
-			game->player_x * TILE_SIZE, game->player_y * TILE_SIZE);
-		if (game->enemy_cnt)
-			mlx_put_image_to_window(game->mlx, game->win, game->enemy.ptr,
-				game->enemy_x * TILE_SIZE, game->enemy_y * TILE_SIZE);
-	}
+	mlx_put_image_to_window(game->mlx, game->win, game->player.ptr,
+		game->player_x * TILE_SIZE, game->player_y * TILE_SIZE);
+	if (game->enemy_cnt)
+		mlx_put_image_to_window(game->mlx, game->win, game->enemy.ptr,
+			game->enemy_x * TILE_SIZE, game->enemy_y * TILE_SIZE);
 }

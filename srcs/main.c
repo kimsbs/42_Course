@@ -18,8 +18,9 @@ void	map_init(char *map_name, t_game *game)
 
 	fd = open(map_name, O_RDONLY, 0600);
 	if (fd <= 0)
-		exit_handler("File open fail\n");
+		exit_handler("File open failed\n");
 	read_map(fd, game);
+	close(fd);
 }
 
 int	main(int argc, char **argv)

@@ -62,7 +62,7 @@ void	ft_putchar(char c);
 void	ft_putstr(char *s);
 void	read_map(int fd, t_game *game);
 void	using_mlx(t_game *map);
-void	print_map(t_game *game, int flag);
+void	print_map(t_game *game);
 void	move_to_west(t_game *game);
 void	move_to_east(t_game *game);
 void	move_to_south(t_game *game);

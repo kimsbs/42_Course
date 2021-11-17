@@ -19,6 +19,8 @@ static void	get_size(t_game *game)
 	game->enemy_movement = 0;
 	game->coin_cnt = 0;
 	game->exit_cnt = 0;
+	game->move_cnt = 0;
+	game->animation = 0;
 	game->height = -1;
 	game->width = ft_strlen(game->map[0]);
 	while (game->map[++game->height])
