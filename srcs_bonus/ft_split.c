@@ -52,7 +52,7 @@ static void	make_split2(char **sol, char *s, int len, int x)
 {
 	sol[x] = (char *)malloc(sizeof(char) * (len + 1));
 	if (!sol[x])
-		exit_handler("Malloc error\n");
+		exit_handler("Malloc error");
 	do_copy(sol, s, len, x);
 }
 
@@ -70,7 +70,7 @@ static void	make_split(char **sol, char *s, char c, int x)
 		{
 			sol[x] = (char *)malloc(sizeof(char) * (len + 1));
 			if (!sol[x])
-				exit_handler("Malloc error\n");
+				exit_handler("Malloc error");
 			do_copy(sol, &s[i - len], len, x);
 			len = 0;
 			y = 0;
@@ -96,7 +96,7 @@ char	**ft_split(char const *s, char c)
 	x = size_x(s, c);
 	sol = (char **)malloc(sizeof(char *) * (x + 1));
 	if (!sol)
-		exit_handler("Malloc error\n");
+		exit_handler("Malloc error");
 	make_split(sol, tmp, c, 0);
 	sol[x] = NULL;
 	return (sol);

@@ -31,7 +31,7 @@ char	*ft_strdup(const char *s1)
 	len = ft_strlen(s1);
 	dup = (char *)malloc(sizeof(char) * (len + 1));
 	if (!dup)
-		exit_handler("Malloc error\n");
+		exit_handler("Malloc error");
 	move = 0;
 	while (s1[move])
 	{
@@ -79,7 +79,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s2_len = ft_strlen(s2);
 	join = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!join)
-		exit_handler("Malloc error\n");
+		exit_handler("Malloc error");
 	ft_strlcpy(join, s1, s1_len + 1);
 	ft_strlcpy(&join[s1_len], s2, s2_len + 1);
 	free((char *)s1);

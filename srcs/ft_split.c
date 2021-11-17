@@ -96,7 +96,7 @@ char	**ft_split(char const *s, char c)
 	x = size_x(s, c);
 	sol = (char **)malloc(sizeof(char *) * (x + 1));
 	if (!sol)
-		exit_handler("Malloc error\n");
+		exit_handler("Malloc error");
 	make_split(sol, tmp, c, 0);
 	sol[x] = NULL;
 	return (sol);

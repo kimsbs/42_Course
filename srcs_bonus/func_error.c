@@ -14,7 +14,7 @@
 
 void	exit_handler(char *s1)
 {
-	ft_putstr(s1);
+	perror(s1);
 	exit(-1);
 }
 

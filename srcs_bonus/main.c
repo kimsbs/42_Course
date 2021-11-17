@@ -18,7 +18,7 @@ void	map_init(char *map_name, t_game *game)
 
 	fd = open(map_name, O_RDONLY, 0600);
 	if (fd <= 0)
-		exit_handler("File open failed\n");
+		exit_handler("File open failed");
 	read_map(fd, game);
 }
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	if (argc != 2)
-		exit_handler("Usage: ./so_long [MAP_FILE.ber]\n");
+		exit_handler("Usage: ./so_long [MAP_FILE.ber]");
 	map_init(argv[1], &game);
 	using_mlx(&game);
 	return (0);

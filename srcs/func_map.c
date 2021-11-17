@@ -26,7 +26,7 @@ static void	get_size(t_game *game)
 	while (game->map[++game->height])
 	{
 		if (game->width != ft_strlen(game->map[game->height]))
-			exit_handler("Map is not rectangular\n");
+			exit_handler("Map is not rectangular");
 	}
 }
 
@@ -53,7 +53,7 @@ static void	cheking_entity(t_game *game, int x, int y)
 		game->enemy_cnt++;
 	}
 	else if (game->map[y][x] != '1' && game->map[y][x] != '0')
-		exit_handler("Map have more than 5 characters\n");
+		exit_handler("Map have more than 5 characters");
 }
 
 static int	checking_val(t_game *game)
@@ -87,7 +87,7 @@ static void	checking_map(t_game *game)
 		}
 	}
 	if (!checking_val(game))
-		exit_handler("Map char error\n");
+		exit_handler("Map char error");
 }
 
 void	read_map(int fd, t_game *game)
@@ -105,7 +105,7 @@ void	read_map(int fd, t_game *game)
 		len = read(fd, &str, 256);
 	}
 	if (!tmp)
-		exit_handler("Map doesn't exist\n");
+		exit_handler("Map doesn't exist");
 	game->map = ft_split(tmp, '\n');
 	free(tmp);
 	get_size(game);

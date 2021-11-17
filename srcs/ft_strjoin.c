@@ -31,7 +31,7 @@ char	*ft_strdup(const char *s1)
 	len = ft_strlen(s1);
 	dup = (char *)malloc(sizeof(char) * (len + 1));
 	if (!dup)
-		exit_handler("Malloc error\n");
+		exit_handler("Malloc error");
 	move = 0;
 	while (s1[move])
 	{

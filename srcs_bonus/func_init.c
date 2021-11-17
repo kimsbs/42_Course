@@ -18,7 +18,7 @@ void	get_xpm_ptr(t_game *game, t_img *img, char *str)
 	img->ptr = mlx_xpm_file_to_image(game->mlx, str,
 			&(img->w), &(img->h));
 	if (!img->ptr)
-		exit_handler("xpm error\n");
+		exit_handler("xpm error");
 }
 
 void	img_init(t_game *game)

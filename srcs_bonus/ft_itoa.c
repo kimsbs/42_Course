@@ -44,7 +44,7 @@ char	*ft_itoa(int num)
 	len = get_size(num);
 	sol = (char *)malloc((len + 1) * sizeof(char));
 	if (!sol)
-		exit_handler("itoa_error");
+		exit_handler("Malloc error");
 	sol[len] = '\0';
 	put_num(sol, num, len);
 	return (sol);

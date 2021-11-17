@@ -64,11 +64,11 @@ void	using_mlx(t_game *game)
 {
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		exit_handler("mlx_init failed\n");
+		exit_handler("mlx_init failed");
 	game->win = mlx_new_window(game->mlx, game->width * TILE_SIZE,
 			game->height * TILE_SIZE, "So_long");
 	if (!game->win)
-		exit_handler("mlx_new_window failed\n");
+		exit_handler("mlx_new_window failed");
 	resource_init(game);
 	mlx_key_hook(game->win, deal_key, game);
 	mlx_hook(game->win, 17, 0, exit_game, game);

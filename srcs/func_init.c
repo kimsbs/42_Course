@@ -6,7 +6,7 @@
 /*   By: seungyki <seungyki@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:50:55 by seungyki          #+#    #+#             */
-/*   Updated: 2021/11/16 17:50:57 by seungyki         ###   ########.fr       */
+/*   Updated: 2021/11/17 15:16:00 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	get_xpm_ptr(t_game *game, t_img *img, char *str)
 	img->ptr = mlx_xpm_file_to_image(game->mlx, str,
 			&(img->w), &(img->h));
 	if (!img->ptr)
-		exit_handler("xpm error\n");
+		exit_handler("xpm error");
 }
 
 void	img_init(t_game *game)
