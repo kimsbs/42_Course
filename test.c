@@ -18,12 +18,12 @@ typedef struct data{
     philosophers    p[5];
 }t_data;
 
-void* get_fork(void *data){
+void* get_fork(t_data *data){
         pthread_t   tid;
         int         index;
         tid = pthread_self();
  
-        index = data.index;
+        index = data->p;
         printf("\ttid:%x\n",tid);
         pthread_mutex_lock(&mutex);
         pthread_mutex_unlock(&mutex);
@@ -42,16 +42,17 @@ void    init_data(t_data *data)
 } 
 
 int main(){
-        t_data  data;  
+        t_data  *data;  
         int     i;
 
-        init_data(&data);
+        data = (t_data *)malloc(sizeof(t_data));
+        init_data(data);
 
         pthread_mutex_init(&mutex, NULL);
 
         for(i = 0 ; i < 5 ; i++)
-            pthread_create(&data.p[i], NULL,get_fork, &data);
+            pthread_create(&(data->p[i]), NULL,get_fork, data);
         
         for(i = 0 ; i < 5 ; i++)
-            pthread_join(&data.p[i], NULL);
+            pthread_join(&(data->p[i]), NULL);
 }
