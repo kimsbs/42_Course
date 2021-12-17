@@ -3,7 +3,12 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
-FILE = main ft_func error
+FILE = main\
+	ft_func\
+	error\
+	init_data\
+	get_fork\
+	philo_function
 
 INCS = ./includes
 

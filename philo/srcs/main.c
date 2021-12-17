@@ -1,39 +1,48 @@
 #include "philo.h"
 
-void    val_init(char **argv, t_argc *val)
+void    free_all(t_philo *philo, t_data *data)
 {
-    val->num_of_philo = ft_atoi(argv[1]);
-    val->time_to_die = ft_atoi(argv[2]);
-    val->time_to_eat = ft_atoi(argv[3]);
-    val->time_to_sleep = ft_atoi(argv[4]);
-    val->number_of_must_eat = ft_atoi(argv[5]);
+    int max;
+
+    max = philo->data->info->num_of_philo;
+    for (int i = 0; i < max; i++)
+        pthread_detach(philo[i].thread);
+    for (int i = 0; i < max; i++)
+        pthread_mutex_destroy(&data->mutex[i]);
+    pthread_mutex_destroy(&data->count);
+    pthread_mutex_destroy(&data->print);
+    free(data->mutex);
+    free(data);
+    free(philo);
 }
 
-void    print_val(t_argc val)
+void    lets_doing(char **argv)
 {
-    printf("%d ", val.num_of_philo);
-    printf("%d ", val.time_to_die);
-    printf("%d ", val.time_to_eat);
-    printf("%d ", val.time_to_sleep);
-    printf("%d \n", val.number_of_must_eat);
+    t_argc  val;
+    t_philo *philo;
+    t_data  *data;
+    
+    data = (t_data *)malloc(sizeof(t_data));
+    if(!data)
+        return ;
+    philo = init_philo(argv, &val, data);
+    if(!philo)
+        return ;
+    for (int i = 0; i < val.num_of_philo; i++)
+        pthread_create(&philo[i].thread, NULL, &get_fork, &philo[i]);
+    for (int i = 0; i < val.num_of_philo; i++)
+        pthread_join(philo[i].thread, NULL);
+    printf("%d\n", data->cnt);
+    free_all(philo, data);
 }
 
 int main(int argc, char** argv)
 {
-    struct timeval start;
-    struct timeval end;
-    t_argc val;
-    double difftime;
-
-    gettimeofday(&start, NULL);
-    if(argc != 6)
+    if(!(argc == 6 || argc == 5))
     {
         argc_error();
         return (0);
     }
-    val_init(argv, &val);
-    print_val(val);
-    gettimeofday(&end, NULL);
-    difftime = (end.tv_usec - start.tv_usec);
-    printf("%.0f", difftime);
+    lets_doing(argv);
+    //system("leaks philo");
 }
