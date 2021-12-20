@@ -7,7 +7,6 @@ void put_down_all_fork(t_philo *philo)
     i = -1;
     while(++i < philo->data->info->num_of_philo)
         pthread_mutex_unlock(&philo->data->mutex[i]);
-
 }
 
 int is_end(t_philo *philo, int timeval)
@@ -15,6 +14,7 @@ int is_end(t_philo *philo, int timeval)
     if (philo->data->cnt == philo->data->info->number_of_must_eat)
     {
         put_down_all_fork(philo);
+        philo->data->dead = 1;
         return (1);
     }
     if (philo->data->dead)
