@@ -9,7 +9,7 @@ void    val_init(char **argv, t_argc *val)
     if(argv[5])
         val->number_of_must_eat = ft_atoi(argv[5]);
     else
-        val->number_of_must_eat = val->num_of_philo + 1;
+        val->number_of_must_eat = val->num_of_philo;
 }
 
 int    init_data(char **argv, t_argc *val, t_data *data)
@@ -28,6 +28,7 @@ int    init_data(char **argv, t_argc *val, t_data *data)
         pthread_mutex_init(&data->mutex[i], NULL);
     pthread_mutex_init(&data->count, NULL);
     pthread_mutex_init(&data->print, NULL);
+    pthread_mutex_init(&data->die, NULL);
     gettimeofday(&(data->start), NULL);
     data->last = data->start;
     return (1);

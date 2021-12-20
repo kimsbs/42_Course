@@ -21,6 +21,7 @@ typedef struct s_data
     pthread_mutex_t *mutex;
     pthread_mutex_t count;
     pthread_mutex_t print;
+    pthread_mutex_t die;
     struct timeval  start;
     struct timeval  last;
     struct timeval  end;
@@ -49,7 +50,7 @@ void    eating(t_philo *philo, int index);
 void    sleeping(t_philo *philo, int index);
 void    thinking(t_philo *philo, int index);
 int     u_time(t_philo *philo, int flag);
-int     is_end(t_philo *philo, int timeval, int flag);
+int     is_end(t_philo *philo, int timeval);
 int     data_free(t_data *data);
 
 #endif

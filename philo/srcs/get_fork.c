@@ -1,17 +1,31 @@
 #include "philo.h"
 
-int is_end(t_philo *philo, int timeval, int flag)
+void put_down_all_fork(t_philo *philo)
+{
+    int i;
+
+    i = -1;
+    while(++i < philo->data->info->num_of_philo)
+        pthread_mutex_unlock(&philo->data->mutex[i]);
+
+}
+
+int is_end(t_philo *philo, int timeval)
 {
     if (philo->data->cnt == philo->data->info->number_of_must_eat)
+    {
+        put_down_all_fork(philo);
         return (1);
+    }
     if (philo->data->dead)
         return (1);
-    if (timeval > philo->data->info->time_to_die && flag)
+    if (timeval > philo->data->info->time_to_die)
     {
         philo->data->dead = 1;
-        pthread_mutex_lock(&philo->data->print);
+        pthread_mutex_lock(&philo->data->die);
         printf("=====%dms %d philo is died====\n", timeval / 1000, philo->index);
-        pthread_mutex_unlock(&philo->data->print);
+        put_down_all_fork(philo);
+        pthread_mutex_unlock(&philo->data->die);
         return (1);
     }
     return (0);
@@ -20,15 +34,20 @@ int is_end(t_philo *philo, int timeval, int flag)
 void right_fork(t_philo *philo, int index)
 {
     int timeval;
+    int right_pos;
 
-    if (is_end(philo, 0, 0))
-        return;
-    pthread_mutex_lock(&philo->data->mutex[(index + 1) % philo->data->info->num_of_philo]);
-    philo->right_fork = 1;
+    right_pos = (index + 1) % philo->data->info->num_of_philo;
+    pthread_mutex_lock(&philo->data->mutex[right_pos]);
     pthread_mutex_lock(&philo->data->print);
-    timeval = u_time(philo, 1);
-    if (!is_end(philo, timeval, 0))
+    timeval = u_time(philo, 0);
+    if (!is_end(philo, timeval))
+    {
+        philo->right_fork = 1;
+        timeval = u_time(philo, 1);
         printf("%dms %d philo get right fork\n", timeval, index);
+    }
+    else
+        pthread_mutex_unlock(&philo->data->mutex[right_pos]);
     pthread_mutex_unlock(&philo->data->print);
 }
 
@@ -36,14 +55,17 @@ void left_fork(t_philo *philo, int index)
 {
     int timeval;
 
-    if (is_end(philo, 0, 0))
-        return;
+    timeval = u_time(philo, 0);
     pthread_mutex_lock(&philo->data->mutex[index]);
-    philo->left_fork = 1;
     pthread_mutex_lock(&philo->data->print);
-    timeval = u_time(philo, 1);
-    if (!is_end(philo, timeval, 0))
+    if (!is_end(philo, timeval))
+    {
+        philo->left_fork = 1;
+        timeval = u_time(philo, 1);
         printf("%dms %d philo get left fork\n", timeval, index);
+    }
+    else
+        pthread_mutex_unlock(&philo->data->mutex[index]);
     pthread_mutex_unlock(&philo->data->print);
 }
 
