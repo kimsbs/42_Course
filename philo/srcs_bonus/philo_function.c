@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "philo_bonus.h"
 
 int u_time(t_philo *philo, int flag)
 {
@@ -26,7 +26,7 @@ void thinking(t_philo *philo, int index)
         timeval = u_time(philo, 1);
         printf("%dms %d philo thinking\n", timeval, index);
     }
-    pthread_mutex_unlock(&philo->data->print);
+    sem_post(philo->data->print);
 }
 
 void sleeping(t_philo *philo, int index)
@@ -48,7 +48,7 @@ void sleeping(t_philo *philo, int index)
     if (flag) 
         thinking(philo, index);
     else
-        pthread_mutex_unlock(&philo->data->print);
+        sem_post(philo->data->print);
 }
 
 void eating(t_philo *philo, int index)
@@ -56,26 +56,25 @@ void eating(t_philo *philo, int index)
     int eat;
     int timeval;
     int flag;
-    int right_pos;
 
     flag = 0;
-    right_pos = (index + 1) % philo->data->info->num_of_philo;
-    pthread_mutex_lock(&philo->data->print);
+    sem_wait(philo->data->print);
     timeval = u_time(philo, 0);
     if (!is_end(philo, 0))
     {
         flag = 1;
         philo->data->last = philo->data->end;
         philo->data->cnt += 1;
+        sem_post(philo->data->must_eat);
         timeval = u_time(philo, 1);
         eat = philo->data->info->time_to_eat;
         usleep(eat * 1000);
         printf("%dms %d philo eating\n", timeval, index);
     }
-    pthread_mutex_unlock(&philo->data->mutex[index]);
-    pthread_mutex_unlock(&philo->data->mutex[right_pos]);
+    sem_post(philo->data->fork);
+    sem_post(philo->data->fork);
     if (flag) 
         sleeping(philo, index);
     else
-        pthread_mutex_unlock(&philo->data->print);
+        sem_post(philo->data->print);
 }

@@ -1,15 +1,11 @@
-#include "philo.h"
+#include "philo_bonus.h"
 
 void    free_all(t_philo *philo, t_data *data)
 {
-    int max;
-
-    max = philo->data->info->num_of_philo;
-    for (int i = 0; i < max; i++)
-        pthread_mutex_destroy(&data->mutex[i]);
-    pthread_mutex_destroy(&data->print);
-    pthread_mutex_destroy(&data->die);
-    free(data->mutex);
+    sem_close(data->must_eat);
+    sem_close(data->fork);
+    sem_close(data->print);
+    sem_close(data->die);
     free(data);
     free(philo);
 }
@@ -19,6 +15,7 @@ void    lets_doing(char **argv)
     t_argc  val;
     t_philo *philo;
     t_data  *data;
+    pthread_t tid; 
     
     data = (t_data *)malloc(sizeof(t_data));
     if(!data)
@@ -27,9 +24,9 @@ void    lets_doing(char **argv)
     if(!philo)
         return ;
     for (int i = 0; i < val.num_of_philo; i++)
-        pthread_create(&philo[i].thread, NULL, &get_fork, &philo[i]);
+        pthread_create(&tid, NULL, &get_fork, &philo[i]);
     for (int i = 0; i < val.num_of_philo; i++)
-        pthread_join(philo[i].thread, NULL);
+        pthread_join(tid, NULL);
     printf("%d\n", data->cnt);
     free_all(philo, data);
 }
