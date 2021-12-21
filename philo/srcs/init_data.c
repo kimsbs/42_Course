@@ -26,7 +26,6 @@ int    init_data(char **argv, t_argc *val, t_data *data)
     data->dead = 0;
     while(++i < val->num_of_philo)
         pthread_mutex_init(&data->mutex[i], NULL);
-    pthread_mutex_init(&data->count, NULL);
     pthread_mutex_init(&data->print, NULL);
     pthread_mutex_init(&data->die, NULL);
     gettimeofday(&(data->start), NULL);

@@ -17,7 +17,7 @@ int     data_free(t_data *data)
     max = data->info->num_of_philo;
     while(++i < max)
         pthread_mutex_destroy(&data->mutex[i]);
-    pthread_mutex_destroy(&data->count);
+    pthread_mutex_destroy(&data->die);
     pthread_mutex_destroy(&data->print);
     free(data->mutex);
     free(data);

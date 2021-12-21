@@ -19,7 +19,6 @@ typedef struct s_argc
 typedef struct s_data
 {
     pthread_mutex_t *mutex;
-    pthread_mutex_t count;
     pthread_mutex_t print;
     pthread_mutex_t die;
     struct timeval  start;

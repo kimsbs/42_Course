@@ -6,11 +6,9 @@ void    free_all(t_philo *philo, t_data *data)
 
     max = philo->data->info->num_of_philo;
     for (int i = 0; i < max; i++)
-        pthread_detach(philo[i].thread);
-    for (int i = 0; i < max; i++)
         pthread_mutex_destroy(&data->mutex[i]);
-    pthread_mutex_destroy(&data->count);
     pthread_mutex_destroy(&data->print);
+    pthread_mutex_destroy(&data->die);
     free(data->mutex);
     free(data);
     free(philo);
@@ -44,5 +42,5 @@ int main(int argc, char** argv)
         return (0);
     }
     lets_doing(argv);
-    //system("leaks philo");
+    system("leaks philo");
 }

@@ -77,7 +77,7 @@ void *get_fork(void *args)
     philo = args;
     index = philo->index;
 
-    if (index % 2)
+    if (index)
     {
         left_fork(philo, index);
         if (philo->left_fork == 1)
