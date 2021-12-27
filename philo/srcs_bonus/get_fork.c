@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:44:26 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/23 21:56:15 by ksy              ###   ########.fr       */
+/*   Updated: 2021/12/27 16:34:44 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	put_down_all_fork(t_philo *philo)
 	i = -1;
 	while (++i < philo->data->info->num_of_philo + 1)
 		sem_post(philo->data->fork);
-	sem_post(philo->data->print);
+	i = -1;
+	while (++i < philo->data->info->num_of_philo + 1)
+		sem_post(philo->data->print);
 }
 
 int	is_end(t_philo *philo, int timeval)
@@ -36,7 +38,8 @@ int	is_end(t_philo *philo, int timeval)
 	{
 		philo->data->dead = 1;
 		sem_wait(philo->data->die);
-		printf("=====%dms %d philo is died====\n", timeval / 1000, philo->index);
+		timeval = u_time(philo, 1);
+		printf("=====%dms %d philo is died====\n", timeval, philo->index);
 		put_down_all_fork(philo);
 		sem_post(philo->data->die);
 		return (1);

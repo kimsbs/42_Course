@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:24:11 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/23 21:24:53 by ksy              ###   ########.fr       */
+/*   Updated: 2021/12/27 16:30:56 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	is_end(t_philo *philo, int timeval)
 	{
 		philo->data->dead = 1;
 		pthread_mutex_lock(&philo->data->die);
-		printf("=====%dms %d philo is died====\n", timeval / 1000, philo->index);
+		timeval = u_time(philo, 1);
+		printf("=====%dms %d philo is died====\n", timeval, philo->index);
 		put_down_all_fork(philo);
 		pthread_mutex_unlock(&philo->data->die);
 		return (1);
