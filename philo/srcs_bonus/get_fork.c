@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:44:26 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/27 16:34:44 by ksy              ###   ########.fr       */
+/*   Updated: 2021/12/28 18:20:50 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,53 @@ void	put_down_all_fork(t_philo *philo)
 		sem_post(philo->data->fork);
 	i = -1;
 	while (++i < philo->data->info->num_of_philo + 1)
+		sem_post(philo->data->must_eat);
+	i = -1;
+	while (++i < philo->data->info->num_of_philo + 1)
 		sem_post(philo->data->print);
+}
+
+int	all_the_philo_eat(t_philo *philo)
+{
+	int	i;
+
+	if (!philo->data->flag)
+		return (0);
+	i = -1;
+	while (++i < philo->data->info->num_of_philo)
+	{
+		if (philo->data->cnt[i] < philo->data->info->number_of_must_eat)
+			return (0);
+	}
+	return (1);
 }
 
 int	is_end(t_philo *philo, int timeval)
 {
-	if (philo->data->cnt == philo->data->info->number_of_must_eat)
+	int	rt;
+
+	rt = 0;
+	sem_wait(philo->data->print);
+	if (philo->data->dead)
+		rt = 1;
+	if (all_the_philo_eat(philo) && rt == 0)
 	{
-		put_down_all_fork(philo);
 		philo->data->dead = 1;
-		return (1);
+		timeval = u_time(philo, 1);
+		printf("=====%dms all the philo have eaten====\n", timeval);
+		rt = 2;
 	}
-	else if (philo->data->dead)
-		return (1);
-	else if (timeval > philo->data->info->time_to_die)
+	if (timeval > philo->data->info->time_to_die && rt == 0)
 	{
 		philo->data->dead = 1;
-		sem_wait(philo->data->die);
 		timeval = u_time(philo, 1);
 		printf("=====%dms %d philo is died====\n", timeval, philo->index);
-		put_down_all_fork(philo);
-		sem_post(philo->data->die);
-		return (1);
+		rt = 2;
 	}
-	return (0);
+	sem_post(philo->data->print);
+	if (rt > 1)
+		put_down_all_fork(philo);
+	return (rt);
 }
 
 void	right_fork(t_philo *philo, int index)
@@ -52,17 +75,20 @@ void	right_fork(t_philo *philo, int index)
 	int	timeval;
 
 	sem_wait(philo->data->fork);
-	sem_wait(philo->data->print);
 	timeval = u_time(philo, 0);
 	if (!is_end(philo, timeval))
 	{
 		philo->right_fork = 1;
 		timeval = u_time(philo, 1);
-		printf("%dms %d philo get right fork\n", timeval, index);
+		sem_wait(philo->data->print);
+		if (!philo->data->dead)
+			printf("%dms %d philo get right fork\n", timeval, index);
+		sem_post(philo->data->print);
 	}
 	else
 		sem_post(philo->data->fork);
-	sem_post(philo->data->print);
+	if (philo->left_fork == 0 && !philo->data->dead)
+		left_fork(philo, philo->index);
 }
 
 void	left_fork(t_philo *philo, int index)
@@ -71,39 +97,17 @@ void	left_fork(t_philo *philo, int index)
 
 	timeval = u_time(philo, 0);
 	sem_wait(philo->data->fork);
-	sem_wait(philo->data->print);
 	if (!is_end(philo, timeval))
 	{
 		philo->left_fork = 1;
 		timeval = u_time(philo, 1);
-		printf("%dms %d philo get left fork\n", timeval, index);
+		sem_wait(philo->data->print);
+		if (!philo->data->dead)
+			printf("%dms %d philo get left fork\n", timeval, index);
+		sem_post(philo->data->print);
 	}
 	else
 		sem_post(philo->data->fork);
-	sem_post(philo->data->print);
-}
-
-void	*get_fork(void *args)
-{
-	t_philo	*philo;
-	int		index;
-
-	philo = args;
-	index = philo->index;
-	if (index)
-	{
-		left_fork(philo, index);
-		if (philo->left_fork == 1)
-			right_fork(philo, index);
-	}
-	else
-	{
-		sem_wait(philo->data->must_eat);
-		right_fork(philo, index);
-		if (philo->right_fork == 1)
-			left_fork(philo, index);
-	}
-	if (philo->right_fork == 1 && philo->left_fork == 1)
-		eating(philo, index);
-	return (NULL);
+	if (philo->right_fork == 0 && !philo->data->dead)
+		right_fork(philo, philo->index);
 }

@@ -31,30 +31,28 @@ typedef struct s_argc
 
 typedef struct s_data
 {
-	sem_t			*fork;
-	sem_t			*print;
-	sem_t			*must_eat;
-	sem_t			*die;
-	struct timeval	start;
-	struct timeval	last;
-	struct timeval	end;
-	int				dead;
-	int				cnt;
-	t_argc			*info;
+	sem_t	*fork;
+	sem_t	*print;
+	sem_t	*must_eat;
+	int		dead;
+	int		flag;
+	int		*cnt;
+	t_argc	*info;
 }	t_data;
 
 typedef struct s_philo
 {
-	int		left_fork;
-	int		right_fork;
-	int		index;
-	t_data	*data;
+	struct timeval	start;
+	struct timeval	last;
+	struct timeval	end;
+	int				left_fork;
+	int				right_fork;
+	int				index;
+	t_data			*data;
 }	t_philo;
 
 int		ft_strlen(char *s);
 int		ft_atoi(char *s);
-void	ft_putchar(char c);
-void	ft_putstr(char *s);
 void	argc_error(void);
 t_philo	*init_philo(char **argv, t_argc *val, t_data *data);
 void	*get_fork(void *args);
@@ -64,5 +62,8 @@ void	thinking(t_philo *philo, int index);
 int		u_time(t_philo *philo, int flag);
 int		is_end(t_philo *philo, int timeval);
 int		data_free(t_data *data);
+void	ft_usleep(long p_time);
+void	left_fork(t_philo *philo, int index);
+void	right_fork(t_philo *philo, int index);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:22:30 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/23 21:23:59 by ksy              ###   ########.fr       */
+/*   Updated: 2021/12/27 19:50:39 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	data_free(t_data *data)
 	max = data->info->num_of_philo;
 	while (++i < max)
 		pthread_mutex_destroy(&data->mutex[i]);
-	pthread_mutex_destroy(&data->die);
 	pthread_mutex_destroy(&data->print);
+	free(data->cnt);
 	free(data->mutex);
 	free(data);
 	return (0);

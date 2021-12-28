@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:20:05 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/23 21:21:50 by ksy              ###   ########.fr       */
+/*   Updated: 2021/12/28 17:43:57 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@ int	ft_strlen(char *s)
 		len++;
 	}
 	return (len);
-}
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putstr(char *s)
-{
-	int	move;
-
-	move = -1;
-	while (s[++move])
-	{
-		ft_putchar(s[move]);
-	}
 }
 
 int	ft_atoi(char *s)
@@ -58,4 +42,24 @@ int	ft_atoi(char *s)
 		cur *= 10;
 	}
 	return (sol);
+}
+
+long	ft_time(void)
+{
+	struct timeval	time;
+	long			diff;
+
+	gettimeofday(&time, NULL);
+	diff = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (diff);
+}
+
+void	ft_usleep(long p_time)
+{
+	long	time;
+
+	usleep(p_time / 10);
+	time = ft_time();
+	while ((ft_time() - time) < p_time)
+		usleep(p_time / 10);
 }
