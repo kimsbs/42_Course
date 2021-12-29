@@ -6,13 +6,13 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:24:57 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/28 18:31:02 by ksy              ###   ########.fr       */
+/*   Updated: 2021/12/29 10:25:29 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	val_init(char **argv, t_argc *val)
+int	val_init(char **argv, t_argc *val)
 {
 	val->num_of_philo = ft_atoi(argv[1]);
 	val->time_to_die = ft_atoi(argv[2]);
@@ -22,6 +22,13 @@ void	val_init(char **argv, t_argc *val)
 		val->number_of_must_eat = ft_atoi(argv[5]);
 	else
 		val->number_of_must_eat = 1;
+	if (val->num_of_philo < 1 || val->time_to_die < 0 \
+		|| val->time_to_die < 0 || val->time_to_sleep < 0)
+	{
+		printf("wrong input!! ");
+		return (0);
+	}
+	return (1);
 }
 
 int	data_cnt(t_argc *val, t_data *data)
@@ -45,10 +52,10 @@ int	init_data(char **argv, t_argc *val, t_data *data)
 	int	i;
 
 	i = -1;
-	val_init(argv, val);
-	if (val->num_of_philo == 1)
+	if (!val_init(argv, val) || val->num_of_philo == 1)
 	{
-		printf("philosopher can not eat\n");
+		if (val->num_of_philo == 1)
+			printf("philosopher can not eat\n");
 		free(data);
 		return (0);
 	}
