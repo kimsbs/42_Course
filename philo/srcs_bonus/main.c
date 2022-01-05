@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:47:39 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/28 18:22:35 by ksy              ###   ########.fr       */
+/*   Updated: 2021/12/29 10:31:19 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	lets_doing(int argc, char **argv)
 	t_argc		val;
 	t_philo		*philo;
 	t_data		*data;
-	pthread_t	tid;
 	int			i;
 
 	data = (t_data *)malloc(sizeof(t_data));
@@ -64,10 +63,13 @@ void	lets_doing(int argc, char **argv)
 		data->flag = 1;
 	i = -1;
 	while (++i < val.num_of_philo)
-		pthread_create(&tid, NULL, &get_fork, &philo[i]);
-	i = -1;
-	while (++i < val.num_of_philo)
-		pthread_join(tid, NULL);
+	{
+		philo[i].pid = fork();
+		if (philo[i].pid == -1)
+			return ;
+		if (philo[i].pid == 0)
+			get_fork(&philo[i]);
+	}
 	free_all(philo, data);
 }
 

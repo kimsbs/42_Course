@@ -49,6 +49,7 @@ typedef struct s_philo
 	int				right_fork;
 	int				index;
 	t_data			*data;
+	pid_t			pid;
 }	t_philo;
 
 int		ft_strlen(char *s);
