@@ -18,6 +18,8 @@ void	free_all(t_philo *philo, t_data *data)
 	int	i;
 
 	i = -1;
+	for(int i = 0 ; i < data->info->num_of_philo ; i++)
+		printf("%dphilo : %d\n", i, data->cnt[i]);
 	max = philo->data->info->num_of_philo;
 	while (++i < max)
 		pthread_mutex_destroy(&data->mutex[i]);

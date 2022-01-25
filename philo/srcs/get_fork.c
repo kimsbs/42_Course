@@ -75,10 +75,7 @@ void	right_fork(t_philo *philo, int index)
 	{
 		philo->right_fork = 1;
 		timeval = u_time(philo, 1);
-		pthread_mutex_lock(&philo->data->print);
-		if (!philo->data->dead)
-			printf("%dms %d philo get right fork\n", timeval, index);
-		pthread_mutex_unlock(&philo->data->print);
+		ft_print_time(philo, index, timeval, "get right fork");
 	}
 	else
 		pthread_mutex_unlock(&philo->data->mutex[right_pos]);
@@ -96,10 +93,7 @@ void	left_fork(t_philo *philo, int index)
 	{
 		philo->left_fork = 1;
 		timeval = u_time(philo, 1);
-		pthread_mutex_lock(&philo->data->print);
-		if (!philo->data->dead)
-			printf("%dms %d philo get left fork\n", timeval, index);
-		pthread_mutex_unlock(&philo->data->print);
+		ft_print_time(philo, index, timeval, "get left fork");
 	}
 	else
 		pthread_mutex_unlock(&philo->data->mutex[index]);

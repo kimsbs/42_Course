@@ -63,6 +63,7 @@ int		is_end(t_philo *philo, int timeval);
 int		data_free(t_data *data);
 void	left_fork(t_philo *philo, int index);
 void	right_fork(t_philo *philo, int index);
+void 	ft_print_time(t_philo *philo, int index, int timeval, const char *str);
 void	ft_usleep(long p_time);
 
 #endif
