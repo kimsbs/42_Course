@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:31:07 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/28 17:53:48 by ksy              ###   ########.fr       */
+/*   Updated: 2022/01/26 12:54:49 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ void	eating(t_philo *philo, int index)
 	timeval = u_time(philo, 0);
 	if (!is_end(philo, 0))
 	{
-		philo->last = philo->end;
 		timeval = u_time(philo, 1);
 		ft_print_time(philo, index, timeval, "eating");
 		if (!philo->data->dead)
+		{
 			ft_usleep(philo->data->info->time_to_eat);
+			gettimeofday(&(philo->last), NULL);
+		}
 		philo->data->cnt[index] += 1;
 		philo->left_fork = 0;
 		philo->right_fork = 0;

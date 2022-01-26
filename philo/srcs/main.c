@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:28:03 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/28 17:42:52 by ksy              ###   ########.fr       */
+/*   Updated: 2022/01/26 13:07:21 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	free_all(t_philo *philo, t_data *data)
 	int	i;
 
 	i = -1;
-	for(int i = 0 ; i < data->info->num_of_philo ; i++)
-		printf("%dphilo : %d\n", i, data->cnt[i]);
 	max = philo->data->info->num_of_philo;
 	while (++i < max)
 		pthread_mutex_destroy(&data->mutex[i]);
@@ -44,7 +42,10 @@ void	*get_fork(void *args)
 		if (philo->index % 2)
 			left_fork(philo, philo->index);
 		else
+		{
+			ft_usleep(10);
 			right_fork(philo, philo->index);
+		}
 		if (philo->right_fork == 1 && philo->left_fork == 1)
 			eating(philo, philo->index);
 	}
