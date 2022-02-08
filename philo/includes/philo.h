@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:39:06 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/23 21:39:06 by ksy              ###   ########.fr       */
+/*   Updated: 2022/02/08 10:46:57 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		is_end(t_philo *philo, int timeval);
 int		data_free(t_data *data);
 void	left_fork(t_philo *philo, int index);
 void	right_fork(t_philo *philo, int index);
-void 	ft_print_time(t_philo *philo, int index, int timeval, const char *str);
+void	ft_print_time(t_philo *philo, int index, int timeval, const char *str);
 void	ft_usleep(long p_time);
 
 #endif

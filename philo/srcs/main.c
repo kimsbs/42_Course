@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:28:03 by ksy               #+#    #+#             */
-/*   Updated: 2022/01/26 13:07:21 by ksy              ###   ########.fr       */
+/*   Updated: 2022/02/08 10:42:49 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*get_fork(void *args)
 			left_fork(philo, philo->index);
 		else
 		{
-			ft_usleep(10);
+			ft_usleep(5);
 			right_fork(philo, philo->index);
 		}
 		if (philo->right_fork == 1 && philo->left_fork == 1)
