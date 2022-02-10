@@ -39,6 +39,7 @@ typedef struct s_data
 	t_argc			*info;
 	struct timeval	start;
 	struct timeval	cur;
+	struct timeval	tmp;
 	struct s_philo	*philo;
 }	t_data;
 
@@ -60,8 +61,8 @@ void	*get_fork(void *args);
 void	lets_doing(int argc, char **argv);
 void	eating(t_philo *philo, int index);
 void	sleep_and_think(t_philo *philo, int index, int flag);
-int		diff_time(struct timeval before, struct timeval cur);
-int		is_end(t_philo *philo);
+int		diff_time(struct timeval before, struct timeval after);
+int		is_end(t_data *data);
 int		data_free(t_data *data);
 void	left_fork(t_philo *philo, int index);
 void	right_fork(t_philo *philo, int index);
@@ -69,5 +70,6 @@ void	ft_print_time(t_philo *philo, int index, int timeval, const char *str);
 void	ft_usleep(long p_time);
 void	free_all(t_philo *philo, t_data *data);
 void	all_the_philo_eat(t_philo *philo);
+void	*dead_monitor(void *args);
 
 #endif

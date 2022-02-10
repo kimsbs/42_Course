@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:24:11 by ksy               #+#    #+#             */
-/*   Updated: 2022/02/10 20:52:25 by ksy              ###   ########.fr       */
+/*   Updated: 2022/02/11 01:18:48 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ void	right_fork(t_philo *philo, int index)
 	int	timeval;
 	int	right_pos;
 
-	is_end(philo);
 	right_pos = (index + 1) % philo->data->info->num_of_philo;
 	pthread_mutex_lock(&philo->data->fork[right_pos]);
-	if (!is_end(philo))
+	if (!is_end(philo->data))
 	{
 		philo->right_fork = 1;
 		pthread_mutex_lock(&philo->data->time);
@@ -39,9 +38,8 @@ void	left_fork(t_philo *philo, int index)
 {
 	int	timeval;
 
-	is_end(philo);
 	pthread_mutex_lock(&philo->data->fork[index]);
-	if (!is_end(philo))
+	if (!is_end(philo->data))
 	{
 		philo->left_fork = 1;
 		pthread_mutex_lock(&philo->data->time);
@@ -71,7 +69,8 @@ void	*get_fork(void *args)
 			left_fork(philo, philo->index);
 		else
 		{
-			ft_usleep(5);
+			if(philo->data->cnt[philo->index] == 0)
+				ft_usleep(philo->data->info->time_to_eat / 2);
 			right_fork(philo, philo->index);
 		}
 		if (philo->right_fork == 1 && philo->left_fork == 1)
@@ -80,12 +79,26 @@ void	*get_fork(void *args)
 	return (NULL);
 }
 
+void	threading(t_philo *philo, t_data *data, t_argc val)
+{
+	int			i;
+	pthread_t	tmp;
+
+	i = -1;
+	while (++i < val.num_of_philo)
+		pthread_create(&philo[i].thread, NULL, &get_fork, &philo[i]);
+	pthread_create(&tmp, NULL, &dead_monitor, data);
+	i = -1;
+	while (++i < val.num_of_philo)
+		pthread_join(philo[i].thread, NULL);
+	pthread_join(tmp, NULL);
+}
+
 void	lets_doing(int argc, char **argv)
 {
 	t_argc	val;
 	t_philo	*philo;
 	t_data	*data;
-	int		i;
 
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
@@ -100,11 +113,6 @@ void	lets_doing(int argc, char **argv)
 		free_all(philo, data);
 		return ;
 	}
-	i = -1;
-	while (++i < val.num_of_philo)
-		pthread_create(&philo[i].thread, NULL, &get_fork, &philo[i]);
-	i = -1;
-	while (++i < val.num_of_philo)
-		pthread_join(philo[i].thread, NULL);
+	threading(philo, data, val);
 	free_all(philo, data);
 }

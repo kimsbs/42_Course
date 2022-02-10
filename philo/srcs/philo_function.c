@@ -6,20 +6,20 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:31:07 by ksy               #+#    #+#             */
-/*   Updated: 2022/02/10 20:49:02 by ksy              ###   ########.fr       */
+/*   Updated: 2022/02/11 01:19:10 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	diff_time(struct timeval before, struct timeval cur)
+int	diff_time(struct timeval before, struct timeval after)
 {
 	int				diff;
 
 	diff = 0;
-	diff += cur.tv_sec - before.tv_sec;
+	diff += after.tv_sec - before.tv_sec;
 	diff *= 1000000;
-	diff += cur.tv_usec - before.tv_usec;
+	diff += after.tv_usec - before.tv_usec;
 	return (diff / 1000);
 }
 
@@ -27,7 +27,7 @@ void	sleep_and_think(t_philo *philo, int index, int flag)
 {
 	int	timeval;
 
-	if (!is_end(philo))
+	if (!is_end(philo->data))
 	{
 		pthread_mutex_lock(&philo->data->time);
 		pthread_mutex_unlock(&philo->data->time);
@@ -42,7 +42,7 @@ void	sleep_and_think(t_philo *philo, int index, int flag)
 			ft_usleep(philo->data->info->time_to_sleep);
 			sleep_and_think(philo, philo->index, 0);
 		}
-		if (flag == 0 && !is_end(philo))
+		if (flag == 0 && !is_end(philo->data))
 			all_the_philo_eat(philo);
 	}
 }
@@ -53,7 +53,7 @@ void	eating(t_philo *philo, int index)
 	int	right_pos;
 
 	right_pos = (index + 1) % philo->data->info->num_of_philo;
-	if (!is_end(philo))
+	if (!is_end(philo->data))
 	{
 		pthread_mutex_lock(&philo->data->time);
 		gettimeofday(&philo->data->cur, NULL);
