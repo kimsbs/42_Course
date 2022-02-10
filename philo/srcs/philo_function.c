@@ -6,53 +6,44 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:31:07 by ksy               #+#    #+#             */
-/*   Updated: 2022/01/26 12:54:49 by ksy              ###   ########.fr       */
+/*   Updated: 2022/02/10 20:49:02 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	u_time(t_philo *philo, int flag)
+int	diff_time(struct timeval before, struct timeval cur)
 {
 	int				diff;
-	struct timeval	time;
 
-	if (flag)
-		time = philo->start;
-	else
-		time = philo->last;
-	gettimeofday(&(philo->end), NULL);
 	diff = 0;
-	diff += philo->end.tv_sec - time.tv_sec;
+	diff += cur.tv_sec - before.tv_sec;
 	diff *= 1000000;
-	diff += philo->end.tv_usec - time.tv_usec;
+	diff += cur.tv_usec - before.tv_usec;
 	return (diff / 1000);
 }
 
-void	thinking(t_philo *philo, int index)
+void	sleep_and_think(t_philo *philo, int index, int flag)
 {
 	int	timeval;
 
-	timeval = u_time(philo, 0);
-	if (!is_end(philo, timeval))
+	if (!is_end(philo))
 	{
-		timeval = u_time(philo, 1);
-		ft_print_time(philo, index, timeval, "thinking");
-	}
-}
-
-void	sleeping(t_philo *philo, int index)
-{
-	int	timeval;
-
-	timeval = u_time(philo, 0);
-	if (!is_end(philo, timeval))
-	{
-		timeval = u_time(philo, 1);
-		ft_print_time(philo, index, timeval, "sleeping");
-		if (!philo->data->dead)
+		pthread_mutex_lock(&philo->data->time);
+		pthread_mutex_unlock(&philo->data->time);
+		gettimeofday(&philo->data->cur, NULL);
+		timeval = diff_time(philo->data->start, philo->data->cur);
+		if (flag == 1)
+			ft_print_time(philo, index, timeval, "sleeping");
+		else
+			ft_print_time(philo, index, timeval, "thinking");
+		if (!philo->data->dead && flag == 1)
+		{
 			ft_usleep(philo->data->info->time_to_sleep);
-		thinking(philo, index);
+			sleep_and_think(philo, philo->index, 0);
+		}
+		if (flag == 0 && !is_end(philo))
+			all_the_philo_eat(philo);
 	}
 }
 
@@ -62,21 +53,24 @@ void	eating(t_philo *philo, int index)
 	int	right_pos;
 
 	right_pos = (index + 1) % philo->data->info->num_of_philo;
-	timeval = u_time(philo, 0);
-	if (!is_end(philo, 0))
+	if (!is_end(philo))
 	{
-		timeval = u_time(philo, 1);
+		pthread_mutex_lock(&philo->data->time);
+		gettimeofday(&philo->data->cur, NULL);
+		philo->last_meal = philo->data->cur;
+		timeval = diff_time(philo->data->start, philo->data->cur);
 		ft_print_time(philo, index, timeval, "eating");
+		pthread_mutex_unlock(&philo->data->time);
 		if (!philo->data->dead)
 		{
 			ft_usleep(philo->data->info->time_to_eat);
-			gettimeofday(&(philo->last), NULL);
+			gettimeofday(&(philo->last_meal), NULL);
 		}
 		philo->data->cnt[index] += 1;
 		philo->left_fork = 0;
 		philo->right_fork = 0;
-		pthread_mutex_unlock(&philo->data->mutex[index]);
-		pthread_mutex_unlock(&philo->data->mutex[right_pos]);
-		sleeping(philo, index);
+		pthread_mutex_unlock(&philo->data->fork[index]);
+		pthread_mutex_unlock(&philo->data->fork[right_pos]);
+		sleep_and_think(philo, philo->index, 1);
 	}
 }

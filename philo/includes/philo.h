@@ -30,12 +30,16 @@ typedef struct s_argc
 
 typedef struct s_data
 {
-	pthread_mutex_t	*mutex;
+	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
+	pthread_mutex_t time;
 	int				dead;
 	int				flag;
 	int				*cnt;
 	t_argc			*info;
+	struct timeval	start;
+	struct timeval	cur;
+	struct s_philo	*philo;
 }	t_data;
 
 typedef struct s_philo
@@ -43,9 +47,7 @@ typedef struct s_philo
 	int				left_fork;
 	int				right_fork;
 	int				index;
-	struct timeval	start;
-	struct timeval	last;
-	struct timeval	end;
+	struct timeval	last_meal;
 	t_data			*data;
 	pthread_t		thread;
 }	t_philo;
@@ -55,15 +57,17 @@ int		ft_atoi(char *s);
 void	argc_error(void);
 t_philo	*init_philo(char **argv, t_argc *val, t_data *data);
 void	*get_fork(void *args);
+void	lets_doing(int argc, char **argv);
 void	eating(t_philo *philo, int index);
-void	sleeping(t_philo *philo, int index);
-void	thinking(t_philo *philo, int index);
-int		u_time(t_philo *philo, int flag);
-int		is_end(t_philo *philo, int timeval);
+void	sleep_and_think(t_philo *philo, int index, int flag);
+int		diff_time(struct timeval before, struct timeval cur);
+int		is_end(t_philo *philo);
 int		data_free(t_data *data);
 void	left_fork(t_philo *philo, int index);
 void	right_fork(t_philo *philo, int index);
 void	ft_print_time(t_philo *philo, int index, int timeval, const char *str);
 void	ft_usleep(long p_time);
+void	free_all(t_philo *philo, t_data *data);
+void	all_the_philo_eat(t_philo *philo);
 
 #endif

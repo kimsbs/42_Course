@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:24:57 by ksy               #+#    #+#             */
-/*   Updated: 2021/12/29 10:25:29 by ksy              ###   ########.fr       */
+/*   Updated: 2022/02/10 20:35:11 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	data_cnt(t_argc *val, t_data *data)
 	data->cnt = (int *)malloc(sizeof(int) * val->num_of_philo);
 	if (!data->cnt)
 	{
-		free(data->mutex);
+		free(data->fork);
 		return (0);
 	}
 	while (++i < val->num_of_philo)
@@ -59,9 +59,9 @@ int	init_data(char **argv, t_argc *val, t_data *data)
 		free(data);
 		return (0);
 	}
-	data->mutex = (pthread_mutex_t *)malloc(sizeof \
+	data->fork = (pthread_mutex_t *)malloc(sizeof \
 		(pthread_mutex_t) * val->num_of_philo);
-	if (!data->mutex)
+	if (!data->fork)
 		return (0);
 	data->info = val;
 	if (!data_cnt(val, data))
@@ -70,8 +70,9 @@ int	init_data(char **argv, t_argc *val, t_data *data)
 	data->flag = 0;
 	i = -1;
 	while (++i < val->num_of_philo)
-		pthread_mutex_init(&data->mutex[i], NULL);
+		pthread_mutex_init(&data->fork[i], NULL);
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->time, NULL);
 	return (1);
 }
 
@@ -80,7 +81,6 @@ t_philo	*init_philo(char **argv, t_argc *val, t_data *data)
 	int		i;
 	t_philo	*philo;
 
-	i = -1;
 	if (!init_data(argv, val, data))
 		return (0);
 	philo = (t_philo *)malloc(sizeof(t_philo) * val->num_of_philo);
@@ -89,16 +89,16 @@ t_philo	*init_philo(char **argv, t_argc *val, t_data *data)
 		data_free(data);
 		return (0);
 	}
-	gettimeofday(&(philo[0].start), NULL);
-	philo[0].last = philo[0].start;
+	gettimeofday(&data->start, NULL);
+	i = -1;
 	while (++i < val->num_of_philo)
 	{
 		philo[i].left_fork = 0;
 		philo[i].right_fork = 0;
 		philo[i].index = i;
 		philo[i].data = data;
-		philo[i].start = philo[0].start;
-		philo[i].last = philo[0].last;
+		philo[i].last_meal = data->start;
 	}
+	data->philo = philo;
 	return (philo);
 }
