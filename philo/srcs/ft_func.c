@@ -63,10 +63,15 @@ void	ft_usleep(long p_time)
 		usleep(p_time / 10);
 }
 
-void	ft_print_time(t_philo *philo, int index, int timeval, const char *str)
+void	ft_print_time(t_philo *philo, int index, const char *str)
 {
+	int	timeval;
+
 	pthread_mutex_lock(&philo->data->print);
 	if (!philo->data->dead)
+	{
+		timeval = diff_time(philo->data->start, philo->data->cur);
 		printf("%dms %d philo %s\n", timeval, index, str);
+	}
 	pthread_mutex_unlock(&philo->data->print);
 }

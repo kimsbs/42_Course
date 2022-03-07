@@ -14,19 +14,14 @@
 
 void	right_fork(t_philo *philo, int index)
 {
-	int	timeval;
 	int	right_pos;
 
 	right_pos = (index + 1) % philo->data->info->num_of_philo;
 	pthread_mutex_lock(&philo->data->fork[right_pos]);
-	if (!is_end(philo->data))
+	if (!any_dead(philo->data))
 	{
 		philo->right_fork = 1;
-		pthread_mutex_lock(&philo->data->time);
-		gettimeofday(&philo->data->cur, NULL);
-		timeval = diff_time(philo->data->start, philo->data->cur);
-		ft_print_time(philo, index, timeval, "get right fork");
-		pthread_mutex_unlock(&philo->data->time);
+		ft_print_time(philo, index, "get right fork");
 	}
 	else
 		pthread_mutex_unlock(&philo->data->fork[right_pos]);
@@ -36,17 +31,11 @@ void	right_fork(t_philo *philo, int index)
 
 void	left_fork(t_philo *philo, int index)
 {
-	int	timeval;
-
 	pthread_mutex_lock(&philo->data->fork[index]);
-	if (!is_end(philo->data))
+	if (!any_dead(philo->data))
 	{
 		philo->left_fork = 1;
-		pthread_mutex_lock(&philo->data->time);
-		gettimeofday(&philo->data->cur, NULL);
-		timeval = diff_time(philo->data->start, philo->data->cur);
-		ft_print_time(philo, index, timeval, "get left fork");
-		pthread_mutex_unlock(&philo->data->time);
+		ft_print_time(philo, index, "get left fork");
 	}
 	else
 		pthread_mutex_unlock(&philo->data->fork[index]);
@@ -63,13 +52,11 @@ void	*get_fork(void *args)
 	max = philo->data->info->number_of_must_eat;
 	while (!philo->data->dead)
 	{
-		if (philo->data->cnt[philo->index] == max && philo->data->flag == 1)
-			return (NULL);
-		if (philo->index % 2)
+		if (philo->index % 2 == 1)
 			left_fork(philo, philo->index);
 		else
 		{
-			if(philo->data->cnt[philo->index] == 0)
+			if (philo->data->cnt[philo->index] == 0)
 				ft_usleep(philo->data->info->time_to_eat / 2);
 			right_fork(philo, philo->index);
 		}

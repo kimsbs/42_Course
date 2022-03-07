@@ -72,7 +72,6 @@ int	init_data(char **argv, t_argc *val, t_data *data)
 	while (++i < val->num_of_philo)
 		pthread_mutex_init(&data->fork[i], NULL);
 	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->time, NULL);
 	return (1);
 }
 
@@ -90,6 +89,8 @@ t_philo	*init_philo(char **argv, t_argc *val, t_data *data)
 		return (0);
 	}
 	gettimeofday(&data->start, NULL);
+	data->cur = data->start;
+	data->tmp = data->cur;
 	i = -1;
 	while (++i < val->num_of_philo)
 	{

@@ -22,7 +22,6 @@ void	free_all(t_philo *philo, t_data *data)
 	while (++i < max)
 		pthread_mutex_destroy(&data->fork[i]);
 	pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&data->time);
 	free(data->fork);
 	free(data->cnt);
 	free(data);

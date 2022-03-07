@@ -32,7 +32,6 @@ typedef struct s_data
 {
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
-	pthread_mutex_t time;
 	int				dead;
 	int				flag;
 	int				*cnt;
@@ -62,14 +61,15 @@ void	lets_doing(int argc, char **argv);
 void	eating(t_philo *philo, int index);
 void	sleep_and_think(t_philo *philo, int index, int flag);
 int		diff_time(struct timeval before, struct timeval after);
-int		is_end(t_data *data);
 int		data_free(t_data *data);
+int		any_dead(t_data *data);
+void	is_end(t_data *data);
 void	left_fork(t_philo *philo, int index);
 void	right_fork(t_philo *philo, int index);
-void	ft_print_time(t_philo *philo, int index, int timeval, const char *str);
+void	ft_print_time(t_philo *philo, int index, const char *str);
 void	ft_usleep(long p_time);
 void	free_all(t_philo *philo, t_data *data);
-void	all_the_philo_eat(t_philo *philo);
+void	all_the_philo_eat(t_data *data);
 void	*dead_monitor(void *args);
 
 #endif

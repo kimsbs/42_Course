@@ -14,7 +14,7 @@
 
 int	diff_time(struct timeval before, struct timeval after)
 {
-	int				diff;
+	int	diff;
 
 	diff = 0;
 	diff += after.tv_sec - before.tv_sec;
@@ -25,46 +25,33 @@ int	diff_time(struct timeval before, struct timeval after)
 
 void	sleep_and_think(t_philo *philo, int index, int flag)
 {
-	int	timeval;
-
-	if (!is_end(philo->data))
+	if (!any_dead(philo->data))
 	{
-		pthread_mutex_lock(&philo->data->time);
-		pthread_mutex_unlock(&philo->data->time);
-		gettimeofday(&philo->data->cur, NULL);
-		timeval = diff_time(philo->data->start, philo->data->cur);
 		if (flag == 1)
-			ft_print_time(philo, index, timeval, "sleeping");
+			ft_print_time(philo, index, "sleeping");
 		else
-			ft_print_time(philo, index, timeval, "thinking");
+			ft_print_time(philo, index, "thinking");
 		if (!philo->data->dead && flag == 1)
 		{
 			ft_usleep(philo->data->info->time_to_sleep);
 			sleep_and_think(philo, philo->index, 0);
 		}
-		if (flag == 0 && !is_end(philo->data))
-			all_the_philo_eat(philo);
 	}
 }
 
 void	eating(t_philo *philo, int index)
 {
-	int	timeval;
 	int	right_pos;
 
 	right_pos = (index + 1) % philo->data->info->num_of_philo;
-	if (!is_end(philo->data))
+	if (!any_dead(philo->data))
 	{
-		pthread_mutex_lock(&philo->data->time);
-		gettimeofday(&philo->data->cur, NULL);
 		philo->last_meal = philo->data->cur;
-		timeval = diff_time(philo->data->start, philo->data->cur);
-		ft_print_time(philo, index, timeval, "eating");
-		pthread_mutex_unlock(&philo->data->time);
-		if (!philo->data->dead)
+		ft_print_time(philo, index, "eating");
+		if (!any_dead(philo->data))
 		{
 			ft_usleep(philo->data->info->time_to_eat);
-			gettimeofday(&(philo->last_meal), NULL);
+			philo->last_meal = philo->data->cur;
 		}
 		philo->data->cnt[index] += 1;
 		philo->left_fork = 0;
