@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:22:30 by ksy               #+#    #+#             */
-/*   Updated: 2022/02/10 20:05:37 by ksy              ###   ########.fr       */
+/*   Updated: 2022/03/14 21:37:29 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	data_free(t_data *data)
 	while (++i < max)
 		pthread_mutex_destroy(&data->fork[i]);
 	pthread_mutex_destroy(&data->print);
-	free(data->cnt);
 	free(data->fork);
-	free(data);
 	return (0);
 }

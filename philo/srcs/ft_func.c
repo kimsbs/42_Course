@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:20:05 by ksy               #+#    #+#             */
-/*   Updated: 2022/02/11 01:18:05 by ksy              ###   ########.fr       */
+/*   Updated: 2022/03/14 21:41:40 by ksy              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,17 @@ void	ft_usleep(long p_time)
 	long	time;
 
 	time = ft_time();
-	while ((ft_time() - time) <= p_time)
+	while ((ft_time() - time) < p_time)
 		usleep(p_time / 10);
 }
 
-void	ft_print_time(t_philo *philo, int index, const char *str)
+void	ft_print_time(t_data *data, int index, const char *str)
 {
-	int	timeval;
+	long long	timeval;
 
-	pthread_mutex_lock(&philo->data->print);
-	if (!philo->data->dead)
-	{
-		timeval = diff_time(philo->data->start, philo->data->cur);
-		printf("%dms %d philo %s\n", timeval, index, str);
-	}
-	pthread_mutex_unlock(&philo->data->print);
+	pthread_mutex_lock(&data->print);
+	timeval = data->cur - data->start;
+	if (!data->dead)
+		printf("%lldms %d philo %s\n", timeval, index, str);
+	pthread_mutex_unlock(&data->print);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dead_monitor.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/23 21:31:07 by ksy               #+#    #+#             */
+/*   Updated: 2022/03/14 21:37:30 by ksy              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	put_down_all_fork(t_data *data)
@@ -9,70 +21,44 @@ void	put_down_all_fork(t_data *data)
 		pthread_mutex_unlock(&data->fork[i]);
 }
 
-void	all_the_philo_eat(t_data *data)
+void	mutexing(t_data *data, int flag)
 {
-	int	i;
+	long long	time;
 
-	if (!data->flag)
-		return ;
-	i = -1;
-	while (++i < data->info->num_of_philo)
-	{
-		if (data->cnt[i] < data->info->number_of_must_eat)
-			return ;
-	}
 	pthread_mutex_lock(&data->print);
-	if (!data->dead)
+	if (flag != -1 && !data->dead)
 	{
-		printf("=====all the philo have eaten===\n");
-		data->dead = 1;
+		time = data->cur - data->start;
+		printf("===%lldms %d philo %s===\n", time, flag, "dead");
 	}
+	data->dead = 1;
+	if (flag == -1)
+		printf("===Eat finish!!!===\n");
 	pthread_mutex_unlock(&data->print);
+	free_all(data);
 }
 
-void	is_end(t_data *data)
+void	*dead_monitor(t_data *data)
 {
-	int	diff;
-	int	deadman;
-	int	die;
-	int	i;
+	int		i;
+	int		eat_cnt;
 
-	deadman = -1;
-	die = data->info->time_to_die;
-	i = -1;
-	while (++i < data->info->num_of_philo)
-	{
-		diff = diff_time(data->philo[i].last_meal, data->cur);
-		if (diff > die)
-			deadman = i;
-	}
-	if (deadman != -1)
-	{
-		diff = diff_time(data->start, data->cur);
-		pthread_mutex_lock(&data->print);
-		data->dead = 1;
-		printf("====%dms %d philo dead====\n", diff, deadman);
-		pthread_mutex_unlock(&data->print);
-		put_down_all_fork(data);
-	}
-}
-
-void	*dead_monitor(void *args)
-{
-	t_data	*data;
-	int		diff;
-
-	data = args;
 	while (!data->dead)
 	{
-		gettimeofday(&data->cur, NULL);
-		diff = diff_time(data->tmp, data->cur);
-		if (diff >= 3)
+		eat_cnt = 0;
+		i = -1;
+		while (++i < data->info->num_of_philo)
 		{
-			data->tmp = data->cur;
-			is_end(data);
-			all_the_philo_eat(data);
+			data->cur = get_time(data);
+			if (data->cur - data->philo[i].last_meal > data->info->time_to_die \
+				&& data->philo[i].eat_cnt < data->info->number_of_must_eat)
+				mutexing(data, i);
+			if (data->philo[i].eat_cnt >= data->info->number_of_must_eat)
+				eat_cnt++;
 		}
+		if (!data->dead && data->flag \
+			&& eat_cnt == data->info->num_of_philo)
+			mutexing(data, -1);
 	}
 	return (NULL);
 }
@@ -86,6 +72,5 @@ int	any_dead(t_data *data)
 	if (data->dead)
 		flag = 1;
 	pthread_mutex_unlock(&data->print);
-	gettimeofday(&data->cur, NULL);
 	return (flag);
 }

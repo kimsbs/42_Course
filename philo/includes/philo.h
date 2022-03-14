@@ -34,11 +34,10 @@ typedef struct s_data
 	pthread_mutex_t	print;
 	int				dead;
 	int				flag;
-	int				*cnt;
 	t_argc			*info;
-	struct timeval	start;
-	struct timeval	cur;
-	struct timeval	tmp;
+	long long		start;
+	long long		cur;
+	struct timeval	val;
 	struct s_philo	*philo;
 }	t_data;
 
@@ -47,29 +46,32 @@ typedef struct s_philo
 	int				left_fork;
 	int				right_fork;
 	int				index;
-	struct timeval	last_meal;
+	int				eat_cnt;
+	long long		last_meal;
 	t_data			*data;
 	pthread_t		thread;
 }	t_philo;
 
-int		ft_strlen(char *s);
-int		ft_atoi(char *s);
-void	argc_error(void);
-t_philo	*init_philo(char **argv, t_argc *val, t_data *data);
-void	*get_fork(void *args);
-void	lets_doing(int argc, char **argv);
-void	eating(t_philo *philo, int index);
-void	sleep_and_think(t_philo *philo, int index, int flag);
-int		diff_time(struct timeval before, struct timeval after);
-int		data_free(t_data *data);
-int		any_dead(t_data *data);
-void	is_end(t_data *data);
-void	left_fork(t_philo *philo, int index);
-void	right_fork(t_philo *philo, int index);
-void	ft_print_time(t_philo *philo, int index, const char *str);
-void	ft_usleep(long p_time);
-void	free_all(t_philo *philo, t_data *data);
-void	all_the_philo_eat(t_data *data);
-void	*dead_monitor(void *args);
+int			ft_strlen(char *s);
+int			ft_atoi(char *s);
+void		argc_error(void);
+t_philo		*init_philo(char **argv, t_argc *val, t_data *data);
+void		*get_fork(void *args);
+void		lets_doing(int argc, char **argv);
+void		eating(t_philo *philo, int index);
+void		sleep_and_think(t_philo *philo, int index);
+int			diff_time(struct timeval before, struct timeval after);
+int			data_free(t_data *data);
+int			any_dead(t_data *data);
+void		is_end(t_data *data);
+void		left_fork(t_philo *philo, int index);
+void		right_fork(t_philo *philo, int index);
+void		ft_print_time(t_data *data, int index, const char *str);
+void		ft_usleep(long p_time);
+void		free_all(t_data *data);
+void		all_the_philo_eat(t_data *data);
+void		*dead_monitor(t_data *data);
+void		threading(t_philo *philo, t_data *data, t_argc val);
+long long	get_time(t_data *data);
 
 #endif
