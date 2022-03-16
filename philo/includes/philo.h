@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:39:06 by ksy               #+#    #+#             */
-/*   Updated: 2022/02/08 10:46:57 by seungyki         ###   ########.fr       */
+/*   Updated: 2022/03/16 14:49:12 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,8 @@ void		right_fork(t_philo *philo, int index);
 void		ft_print_time(t_data *data, int index, const char *str);
 void		ft_usleep(long p_time);
 void		free_all(t_data *data);
-void		all_the_philo_eat(t_data *data);
 void		*dead_monitor(t_data *data);
-void		threading(t_philo *philo, t_data *data, t_argc val);
+void		threading(t_philo *philo, t_argc val);
 long long	get_time(t_data *data);
 
 #endif

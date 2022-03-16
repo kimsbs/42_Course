@@ -8,7 +8,6 @@ FILE = main\
 	error\
 	init_data\
 	get_fork\
-	philo_function\
 	dead_monitor
 
 INCS = ./includes

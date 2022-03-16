@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:28:03 by ksy               #+#    #+#             */
-/*   Updated: 2022/03/14 21:46:42 by ksy              ###   ########.fr       */
+/*   Updated: 2022/03/16 14:58:26 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 		return (0);
 	if (argc == 6)
 		data.flag = 1;
-	threading(philo, &data, val);
-	system("leaks philo");
+	threading(philo, val);
+	free_all(&data);
 	return (0);
 }

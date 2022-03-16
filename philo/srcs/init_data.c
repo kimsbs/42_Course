@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:24:57 by ksy               #+#    #+#             */
-/*   Updated: 2022/03/14 21:33:12 by ksy              ###   ########.fr       */
+/*   Updated: 2022/03/16 14:22:24 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_philo	*init_philo(char **argv, t_argc *val, t_data *data)
 		return (0);
 	}
 	data->start = get_time(data);
+	data->cur = data->start;
 	i = -1;
 	while (++i < val->num_of_philo)
 	{

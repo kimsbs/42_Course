@@ -6,11 +6,29 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:24:11 by ksy               #+#    #+#             */
-/*   Updated: 2022/03/14 21:39:56 by ksy              ###   ########.fr       */
+/*   Updated: 2022/03/16 14:56:50 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	eating(t_philo *philo, int index)
+{
+	int	right_pos;
+
+	right_pos = (index + 1) % philo->data->info->num_of_philo;
+	ft_print_time(philo->data, index, "eating");
+	ft_usleep(philo->data->info->time_to_eat);
+	philo->last_meal = get_time(philo->data);
+	philo->eat_cnt += 1;
+	philo->left_fork = 0;
+	philo->right_fork = 0;
+	pthread_mutex_unlock(&philo->data->fork[index]);
+	pthread_mutex_unlock(&philo->data->fork[right_pos]);
+	ft_print_time(philo->data, index, "sleeping");
+	ft_usleep(philo->data->info->time_to_sleep);
+	ft_print_time(philo->data, index, "thinking");
+}
 
 void	right_fork(t_philo *philo, int index)
 {
@@ -46,11 +64,13 @@ void	left_fork(t_philo *philo, int index)
 void	*get_fork(void *args)
 {
 	t_philo	*philo;
+	t_data	*data;
 	int		max;
 
 	philo = args;
+	data = philo->data;
 	max = philo->data->info->number_of_must_eat;
-	while (!philo->data->dead)
+	while (!data->dead)
 	{
 		if (philo->data->flag && philo->eat_cnt \
 			>= philo->data->info->number_of_must_eat)
@@ -69,12 +89,15 @@ void	*get_fork(void *args)
 	return (NULL);
 }
 
-void	threading(t_philo *philo, t_data *data, t_argc val)
+void	threading(t_philo *philo, t_argc val)
 {
 	int			i;
 
 	i = -1;
 	while (++i < val.num_of_philo)
 		pthread_create(&philo[i].thread, NULL, &get_fork, &philo[i]);
-	dead_monitor(data);
+	dead_monitor(philo->data);
+	i = -1;
+	while (++i < val.num_of_philo)
+		pthread_detach(philo[i].thread);
 }

@@ -6,7 +6,7 @@
 /*   By: ksy <ksy@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 21:20:05 by ksy               #+#    #+#             */
-/*   Updated: 2022/03/14 21:41:40 by ksy              ###   ########.fr       */
+/*   Updated: 2022/03/16 14:32:33 by seungyki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_usleep(long p_time)
 
 	time = ft_time();
 	while ((ft_time() - time) < p_time)
-		usleep(p_time / 10);
+		usleep(p_time / 5);
 }
 
 void	ft_print_time(t_data *data, int index, const char *str)
